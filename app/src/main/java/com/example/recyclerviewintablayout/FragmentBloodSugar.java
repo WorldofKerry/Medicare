@@ -8,10 +8,18 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FragmentBloodSugar extends Fragment {
 
     View view;
+    private RecyclerView myRecyclerView;
+    private List<BloodSugar> listBloodSugar;
 
     public FragmentBloodSugar() {
     }
@@ -19,7 +27,38 @@ public class FragmentBloodSugar extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.symptom_fragment,container,false);
+        view = inflater.inflate(R.layout.blood_sugar_fragment,container,false);
+        myRecyclerView = (RecyclerView) view.findViewById(R.id.blood_sugar_recyclerview);
+        BloodSugarRecyclerViewAdapter recyclerViewAdapter = new BloodSugarRecyclerViewAdapter(getContext(), listBloodSugar);
+        myRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        myRecyclerView.setAdapter(recyclerViewAdapter);
         return view;
     }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        listBloodSugar = new ArrayList<>();
+        listBloodSugar.add(new BloodSugar("level", "time"));
+        listBloodSugar.add(new BloodSugar("8", "7864657"));
+        listBloodSugar.add(new BloodSugar("level", "time"));
+        listBloodSugar.add(new BloodSugar("8", "7864657"));
+        listBloodSugar.add(new BloodSugar("level", "time"));
+        listBloodSugar.add(new BloodSugar("8", "7864657"));
+        listBloodSugar.add(new BloodSugar("level", "time"));
+        listBloodSugar.add(new BloodSugar("8", "7864657"));
+        listBloodSugar.add(new BloodSugar("level", "time"));
+        listBloodSugar.add(new BloodSugar("8", "7864657"));
+        listBloodSugar.add(new BloodSugar("level", "time"));
+        listBloodSugar.add(new BloodSugar("8", "7864657"));
+        listBloodSugar.add(new BloodSugar("level", "time"));
+        listBloodSugar.add(new BloodSugar("8", "7864657"));
+        listBloodSugar.add(new BloodSugar("level", "time"));
+        listBloodSugar.add(new BloodSugar("8", "7864657"));
+
+
+
+    }
+
 }

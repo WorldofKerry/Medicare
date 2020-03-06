@@ -11,12 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
+public class SymptomRecyclerViewAdapter extends RecyclerView.Adapter<SymptomRecyclerViewAdapter.MyViewHolder> {
 
     Context mContext;
     List<Symptom> mData;
 
-    public RecyclerViewAdapter(Context mContext, List<Symptom> mData) {
+    public SymptomRecyclerViewAdapter(Context mContext, List<Symptom> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }

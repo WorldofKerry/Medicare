@@ -32,7 +32,7 @@ public class FragmentSymptom extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.symptom_fragment,container,false);
         myRecyclerView = (RecyclerView) view.findViewById(R.id.symptom_recyclerview);
-        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(getContext(), listSymptom);
+        SymptomRecyclerViewAdapter recyclerViewAdapter = new SymptomRecyclerViewAdapter(getContext(), listSymptom);
         myRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         myRecyclerView.setAdapter(recyclerViewAdapter);
 
@@ -45,6 +45,15 @@ public class FragmentSymptom extends Fragment {
         super.onCreate(savedInstanceState);
 
         listSymptom = new ArrayList<>();
+        listSymptom.add(new Symptom("Bobby", "Johnny", "Chinatown", "Brazil"));
+        listSymptom.add(new Symptom("Symptom Name", "Location", "Level", "Time"));
+        listSymptom.add(new Symptom("Headache", "Head (lmao)", "11", "11:45pm"));
+        listSymptom.add(new Symptom("Bobby", "Johnny", "Chinatown", "Brazil"));
+        listSymptom.add(new Symptom("Symptom Name", "Location", "Level", "Time"));
+        listSymptom.add(new Symptom("Headache", "Head (lmao)", "11", "11:45pm"));
+        listSymptom.add(new Symptom("Bobby", "Johnny", "Chinatown", "Brazil"));
+        listSymptom.add(new Symptom("Symptom Name", "Location", "Level", "Time"));
+        listSymptom.add(new Symptom("Headache", "Head (lmao)", "11", "11:45pm"));
         listSymptom.add(new Symptom("Bobby", "Johnny", "Chinatown", "Brazil"));
         listSymptom.add(new Symptom("Symptom Name", "Location", "Level", "Time"));
         listSymptom.add(new Symptom("Headache", "Head (lmao)", "11", "11:45pm"));
