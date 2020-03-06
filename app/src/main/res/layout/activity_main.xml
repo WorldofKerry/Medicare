@@ -8,8 +8,6 @@
     tools:context=".MainActivity"
     android:orientation="vertical">
 
-
-
     <com.jjoe64.graphview.GraphView
         android:layout_width="match_parent"
         android:layout_height="200dip"
