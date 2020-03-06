@@ -9,6 +9,13 @@
     android:orientation="vertical">
 
 
+
+    <com.jjoe64.graphview.GraphView
+        android:layout_width="match_parent"
+        android:layout_height="200dip"
+        android:id="@+id/mainGraph_id">
+    </com.jjoe64.graphview.GraphView>
+
     <com.google.android.material.tabs.TabLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
