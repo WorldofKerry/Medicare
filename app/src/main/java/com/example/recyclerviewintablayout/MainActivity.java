@@ -6,7 +6,10 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.drm.DrmStore;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
 
+import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {
@@ -44,5 +47,32 @@ public class MainActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setElevation(0);
 
+        // Floating Action Button stuff
+        FloatingActionButton floatingActionButton = findViewById(R.id.fab_action1);
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener()      {
+            @Override
+            public void onClick(View v) {
+                // Testing
+                showToast("fan 1");
+            }
+        });
+
+        FloatingActionButton floatingActionButton2 = findViewById(R.id.fab_action2);
+
+        floatingActionButton2.setOnClickListener(new View.OnClickListener()      {
+            @Override
+            public void onClick(View v) {
+                // Testing
+                showToast("fan 2");
+            }
+        });
+
     }
+
+    // To test if an setOnClickListener is functional
+    public void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
 }
