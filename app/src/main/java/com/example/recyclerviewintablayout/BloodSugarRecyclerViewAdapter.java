@@ -54,7 +54,7 @@ public class BloodSugarRecyclerViewAdapter extends RecyclerView.Adapter<BloodSug
 
             textView_level = (TextView) itemView.findViewById(R.id.level_blood_sugar);
             textView_time = (TextView) itemView.findViewById(R.id.level_blood_sugar);
-
+        
         }
     }
 
