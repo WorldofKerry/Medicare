@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">RecyclerViewInTabLayout</string>
+    <string name="back_to_menu">Back to Menu</string>
+    <string name="date_text">Pick a Date</string>
 </resources>
