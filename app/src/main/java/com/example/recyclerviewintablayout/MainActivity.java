@@ -3,6 +3,7 @@ package com.example.recyclerviewintablayout;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CalendarView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
@@ -77,7 +78,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Testing
-                showToast("fan 2");
+                Intent intent = new Intent(MainActivity.this, CalendarActivity.class);
+                startActivity(intent);
             }
         });
 

@@ -18,13 +18,16 @@ public class MainReminderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_reminder);
 
-        myRecyclerView = (RecyclerView) findViewById(R.id.symptom_recyclerview);
+        listReminders = new ArrayList<>();
+        listReminders.add(new MainReminderBuilder("bruh","Saturjday","10:30pm","11:30pm"));
+        listReminders.add(new MainReminderBuilder("ThisEventReminder","Mon,Tues","10:10pm","12:30pm"));
+
+        myRecyclerView = (RecyclerView) findViewById(R.id.reminder_recyclerview);
         MainReminderActivityViewAdapter recyclerViewAdapter = new MainReminderActivityViewAdapter(this, listReminders);
         myRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         myRecyclerView.setAdapter(recyclerViewAdapter);
 
-        listReminders = new ArrayList<>();
-        listReminders.add(new MainReminderBuilder("bruh","Saturjday","10:30pm","11:30pm"));
+
 
     }
 }

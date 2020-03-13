@@ -26,7 +26,7 @@ public class MainReminderActivityViewAdapter extends RecyclerView.Adapter<MainRe
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view;
-        view = LayoutInflater.from(mContext).inflate(R.layout.item_symptom,parent,false);
+        view = LayoutInflater.from(mContext).inflate(R.layout.item_main_reminder,parent,false);
         MyViewHolder viewHolder = new MyViewHolder(view);
         return viewHolder;
     }
