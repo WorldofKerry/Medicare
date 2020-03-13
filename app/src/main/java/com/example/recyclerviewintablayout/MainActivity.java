@@ -43,10 +43,10 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
 
-        // Add Icons (Array)
-        tabLayout.getTabAt(0).setIcon(R.drawable.ic_symptom);
-        tabLayout.getTabAt(1).setIcon(R.drawable.ic_symptom);
-        tabLayout.getTabAt(2).setIcon(R.drawable.ic_symptom);
+        // Add Icons (Array) (not necessary)
+        //tabLayout.getTabAt(0).setIcon(R.drawable.ic_symptom);
+        //tabLayout.getTabAt(1).setIcon(R.drawable.ic_symptom);
+        //tabLayout.getTabAt(2).setIcon(R.drawable.ic_symptom);
 
         // Remove Shadow from action bar
         ActionBar actionBar = getSupportActionBar();
