@@ -1,5 +1,6 @@
 package com.example.recyclerviewintablayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -77,6 +78,17 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Testing
                 showToast("fan 2");
+            }
+        });
+
+        FloatingActionButton floatingActionButton3 = findViewById(R.id.fab_action3);
+        floatingActionButton3.setOnClickListener(new View.OnClickListener()      {
+            @Override
+            public void onClick(View v) {
+                // Testing
+                showToast("fan 3");
+                Intent intent = new Intent(v.getContext(), MainReminderActivity.class);
+                startActivity(intent);
             }
         });
 
