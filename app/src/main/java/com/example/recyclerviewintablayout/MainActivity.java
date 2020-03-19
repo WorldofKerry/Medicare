@@ -1,6 +1,7 @@
 package com.example.recyclerviewintablayout;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CalendarView;
@@ -12,6 +13,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
+import com.google.gson.Gson;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
@@ -68,8 +70,8 @@ public class MainActivity extends AppCompatActivity {
         floatingActionButton.setOnClickListener(new View.OnClickListener()      {
             @Override
             public void onClick(View v) {
-                // Testing
-                showToast("fan 1");
+                Intent intent = new Intent(v.getContext(), SelectionActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -95,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
 
     // To test if an setOnClickListener is functional
     public void showToast(String message) {
