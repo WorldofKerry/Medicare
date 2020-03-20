@@ -2,8 +2,11 @@ package com.example.recyclerviewintablayout;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +27,10 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FragmentSymptom extends Fragment {
+import static android.os.Build.VERSION_CODES.N;
+import static androidx.constraintlayout.widget.Constraints.TAG;
+
+public class FragmentSymptom extends Fragment implements SymptomRecyclerViewAdapter.OnNoteListener {
 
     View view;
     private RecyclerView myRecyclerView;
@@ -38,7 +44,7 @@ public class FragmentSymptom extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.symptom_fragment,container,false);
         myRecyclerView = (RecyclerView) view.findViewById(R.id.symptom_recyclerview);
-        SymptomRecyclerViewAdapter recyclerViewAdapter = new SymptomRecyclerViewAdapter(getContext(), listSymptom);
+        SymptomRecyclerViewAdapter recyclerViewAdapter = new SymptomRecyclerViewAdapter(getContext(), listSymptom, this);
         myRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         myRecyclerView.setAdapter(recyclerViewAdapter);
 
@@ -53,7 +59,6 @@ public class FragmentSymptom extends Fragment {
 
         listSymptom = (ArrayList<Symptom>) PrefSingleton.getInstance().LoadPreferenceList("listSymptom");
 
-
         /*
         listSymptom = new ArrayList<>();
         listSymptom.add(new Symptom("Bobby", "Johnny", "Chinatown", "Brazil"));
@@ -63,4 +68,13 @@ public class FragmentSymptom extends Fragment {
         */
     }
 
+    @Override
+    public void onNoteClick(int position) {
+        Log.d(TAG, "onNoteClick: clicked.");
+
+        Intent intent = new Intent(getContext(), AddSymptomActivity.class);
+        intent.putExtra("Symptom", listSymptom.get(position));
+        intent.putExtra("Position", position);
+        startActivity(intent);
+    }
 }

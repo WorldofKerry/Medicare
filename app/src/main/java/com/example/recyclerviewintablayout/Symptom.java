@@ -1,6 +1,9 @@
 package com.example.recyclerviewintablayout;
 
-public class Symptom {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Symptom implements Parcelable {
 
     private String Name;
     private String Location;
@@ -19,6 +22,26 @@ public class Symptom {
 
     //Getter
 
+
+    protected Symptom(Parcel in) {
+        // Must be in same order as writeToParcel method
+        Name = in.readString();
+        Location = in.readString();
+        Level = in.readString();
+        Time = in.readString();
+    }
+
+    public static final Creator<Symptom> CREATOR = new Creator<Symptom>() {
+        @Override
+        public Symptom createFromParcel(Parcel in) {
+            return new Symptom(in);
+        }
+
+        @Override
+        public Symptom[] newArray(int size) {
+            return new Symptom[size];
+        }
+    };
 
     public String getName() {
         return Name;
@@ -53,5 +76,19 @@ public class Symptom {
 
     public void setTime(String time) {
         Time = time;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        // Must be in the same order as constructor
+        dest.writeString(Name);
+        dest.writeString(Location);
+        dest.writeString(Level);
+        dest.writeString(Time);
     }
 }

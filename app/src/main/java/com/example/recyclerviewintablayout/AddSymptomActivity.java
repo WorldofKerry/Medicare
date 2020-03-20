@@ -1,21 +1,29 @@
 package com.example.recyclerviewintablayout;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class AddSymptomActivity extends AppCompatActivity {
 
     private List<Symptom> listSymptom;
+    Symptom symptom;
+    int position;
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,29 +32,58 @@ public class AddSymptomActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         if (bundle!=null) {
-            getSupportActionBar().setTitle((String) bundle.get("title"));
+            symptom = bundle.getParcelable("Symptom");
+
+            position = bundle.getInt("Position", -1);
+
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(symptom.getName());
+
+            EditText editText = (EditText) findViewById(R.id.editTextLevel);
+            editText.setText(symptom.getLevel(), TextView.BufferType.EDITABLE);
+            editText = (EditText) findViewById(R.id.editTextLocation);
+            editText.setText(symptom.getLocation(), TextView.BufferType.EDITABLE);
+            editText = (EditText) findViewById(R.id.editTextTime);
+            editText.setText(symptom.getTime(), TextView.BufferType.EDITABLE);
+
+            listSymptom = (ArrayList<Symptom>) PrefSingleton.getInstance().LoadPreferenceList("listSymptom");
+
+            Button buttonAddSymptom = findViewById(R.id.buttonAddSymptom);
+            buttonAddSymptom.setOnClickListener(new View.OnClickListener()      {
+                @Override
+                public void onClick(View v) {
+
+                    PrefSingleton.getInstance().Initialize(getApplicationContext());
+
+                    symptom.setLevel(((EditText) findViewById(R.id.editTextLevel)).getText().toString());
+                    symptom.setLocation(((EditText) findViewById(R.id.editTextLocation)).getText().toString());
+                    symptom.setTime(((EditText) findViewById(R.id.editTextTime)).getText().toString());
+
+                    listSymptom.add(symptom);
+
+                    PrefSingleton.getInstance().writePreference("listSymptom", listSymptom);
+
+                    Intent intent = new Intent(v.getContext(), MainActivity.class);
+                    startActivity(intent);
+                }
+            });
+
+            Button buttonRemoveSymptom = findViewById(R.id.buttonRemoveSymptom);
+            buttonRemoveSymptom.setOnClickListener(new View.OnClickListener()      {
+                @Override
+                public void onClick(View v) {
+                    listSymptom.remove(position);
+
+                    PrefSingleton.getInstance().writePreference("listSymptom", listSymptom);
+
+                    Intent intent = new Intent(v.getContext(), MainActivity.class);
+                    startActivity(intent);
+                }
+            });
+
         }
 
-        Button button = findViewById(R.id.buttonAddSymptom);
-        button.setOnClickListener(new View.OnClickListener()      {
-            @Override
-            public void onClick(View v) {
 
-                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-                PrefSingleton.getInstance().Initialize(getApplicationContext());
-
-                listSymptom = (ArrayList<Symptom>) PrefSingleton.getInstance().LoadPreferenceList("listSymptom");
-
-                // Replace this with input
-                listSymptom.add(new Symptom("Bobby", "Johnny", "Chinatown", "Brazil"));
-
-                PrefSingleton.getInstance().writePreference("listSymptom", listSymptom);
-
-                Intent intent = new Intent(v.getContext(), MainActivity.class);
-                startActivity(intent);
-            }
-        });
 
 
     }

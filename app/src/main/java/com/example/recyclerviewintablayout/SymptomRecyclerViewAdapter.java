@@ -15,10 +15,12 @@ public class SymptomRecyclerViewAdapter extends RecyclerView.Adapter<SymptomRecy
 
     Context mContext;
     List<Symptom> mData;
+    private OnNoteListener mOnNoteListener;
 
-    public SymptomRecyclerViewAdapter(Context mContext, List<Symptom> mData) {
+    public SymptomRecyclerViewAdapter(Context mContext, List<Symptom> mData, OnNoteListener onNoteListener) {
         this.mContext = mContext;
         this.mData = mData;
+        this.mOnNoteListener = onNoteListener;
     }
 
     @NonNull
@@ -27,7 +29,7 @@ public class SymptomRecyclerViewAdapter extends RecyclerView.Adapter<SymptomRecy
 
         View view;
         view = LayoutInflater.from(mContext).inflate(R.layout.item_symptom,parent,false);
-        MyViewHolder viewHolder = new MyViewHolder(view);
+        MyViewHolder viewHolder = new MyViewHolder(view, mOnNoteListener);
         return viewHolder;
     }
 
@@ -46,14 +48,16 @@ public class SymptomRecyclerViewAdapter extends RecyclerView.Adapter<SymptomRecy
         return mData.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private TextView textView_name;
         private TextView textView_location;
         private TextView textView_level;
         private TextView textView_time;
 
-        public MyViewHolder(View itemView) {
+        OnNoteListener onNoteListener;
+
+        public MyViewHolder(View itemView, OnNoteListener onNoteListener) {
             super(itemView);
 
             textView_name = (TextView) itemView.findViewById(R.id.name_symptom);
@@ -61,7 +65,18 @@ public class SymptomRecyclerViewAdapter extends RecyclerView.Adapter<SymptomRecy
             textView_level = (TextView) itemView.findViewById(R.id.level_symptom);
             textView_time = (TextView) itemView.findViewById(R.id.time_symptom);
 
+            this.onNoteListener = onNoteListener;
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            onNoteListener.onNoteClick(getAdapterPosition());
+        }
+    }
+
+    public interface OnNoteListener {
+        void onNoteClick(int position);
     }
 
 }
