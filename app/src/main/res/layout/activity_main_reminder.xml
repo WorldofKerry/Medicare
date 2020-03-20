@@ -18,5 +18,5 @@
             android:layout_height="match_parent"
             android:id="@+id/reminder_recyclerview">
         </androidx.recyclerview.widget.RecyclerView>
-        ></LinearLayout>
+        </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

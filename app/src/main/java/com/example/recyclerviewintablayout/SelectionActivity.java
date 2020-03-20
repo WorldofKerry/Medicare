@@ -8,8 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-import com.getbase.floatingactionbutton.FloatingActionButton;
-
 public class SelectionActivity extends AppCompatActivity {
 
 
@@ -26,6 +24,15 @@ public class SelectionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), SymptomsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button button2 = findViewById(R.id.buttonTrackBloodSugar);
+        button2.setOnClickListener(new View.OnClickListener()      {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), TrackBloodSugarActivity.class);
                 startActivity(intent);
             }
         });

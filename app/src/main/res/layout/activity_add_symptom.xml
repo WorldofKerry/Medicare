@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name" />
+        android:text="@string/name" />
 
     <EditText
         android:id="@+id/editTextTime"
@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name" />
+        android:text="@string/name" />
 
     <EditText
         android:id="@+id/editTextLevel"
@@ -29,17 +29,17 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name" />
+        android:text="@string/name" />
 
     <Button
         android:id="@+id/buttonAddSymptom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add Symptom" />
+        android:text="@string/add_symptom" />
 
     <Button
         android:id="@+id/buttonRemoveSymptom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Remove Symptom" />
+        android:text="@string/remove_symptom" />
 </LinearLayout>

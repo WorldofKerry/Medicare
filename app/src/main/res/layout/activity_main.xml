@@ -38,7 +38,7 @@
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewpager_id"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></androidx.viewpager.widget.ViewPager>
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 
@@ -52,7 +52,8 @@
         app:fab_addButtonColorNormal="@color/colorPrimary"
         app:fab_addButtonColorPressed="@color/colorPrimaryDark"
         app:fab_addButtonPlusIconColor="@color/backgroundfragment"
-        app:fab_labelStyle="@style/customFab">
+        app:fab_labelStyle="@style/customFab"
+        android:layout_marginEnd="0dp">
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"

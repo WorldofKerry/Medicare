@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddSymptomActivity"></activity>
+        <activity android:name=".AddSymptomActivity" />
         <activity android:name=".SymptomsActivity" />
         <activity android:name=".SelectionActivity" />
         <activity android:name=".MainReminderActivity" />
@@ -21,6 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".CalendarActivity" />
+        <activity android:name=".TrackBloodSugarActivity" />
     </application>
 
 </manifest>

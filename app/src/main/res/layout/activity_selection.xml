@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,34 +7,30 @@
     tools:context=".SelectionActivity">
 
 
-    <ScrollView
+<LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
 
-        <LinearLayout
+        <Button
+            android:id="@+id/buttonTrackASymptom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:text="@string/track_symptom"
+            />
 
-            <Button
-                android:id="@+id/buttonTrackASymptom"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Track a symptom"
-                />
+        <Button
+            android:id="@+id/buttonTrackBloodSugar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/track_blood_sugar" />
 
-            <Button
-                android:id="@+id/button2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Button" />
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/temp_placeholder_button" />
+    </LinearLayout>
 
-            <Button
-                android:id="@+id/button3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Button" />
-        </LinearLayout>
 
-    </ScrollView>
-</LinearLayout>
+</ScrollView>

@@ -2,4 +2,16 @@
     <string name="app_name">RecyclerViewInTabLayout</string>
     <string name="back_to_menu">Back to Menu</string>
     <string name="date_text">Pick a Date</string>
+    <string name="name">Name</string>
+    <string name="add_symptom">Add Symptom</string>
+    <string name="remove_symptom">Remove Symptom</string>
+    <string name="temp_placeholder_button">Button</string>
+    <string name="temp_placeholder_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </string>
+    <string name="track_symptom">Track a Symptom</string>
+    <string name="track_blood_sugar">Track Blood Sugar</string>
+    <string name="headache">Headache</string>
+    <string name="level">Level</string>
+    <string name="time">Time</string>
+    <string name="symptom_name">Symptom Name</string>
+    <string name="location">Location</string>
 </resources>
