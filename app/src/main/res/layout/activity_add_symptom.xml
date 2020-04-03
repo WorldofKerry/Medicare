@@ -7,11 +7,7 @@
     tools:context=".AddSymptomActivity"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Location" />
+
 
     <EditText
         android:id="@+id/editTextSymptomLocation"
@@ -21,11 +17,7 @@
         android:inputType="textPersonName"
         android:hint="@string/location" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Time" />
+
 
     <EditText
         android:id="@+id/editTextSymptomTime"
@@ -34,13 +26,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:hint="@string/time" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Level" />
-
+    
     <EditText
         android:id="@+id/editTextSymptomLevel"
         android:layout_width="match_parent"
