@@ -17,6 +17,18 @@
             android:layout_height="wrap_content"
             android:text="@string/level" />
 
+        <TextView
+            android:id="@+id/notes_blood_sugar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/level" />
+
+        <TextView
+            android:id="@+id/safe_blood_sugar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/level" />
+
     </LinearLayout>
     <LinearLayout
         android:gravity="end"

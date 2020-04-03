@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.gson.reflect.TypeToken;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -39,14 +41,14 @@ public class AddSymptomActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle(symptom.getName());
 
-            EditText editText = (EditText) findViewById(R.id.editTextLevel);
+            EditText editText = (EditText) findViewById(R.id.editTextSymptomLevel);
             editText.setText(symptom.getLevel(), TextView.BufferType.EDITABLE);
-            editText = (EditText) findViewById(R.id.editTextLocation);
+            editText = (EditText) findViewById(R.id.editTextSymptomLocation);
             editText.setText(symptom.getLocation(), TextView.BufferType.EDITABLE);
-            editText = (EditText) findViewById(R.id.editTextTime);
+            editText = (EditText) findViewById(R.id.editTextSymptomTime);
             editText.setText(symptom.getTime(), TextView.BufferType.EDITABLE);
 
-            listSymptom = (ArrayList<Symptom>) PrefSingleton.getInstance().LoadPreferenceList("listSymptom");
+            listSymptom = (ArrayList<Symptom>) PrefSingleton.getInstance().LoadPreferenceList("listSymptom",new TypeToken<ArrayList<Symptom>>() {}.getType());
 
             Button buttonAddSymptom = findViewById(R.id.buttonAddSymptom);
             buttonAddSymptom.setOnClickListener(new View.OnClickListener()      {
@@ -55,9 +57,9 @@ public class AddSymptomActivity extends AppCompatActivity {
 
                     PrefSingleton.getInstance().Initialize(getApplicationContext());
 
-                    symptom.setLevel(((EditText) findViewById(R.id.editTextLevel)).getText().toString());
-                    symptom.setLocation(((EditText) findViewById(R.id.editTextLocation)).getText().toString());
-                    symptom.setTime(((EditText) findViewById(R.id.editTextTime)).getText().toString());
+                    symptom.setLevel(((EditText) findViewById(R.id.editTextSymptomLevel)).getText().toString());
+                    symptom.setLocation(((EditText) findViewById(R.id.editTextSymptomLocation)).getText().toString());
+                    symptom.setTime(((EditText) findViewById(R.id.editTextSymptomTime)).getText().toString());
 
                     listSymptom.add(symptom);
 

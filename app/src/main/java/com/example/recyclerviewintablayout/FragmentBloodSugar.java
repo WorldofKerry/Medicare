@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.reflect.TypeToken;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +21,7 @@ public class FragmentBloodSugar extends Fragment {
 
     View view;
     private RecyclerView myRecyclerView;
-    private List<BloodSugar> listBloodSugar;
+    private List<BloodSugar> listBloodSugar = new ArrayList<>();
 
     public FragmentBloodSugar() {
     }
@@ -38,24 +40,10 @@ public class FragmentBloodSugar extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        PrefSingleton.getInstance().Initialize(getContext());
+        listBloodSugar = (ArrayList<BloodSugar>) PrefSingleton.getInstance().LoadPreferenceList("listBloodSugar",new TypeToken<ArrayList<BloodSugar>>() {}.getType());
+        //listBloodSugar.add(new BloodSugar("392", "yes","??",false));
 
-        listBloodSugar = new ArrayList<>();
-        listBloodSugar.add(new BloodSugar("level", "time"));
-        listBloodSugar.add(new BloodSugar("8", "7864657"));
-        listBloodSugar.add(new BloodSugar("level", "time"));
-        listBloodSugar.add(new BloodSugar("8", "7864657"));
-        listBloodSugar.add(new BloodSugar("level", "time"));
-        listBloodSugar.add(new BloodSugar("8", "7864657"));
-        listBloodSugar.add(new BloodSugar("level", "time"));
-        listBloodSugar.add(new BloodSugar("8", "7864657"));
-        listBloodSugar.add(new BloodSugar("level", "time"));
-        listBloodSugar.add(new BloodSugar("8", "7864657"));
-        listBloodSugar.add(new BloodSugar("level", "time"));
-        listBloodSugar.add(new BloodSugar("8", "7864657"));
-        listBloodSugar.add(new BloodSugar("level", "time"));
-        listBloodSugar.add(new BloodSugar("8", "7864657"));
-        listBloodSugar.add(new BloodSugar("level", "time"));
-        listBloodSugar.add(new BloodSugar("8", "7864657"));
 
 
 

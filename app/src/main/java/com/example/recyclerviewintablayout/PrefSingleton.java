@@ -45,12 +45,12 @@ public class PrefSingleton {
         editor.apply();
     }
 
-    public List LoadPreferenceList(String key) {
+    public List LoadPreferenceList(String key, Type type) {
         List list;
         Gson gson = new Gson();
         String json = mMyPreferences.getString(key, null);
-        Type type = new TypeToken<ArrayList<Symptom>>() {
-        }.getType();
+       //Type type = type
+       //new TypeToken<ArrayList<Symptom>>() {}.getType();
         list = gson.fromJson(json, type);
 
         if (list == null) {

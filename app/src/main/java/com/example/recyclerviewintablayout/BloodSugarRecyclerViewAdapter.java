@@ -13,6 +13,7 @@ import java.util.List;
 
 public class BloodSugarRecyclerViewAdapter extends RecyclerView.Adapter<BloodSugarRecyclerViewAdapter.MyViewHolder> {
 
+
     Context mContext;
     List<BloodSugar> mData;
 
@@ -36,6 +37,14 @@ public class BloodSugarRecyclerViewAdapter extends RecyclerView.Adapter<BloodSug
 
         holder.textView_level.setText(mData.get(position).getLevel());
         holder.textView_time.setText(mData.get(position).getTime());
+        holder.textView_notes.setText(mData.get(position).getNotes());
+        if (mData.get(position).getSafe()) {
+            holder.textView_safe.setText(R.string.safe);
+        } else {
+            holder.textView_safe.setText(R.string.unsafe);
+        }
+
+
 
     }
 
@@ -48,12 +57,16 @@ public class BloodSugarRecyclerViewAdapter extends RecyclerView.Adapter<BloodSug
 
         private TextView textView_level;
         private TextView textView_time;
+        private TextView textView_notes;
+        private TextView textView_safe;
 
         public MyViewHolder(View itemView) {
             super(itemView);
 
             textView_level = (TextView) itemView.findViewById(R.id.level_blood_sugar);
-            textView_time = (TextView) itemView.findViewById(R.id.level_blood_sugar);
+            textView_time = (TextView) itemView.findViewById(R.id.time_blood_sugar);
+            textView_notes = (TextView) itemView.findViewById(R.id.notes_blood_sugar);
+            textView_safe = (TextView) itemView.findViewById(R.id.safe_blood_sugar);
         
         }
     }
