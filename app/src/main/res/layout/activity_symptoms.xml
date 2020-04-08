@@ -13,23 +13,46 @@
         android:orientation="vertical" >
 
         <Button
-            android:id="@+id/buttonHeadache"
+            android:id="@+id/buttonFeelingsOfUnusualThirst"
+            android:textAllCaps="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/headache"
-            />
+            android:text="Feelings of unusual thirst" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/buttonFeelingsOfExhaustionAndWeakness"
+            android:textAllCaps="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/temp_placeholder_button" />
+            android:text="Feelings of exhaustion and weakness" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/buttonAHeadache"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/temp_placeholder_button" />
+            android:text="A headache"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/buttonBlurredVision"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Blurred vision"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/buttonTroubleBreathing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Trouble breathing"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/buttonNauseaVomiting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nausea/vomiting"
+            android:textAllCaps="false" />
     </LinearLayout>
 
 

@@ -19,8 +19,8 @@ public class SymptomsActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("I have...");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Button button = findViewById(R.id.buttonHeadache);
-        button.setOnClickListener(new View.OnClickListener()      {
+        Button buttonHeadache = findViewById(R.id.buttonAHeadache);
+        buttonHeadache.setOnClickListener(new View.OnClickListener()      {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), AddSymptomActivity.class);
