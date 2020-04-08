@@ -57,7 +57,7 @@ public class FragmentSymptom extends Fragment implements SymptomRecyclerViewAdap
 
         PrefSingleton.getInstance().Initialize(getContext());
 
-        listSymptom = (ArrayList<Symptom>) PrefSingleton.getInstance().LoadPreferenceList("listSymptom");
+        listSymptom = (ArrayList<Symptom>) PrefSingleton.getInstance().LoadPreferenceList("listSymptom",new TypeToken<ArrayList<Symptom>>() {}.getType());
 
         /*
         listSymptom = new ArrayList<>();

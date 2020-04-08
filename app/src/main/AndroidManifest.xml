@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".CalendarActivity" />
-        <activity android:name=".TrackBloodSugarActivity" />
+        <activity android:name=".AddBloodSugarActivity" />
     </application>
 
 </manifest>

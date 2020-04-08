@@ -32,7 +32,7 @@ public class SelectionActivity extends AppCompatActivity {
         button2.setOnClickListener(new View.OnClickListener()      {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), TrackBloodSugarActivity.class);
+                Intent intent = new Intent(v.getContext(), AddBloodSugarActivity.class);
                 startActivity(intent);
             }
         });

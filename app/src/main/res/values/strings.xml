@@ -5,6 +5,8 @@
     <string name="name">Name</string>
     <string name="add_symptom">Add Symptom</string>
     <string name="remove_symptom">Remove Symptom</string>
+    <string name="add_blood_sugar_entry">Add Blood Sugar Entry</string>
+    <string name="remove_blood_sugar_entry">Remove Blood Sugar Entry</string>
     <string name="temp_placeholder_button">Button</string>
     <string name="temp_placeholder_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </string>
     <string name="track_symptom">Track a Symptom</string>
@@ -14,4 +16,9 @@
     <string name="time">Time</string>
     <string name="symptom_name">Symptom Name</string>
     <string name="location">Location</string>
+    <string name="notes">Notes</string>
+    <string name="safe">Safe</string>
+    <string name="unsafe">Unsafe</string>
+    <string name="isMoreThanTwoHours">Was this measurement taken more than two hours after your last meal?</string>
+
 </resources>

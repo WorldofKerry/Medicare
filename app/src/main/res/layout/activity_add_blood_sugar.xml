@@ -7,43 +7,45 @@
     tools:context=".AddSymptomActivity"
     android:orientation="vertical">
 
-
-
     <EditText
-        android:id="@+id/editTextSymptomLocation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="@string/location" />
-
-
-
-    <EditText
-        android:id="@+id/editTextSymptomTime"
+        android:id="@+id/editTextBloodSugarTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
         android:hint="@string/time" />
-    
+
     <EditText
-        android:id="@+id/editTextSymptomLevel"
+        android:id="@+id/editTextBloodSugarLevel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
         android:hint="@string/level" />
 
-    <Button
-        android:id="@+id/buttonAddSymptom"
+    <EditText
+        android:id="@+id/editTextBloodSugarNotes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/add_symptom" />
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="@string/notes" />
 
     <Button
-        android:id="@+id/buttonRemoveSymptom"
+        android:id="@+id/buttonAddBloodSugar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/remove_symptom" />
+        android:text="@string/add_blood_sugar_entry" />
+
+    <Button
+        android:id="@+id/buttonRemoveBloodSugar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/remove_blood_sugar_entry" />
+
+    <Switch
+        android:id="@+id/switchBloodSugarIsMoreThanTwoHours"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/isMoreThanTwoHours" />
 </LinearLayout>
