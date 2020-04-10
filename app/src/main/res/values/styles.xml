@@ -8,9 +8,15 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:textColorPrimary">@color/colorBlack</item>
+    </style>
+
     <style name="customFab">
         <item name="android:background">@drawable/ic_symptom</item>
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
+
+
 
 </resources>

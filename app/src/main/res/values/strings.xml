@@ -20,5 +20,7 @@
     <string name="safe">Safe</string>
     <string name="unsafe">Unsafe</string>
     <string name="isMoreThanTwoHours">Was this measurement taken more than two hours after your last meal?</string>
+    <string name="track">Track</string>
+
 
 </resources>

@@ -26,7 +26,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:hint="@string/time" />
-    
+
     <EditText
         android:id="@+id/editTextSymptomLevel"
         android:layout_width="match_parent"

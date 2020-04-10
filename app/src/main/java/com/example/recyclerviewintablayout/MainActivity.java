@@ -53,9 +53,12 @@ public class MainActivity extends AppCompatActivity {
         // Remove Shadow from action bar
         ActionBar actionBar = getSupportActionBar();
         actionBar.setElevation(0);
+        actionBar.setTitle(R.string.track);
+
 
         //add the graph
         GraphView graph = findViewById(R.id.mainGraph_id);
+        graph.setBackgroundColor(getResources().getColor(R.color.colorAccent));
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
                 new DataPoint(0, 1),
                 new DataPoint(1, 5),
