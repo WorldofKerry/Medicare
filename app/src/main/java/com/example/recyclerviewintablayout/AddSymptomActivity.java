@@ -24,6 +24,7 @@ public class AddSymptomActivity extends AppCompatActivity {
     private List<Symptom> listSymptom;
     Symptom symptom;
     int position;
+    String type;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -35,11 +36,20 @@ public class AddSymptomActivity extends AppCompatActivity {
         Bundle bundle = intent.getExtras();
         if (bundle!=null) {
             symptom = bundle.getParcelable("Symptom");
-
             position = bundle.getInt("Position", -1);
+            type = bundle.getString("Type", null);
 
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle(symptom.getName());
+
+            Button buttonAddSymptom = findViewById(R.id.buttonAddSymptom);
+            Button buttonRemoveSymptom = findViewById(R.id.buttonRemoveSymptom);
+
+            if (type.equals("Add")) {
+                buttonRemoveSymptom.setEnabled(false);
+            } else if (type.equals("Edit")) {
+                buttonAddSymptom.setText(R.string.save_Symptom);
+            }
 
             EditText editText = (EditText) findViewById(R.id.editTextSymptomLevel);
             editText.setText(symptom.getLevel(), TextView.BufferType.EDITABLE);
@@ -50,7 +60,6 @@ public class AddSymptomActivity extends AppCompatActivity {
 
             listSymptom = (ArrayList<Symptom>) PrefSingleton.getInstance().LoadPreferenceList("listSymptom",new TypeToken<ArrayList<Symptom>>() {}.getType());
 
-            Button buttonAddSymptom = findViewById(R.id.buttonAddSymptom);
             buttonAddSymptom.setOnClickListener(new View.OnClickListener()      {
                 @Override
                 public void onClick(View v) {
@@ -70,7 +79,6 @@ public class AddSymptomActivity extends AppCompatActivity {
                 }
             });
 
-            Button buttonRemoveSymptom = findViewById(R.id.buttonRemoveSymptom);
             buttonRemoveSymptom.setOnClickListener(new View.OnClickListener()      {
                 @Override
                 public void onClick(View v) {
