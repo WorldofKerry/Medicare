@@ -30,6 +30,61 @@ public class SymptomsActivity extends AppCompatActivity {
             }
         });
 
+        Button buttonBlurredVision = findViewById(R.id.buttonBlurredVision);
+        buttonBlurredVision.setOnClickListener(new View.OnClickListener()      {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), AddSymptomActivity.class);
+                Symptom symptom = new Symptom("Blurred Vision", null, null, null);
+                intent.putExtra("Symptom", (Parcelable) symptom);
+                startActivity(intent);
+            }
+        });
+
+        Button buttonFeelingsOfExhaustionAndWeakness = findViewById(R.id.buttonFeelingsOfExhaustionAndWeakness);
+        buttonFeelingsOfExhaustionAndWeakness.setOnClickListener(new View.OnClickListener()      {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), AddSymptomActivity.class);
+                Symptom symptom = new Symptom("Feelings of Exhaustion And Weakness", null, null, null);
+                intent.putExtra("Symptom", (Parcelable) symptom);
+                startActivity(intent);
+            }
+        });
+
+        Button buttonFeelingsOfUnusualThirst = findViewById(R.id.buttonFeelingsOfUnusualThirst);
+        buttonFeelingsOfUnusualThirst.setOnClickListener(new View.OnClickListener()      {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), AddSymptomActivity.class);
+                Symptom symptom = new Symptom("Feelings of Unusual Thirst", null, null, null);
+                intent.putExtra("Symptom", (Parcelable) symptom);
+                startActivity(intent);
+            }
+        });
+
+        Button buttonNauseaVomiting = findViewById(R.id.buttonNauseaVomiting);
+        buttonNauseaVomiting.setOnClickListener(new View.OnClickListener()      {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), AddSymptomActivity.class);
+                Symptom symptom = new Symptom("Nausea/Vomiting", null, null, null);
+                intent.putExtra("Symptom", (Parcelable) symptom);
+                startActivity(intent);
+            }
+        });
+
+        Button buttonTroubleBreathing = findViewById(R.id.buttonTroubleBreathing);
+        buttonTroubleBreathing.setOnClickListener(new View.OnClickListener()      {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), AddSymptomActivity.class);
+                Symptom symptom = new Symptom("Trouble Breathing", null, null, null);
+                intent.putExtra("Symptom", (Parcelable) symptom);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override
