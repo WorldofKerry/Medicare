@@ -26,6 +26,7 @@ public class SymptomsActivity extends AppCompatActivity {
                 Intent intent = new Intent(v.getContext(), AddSymptomActivity.class);
                 Symptom symptom = new Symptom("Headache", null, null, null);
                 intent.putExtra("Symptom", (Parcelable) symptom);
+                intent.putExtra("Type", "Add");
                 startActivity(intent);
             }
         });

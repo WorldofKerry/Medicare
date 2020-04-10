@@ -75,6 +75,7 @@ public class FragmentSymptom extends Fragment implements SymptomRecyclerViewAdap
         Intent intent = new Intent(getContext(), AddSymptomActivity.class);
         intent.putExtra("Symptom", listSymptom.get(position));
         intent.putExtra("Position", position);
+        intent.putExtra("Type", "Edit");
         startActivity(intent);
     }
 }
