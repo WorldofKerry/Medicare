@@ -4,31 +4,60 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/activity_calendar"
-    tools:context=".CalendarActivity">
+    tools:context=".CalendarActivity"
+    android:orientation="vertical">
 
-    <CalendarView
-        android:layout_width="match_parent"
+    <LinearLayout  android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity"
+        android:orientation="vertical">
+
+        <CalendarView
+            android:layout_width="match_parent"
+            android:layout_height="310dp"
+            android:id="@+id/calendar"/>
+
+        <com.google.android.material.tabs.TabLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:id="@+id/calTabLayout">
+        </com.google.android.material.tabs.TabLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/calViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
         android:layout_height="wrap_content"
-        android:id="@+id/calendar"/>
-
-    <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/dateText"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:textSize="25sp"
-        android:layout_below="@id/calendar"
-        android:hint="@string/date_text"
-        />
+        android:layout_marginRight="0dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="0dp">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:padding="10dp"
-        android:layout_below="@id/dateText"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/backToMenu"
-        android:text="@string/back_to_menu"/>
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fab_action1"/>
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fab_action2"/>
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fab_action3"/>
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fab_action4"/>
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
 </RelativeLayout>
+
