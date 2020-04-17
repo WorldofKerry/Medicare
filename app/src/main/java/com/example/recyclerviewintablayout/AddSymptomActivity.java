@@ -45,11 +45,7 @@ public class AddSymptomActivity extends AppCompatActivity {
             Button buttonAddSymptom = findViewById(R.id.buttonAddSymptom);
             Button buttonRemoveSymptom = findViewById(R.id.buttonRemoveSymptom);
 
-            if (type.equals("Add")) {
-                buttonRemoveSymptom.setEnabled(false);
-            } else if (type.equals("Edit")) {
-                buttonAddSymptom.setText(R.string.save_Symptom);
-            }
+
 
             EditText editText = (EditText) findViewById(R.id.editTextSymptomLevel);
             editText.setText(symptom.getLevel(), TextView.BufferType.EDITABLE);
@@ -60,36 +56,60 @@ public class AddSymptomActivity extends AppCompatActivity {
 
             listSymptom = (ArrayList<Symptom>) PrefSingleton.getInstance().LoadPreferenceList("listSymptom",new TypeToken<ArrayList<Symptom>>() {}.getType());
 
-            buttonAddSymptom.setOnClickListener(new View.OnClickListener()      {
-                @Override
-                public void onClick(View v) {
+            if (type.equals("Add")) {
+                buttonRemoveSymptom.setEnabled(false);
+                buttonAddSymptom.setOnClickListener(new View.OnClickListener()      {
+                    @Override
+                    public void onClick(View v) {
 
-                    PrefSingleton.getInstance().Initialize(getApplicationContext());
+                        PrefSingleton.getInstance().Initialize(getApplicationContext());
 
-                    symptom.setLevel(((EditText) findViewById(R.id.editTextSymptomLevel)).getText().toString());
-                    symptom.setLocation(((EditText) findViewById(R.id.editTextSymptomLocation)).getText().toString());
-                    symptom.setTime(((EditText) findViewById(R.id.editTextSymptomTime)).getText().toString());
+                        symptom.setLevel(((EditText) findViewById(R.id.editTextSymptomLevel)).getText().toString());
+                        symptom.setLocation(((EditText) findViewById(R.id.editTextSymptomLocation)).getText().toString());
+                        symptom.setTime(((EditText) findViewById(R.id.editTextSymptomTime)).getText().toString());
 
-                    listSymptom.add(symptom);
+                        listSymptom.add(symptom);
 
-                    PrefSingleton.getInstance().writePreference("listSymptom", listSymptom);
+                        PrefSingleton.getInstance().writePreference("listSymptom", listSymptom);
 
-                    Intent intent = new Intent(v.getContext(), MainActivity.class);
-                    startActivity(intent);
-                }
-            });
+                        Intent intent = new Intent(v.getContext(), MainActivity.class);
+                        startActivity(intent);
+                    }
+                });
+            } else if (type.equals("Edit")) {
+                buttonAddSymptom.setText(R.string.save_Symptom);
+                buttonAddSymptom.setOnClickListener(new View.OnClickListener()      {
+                    @Override
+                    public void onClick(View v) {
+                        PrefSingleton.getInstance().Initialize(getApplicationContext());
 
-            buttonRemoveSymptom.setOnClickListener(new View.OnClickListener()      {
-                @Override
-                public void onClick(View v) {
-                    listSymptom.remove(position);
+                        symptom.setLevel(((EditText) findViewById(R.id.editTextSymptomLevel)).getText().toString());
+                        symptom.setLocation(((EditText) findViewById(R.id.editTextSymptomLocation)).getText().toString());
+                        symptom.setTime(((EditText) findViewById(R.id.editTextSymptomTime)).getText().toString());
 
-                    PrefSingleton.getInstance().writePreference("listSymptom", listSymptom);
+                        listSymptom.set(position, symptom);
 
-                    Intent intent = new Intent(v.getContext(), MainActivity.class);
-                    startActivity(intent);
-                }
-            });
+                        PrefSingleton.getInstance().writePreference("listSymptom", listSymptom);
+
+                        Intent intent = new Intent(v.getContext(), MainActivity.class);
+                        startActivity(intent);
+                    }
+                });
+                buttonRemoveSymptom.setOnClickListener(new View.OnClickListener()      {
+                    @Override
+                    public void onClick(View v) {
+                        listSymptom.remove(position);
+
+                        PrefSingleton.getInstance().writePreference("listSymptom", listSymptom);
+
+                        Intent intent = new Intent(v.getContext(), MainActivity.class);
+                        startActivity(intent);
+                    }
+                });
+            }
+
+
+
 
         }
 
