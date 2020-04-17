@@ -36,16 +36,6 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:hint="@string/time" />
-=======
-
-    <EditText
-        android:id="@+id/editTextSymptomLevel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="@string/level" />
->>>>>>> feb3651a08bdc4faf097204d7d3159d982d03fae
 
     <Button
         android:id="@+id/buttonAddSymptom"
