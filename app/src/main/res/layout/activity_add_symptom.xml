@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AddSymptomActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="16dp">
 
 
 
@@ -17,7 +18,16 @@
         android:inputType="textPersonName"
         android:hint="@string/location" />
 
-
+    <TextView
+        android:id="@+id/textViewSymptomLevel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0/10"
+        android:textSize="30sp"/>
+    <SeekBar
+        android:id="@+id/seekBarSymptomLevel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <EditText
         android:id="@+id/editTextSymptomTime"
@@ -26,14 +36,6 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:hint="@string/time" />
-    
-    <EditText
-        android:id="@+id/editTextSymptomLevel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="@string/level" />
 
     <Button
         android:id="@+id/buttonAddSymptom"
