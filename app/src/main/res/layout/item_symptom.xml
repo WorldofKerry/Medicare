@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/colorOffWhiteForText"
     android:padding="5dp">
 
     <LinearLayout
@@ -14,6 +15,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="17sp"
+            android:textColor="@color/colorFloatingRed"
             android:text="@string/symptom_name"
             android:id="@+id/name_symptom"/>
 
@@ -36,10 +39,11 @@
         android:layout_height="match_parent">
 
         <TextView
+            android:id="@+id/time_symptom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/time"
-            android:id="@+id/time_symptom"/>
+            android:layout_marginTop="16sp"
+            android:text="@string/time" />
 
     </LinearLayout>
 

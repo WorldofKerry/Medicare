@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout
+
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -9,6 +10,12 @@
 
     tools:context=".MainActivity"
     android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:theme="@style/AppTheme"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_width="match_parent"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,7 +32,7 @@
         <com.google.android.material.tabs.TabLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
+            android:background="@color/colorButtonBlue"
             app:tabMode="fixed"
             app:tabGravity="fill"
             app:tabIndicatorColor="@color/colorAccent"
@@ -46,16 +53,16 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        app:fab_addButtonColorNormal="@color/colorPrimary"
-        app:fab_addButtonColorPressed="@color/colorPrimaryDark"
-        app:fab_addButtonPlusIconColor="@color/backgroundfragment"
+        app:fab_addButtonColorNormal="@color/colorFloatingRed"
+        app:fab_addButtonColorPressed="@color/colorFloatingRed"
+        app:fab_addButtonPlusIconColor="@color/colorWhite"
         app:fab_labelStyle="@style/customFab"
         android:layout_marginEnd="0dp">
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:fab_colorNormal="@color/colorWhite"
+            app:fab_colorNormal="@color/colorButtonBlue"
             app:fab_colorPressed="@color/colorPrimaryDark"
             app:fab_size="mini"
             app:fab_icon="@drawable/ic_check_circle_black_24dp"
@@ -64,7 +71,7 @@
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:fab_colorNormal="@color/colorPrimary"
+            app:fab_colorNormal="@color/colorButtonBlue"
             app:fab_colorPressed="@color/colorPrimaryDark"
             app:fab_size="mini"
             app:fab_icon="@drawable/ic_add_pink"
@@ -74,7 +81,7 @@
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:fab_colorNormal="@color/colorPrimary"
+            app:fab_colorNormal="@color/colorButtonBlue"
             app:fab_colorPressed="@color/colorPrimaryDark"
             app:fab_size="mini"
             app:fab_icon="@drawable/ic_add_pink"
@@ -84,7 +91,7 @@
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:fab_colorNormal="@color/colorPrimary"
+            app:fab_colorNormal="@color/colorButtonBlue"
             app:fab_colorPressed="@color/colorPrimaryDark"
             app:fab_size="mini"
             app:fab_icon="@drawable/ic_add_pink"
