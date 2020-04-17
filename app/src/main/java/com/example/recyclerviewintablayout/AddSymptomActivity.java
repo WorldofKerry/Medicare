@@ -11,6 +11,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
@@ -25,12 +27,37 @@ public class AddSymptomActivity extends AppCompatActivity {
     Symptom symptom;
     int position;
     String type;
+    String level;
+    private TextView textViewSymptomLevel;
+    private SeekBar seekBarSymptomLevel;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_symptom);
+
+        textViewSymptomLevel = (TextView) findViewById(R.id.textViewSymptomLevel);
+        seekBarSymptomLevel = (SeekBar) findViewById(R.id.seekBarSymptomLevel);
+        seekBarSymptomLevel.setMax(0);
+        seekBarSymptomLevel.setMax(10);
+        seekBarSymptomLevel.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                level=Integer.toString(progress);
+                textViewSymptomLevel.setText("" + progress + "/10");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -45,11 +72,7 @@ public class AddSymptomActivity extends AppCompatActivity {
             Button buttonAddSymptom = findViewById(R.id.buttonAddSymptom);
             Button buttonRemoveSymptom = findViewById(R.id.buttonRemoveSymptom);
 
-
-
-            EditText editText = (EditText) findViewById(R.id.editTextSymptomLevel);
-            editText.setText(symptom.getLevel(), TextView.BufferType.EDITABLE);
-            editText = (EditText) findViewById(R.id.editTextSymptomLocation);
+            EditText editText = (EditText) findViewById(R.id.editTextSymptomLocation);
             editText.setText(symptom.getLocation(), TextView.BufferType.EDITABLE);
             editText = (EditText) findViewById(R.id.editTextSymptomTime);
             editText.setText(symptom.getTime(), TextView.BufferType.EDITABLE);
@@ -64,7 +87,7 @@ public class AddSymptomActivity extends AppCompatActivity {
 
                         PrefSingleton.getInstance().Initialize(getApplicationContext());
 
-                        symptom.setLevel(((EditText) findViewById(R.id.editTextSymptomLevel)).getText().toString());
+                        symptom.setLevel(level);
                         symptom.setLocation(((EditText) findViewById(R.id.editTextSymptomLocation)).getText().toString());
                         symptom.setTime(((EditText) findViewById(R.id.editTextSymptomTime)).getText().toString());
 
@@ -77,13 +100,19 @@ public class AddSymptomActivity extends AppCompatActivity {
                     }
                 });
             } else if (type.equals("Edit")) {
+
+                seekBarSymptomLevel.setMax(0);
+                seekBarSymptomLevel.setMax(10);
+                seekBarSymptomLevel.setProgress(Integer.parseInt(symptom.getLevel()));
+                textViewSymptomLevel.setText(symptom.getLevel() + "/10");
+
                 buttonAddSymptom.setText(R.string.save_Symptom);
                 buttonAddSymptom.setOnClickListener(new View.OnClickListener()      {
                     @Override
                     public void onClick(View v) {
                         PrefSingleton.getInstance().Initialize(getApplicationContext());
 
-                        symptom.setLevel(((EditText) findViewById(R.id.editTextSymptomLevel)).getText().toString());
+                        symptom.setLevel(level);
                         symptom.setLocation(((EditText) findViewById(R.id.editTextSymptomLocation)).getText().toString());
                         symptom.setTime(((EditText) findViewById(R.id.editTextSymptomTime)).getText().toString());
 
