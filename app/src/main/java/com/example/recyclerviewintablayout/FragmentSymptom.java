@@ -48,8 +48,7 @@ public class FragmentSymptom extends Fragment implements SymptomRecyclerViewAdap
         myRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         myRecyclerView.setAdapter(recyclerViewAdapter);
 
-        return view;
-    }
+        return view;    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
