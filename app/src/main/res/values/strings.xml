@@ -21,6 +21,22 @@
     <string name="unsafe">Unsafe</string>
     <string name="isMoreThanTwoHours">Was this measurement taken more than two hours after your last meal?</string>
     <string name="track">Track</string>
+    <string-array name="Location">
+        <item>back of head/neck</item>
+        <item>top of head</item>
+        <item>forehead</item>
+        <item>behind both eyes</item>
+        <item>behind one eye</item>
+        <item>temples</item>
+        <item>behind the ear</item>
+        <item>on one side of the head</item>
+        <item>not sure/everywhere</item>
+    </string-array>
+    <string-array name="Type">
+        <item>sharp</item>
+        <item>dull</item>
+        <item>pulsing</item>
+    </string-array>
 
 
     <string name="save_Symptom">Save Symptom</string>

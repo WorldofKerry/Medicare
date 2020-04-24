@@ -9,15 +9,19 @@ public class Symptom implements Parcelable {
     private String Location;
     private  String Level;
     private String Time;
+    private String Type;
+    private String Notes;
 
     public Symptom() {
     }
 
-    public Symptom(String name, String location, String level, String time) {
+    public Symptom(String name, String location, String level, String time, String type, String notes) {
         Name = name;
         Location = location;
         Level = level;
         Time = time;
+        Type = type;
+        Notes = notes;
     }
 
     //Getter
@@ -29,6 +33,8 @@ public class Symptom implements Parcelable {
         Location = in.readString();
         Level = in.readString();
         Time = in.readString();
+        Type = in.readString();
+        Notes = in.readString();
     }
 
     public static final Creator<Symptom> CREATOR = new Creator<Symptom>() {
@@ -59,8 +65,24 @@ public class Symptom implements Parcelable {
         return Time;
     }
 
+    public String getType() {
+        return Type;
+    }
+
+    public String getNotes() {
+        return Notes;
+    }
+
     //Setter
 
+
+    public void setType(String type) {
+        Type = type;
+    }
+
+    public void setNotes(String notes) {
+        Notes = notes;
+    }
 
     public void setName(String name) {
         Name = name;
@@ -90,5 +112,7 @@ public class Symptom implements Parcelable {
         dest.writeString(Location);
         dest.writeString(Level);
         dest.writeString(Time);
+        dest.writeString(Type);
+        dest.writeString(Notes);
     }
 }

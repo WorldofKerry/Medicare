@@ -16,6 +16,7 @@ public class SymptomRecyclerViewAdapter extends RecyclerView.Adapter<SymptomRecy
     Context mContext;
     List<Symptom> mData;
     private OnNoteListener mOnNoteListener;
+    private String[] arrayLocation;
 
     public SymptomRecyclerViewAdapter(Context mContext, List<Symptom> mData, OnNoteListener onNoteListener) {
         this.mContext = mContext;
@@ -36,9 +37,10 @@ public class SymptomRecyclerViewAdapter extends RecyclerView.Adapter<SymptomRecy
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
+        arrayLocation = mContext.getResources().getStringArray(R.array.Location);
         holder.textView_name.setText(mData.get(position).getName());
-        holder.textView_location.setText(mData.get(position).getLocation());
-        holder.textView_level.setText(mData.get(position).getLevel());
+        holder.textView_location.setText(arrayLocation[Integer.parseInt(mData.get(position).getLocation())]);
+        holder.textView_level.setText("Level: " + mData.get(position).getLevel());
         holder.textView_time.setText(mData.get(position).getTime());
 
     }

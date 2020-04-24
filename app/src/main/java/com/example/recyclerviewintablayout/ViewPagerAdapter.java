@@ -1,5 +1,6 @@
 package com.example.recyclerviewintablayout;
 
+import android.content.SharedPreferences;
 import android.view.View;
 
 import androidx.annotation.NonNull;

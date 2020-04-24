@@ -24,7 +24,7 @@ public class SymptomsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), AddSymptomActivity.class);
-                Symptom symptom = new Symptom("Headache", null, null, null);
+                Symptom symptom = new Symptom("Headache", null, null, null, null, null);
                 intent.putExtra("Symptom", (Parcelable) symptom);
                 intent.putExtra("Type", "Add");
                 startActivity(intent);
@@ -36,7 +36,7 @@ public class SymptomsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), AddSymptomActivity.class);
-                Symptom symptom = new Symptom("Blurred Vision", null, null, null);
+                Symptom symptom = new Symptom("Blurred Vision", null, null, null, null, null);
                 intent.putExtra("Symptom", (Parcelable) symptom);
                 intent.putExtra("Type", "Add");
                 startActivity(intent);
@@ -48,7 +48,7 @@ public class SymptomsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), AddSymptomActivity.class);
-                Symptom symptom = new Symptom("Feelings of Exhaustion And Weakness", null, null, null);
+                Symptom symptom = new Symptom("Feelings of Exhaustion And Weakness", null, null, null, null, null);
                 intent.putExtra("Symptom", (Parcelable) symptom);
                 intent.putExtra("Type", "Add");
                 startActivity(intent);
@@ -60,7 +60,7 @@ public class SymptomsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), AddSymptomActivity.class);
-                Symptom symptom = new Symptom("Feelings of Unusual Thirst", null, null, null);
+                Symptom symptom = new Symptom("Feelings of Unusual Thirst", null, null, null, null, null);
                 intent.putExtra("Symptom", (Parcelable) symptom);
                 intent.putExtra("Type", "Add");
                 startActivity(intent);
@@ -72,7 +72,7 @@ public class SymptomsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), AddSymptomActivity.class);
-                Symptom symptom = new Symptom("Nausea/Vomiting", null, null, null);
+                Symptom symptom = new Symptom("Nausea/Vomiting", null, null, null, null, null);
                 intent.putExtra("Symptom", (Parcelable) symptom);
                 intent.putExtra("Type", "Add");
                 startActivity(intent);
@@ -84,7 +84,7 @@ public class SymptomsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), AddSymptomActivity.class);
-                Symptom symptom = new Symptom("Trouble Breathing", null, null, null);
+                Symptom symptom = new Symptom("Trouble Breathing", null, null, null, null, null);
                 intent.putExtra("Symptom", (Parcelable) symptom);
                 intent.putExtra("Type", "Add");
                 startActivity(intent);
