@@ -2,24 +2,24 @@ package com.example.recyclerviewintablayout;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class AddSymptomActivity extends AppCompatActivity {
 
@@ -28,14 +28,55 @@ public class AddSymptomActivity extends AppCompatActivity {
     int position;
     String type;
     String level;
+    String notes;
     private TextView textViewSymptomLevel;
     private SeekBar seekBarSymptomLevel;
+    private int positionLocation = 0;
+    private String[] arrayLocation;
+    private int positionType = 0;
+    private String[] arrayType;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_symptom);
+
+        arrayLocation = getResources().getStringArray(R.array.Location);
+        Spinner spinnerLocation = (Spinner) findViewById(R.id.spinnerSymptomLocation);
+        ArrayAdapter<String> stringArrayAdapterLocation = new ArrayAdapter<String>(AddSymptomActivity.this, android.R.layout.simple_list_item_1, arrayLocation);
+        stringArrayAdapterLocation.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerLocation.setAdapter(stringArrayAdapterLocation);
+
+        spinnerLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                positionLocation = position;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        arrayType = getResources().getStringArray(R.array.Type);
+        Spinner spinnerType = (Spinner) findViewById(R.id.spinnerSymptomType);
+        ArrayAdapter<String> stringArrayAdapterType = new ArrayAdapter<String>(AddSymptomActivity.this, android.R.layout.simple_list_item_1, arrayType);
+        stringArrayAdapterType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerType.setAdapter(stringArrayAdapterType);
+
+        spinnerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                positionType = position;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         textViewSymptomLevel = (TextView) findViewById(R.id.textViewSymptomLevel);
         seekBarSymptomLevel = (SeekBar) findViewById(R.id.seekBarSymptomLevel);
@@ -72,10 +113,10 @@ public class AddSymptomActivity extends AppCompatActivity {
             Button buttonAddSymptom = findViewById(R.id.buttonAddSymptom);
             Button buttonRemoveSymptom = findViewById(R.id.buttonRemoveSymptom);
 
-            EditText editText = (EditText) findViewById(R.id.editTextSymptomLocation);
-            editText.setText(symptom.getLocation(), TextView.BufferType.EDITABLE);
-            editText = (EditText) findViewById(R.id.editTextSymptomTime);
+            EditText editText = (EditText) findViewById(R.id.editTextSymptomTime);
             editText.setText(symptom.getTime(), TextView.BufferType.EDITABLE);
+            editText = (EditText) findViewById(R.id.editTextSymptomNotes);
+            editText.setText(symptom.getNotes(), TextView.BufferType.EDITABLE);
 
             listSymptom = (ArrayList<Symptom>) PrefSingleton.getInstance().LoadPreferenceList("listSymptom",new TypeToken<ArrayList<Symptom>>() {}.getType());
 
@@ -88,8 +129,10 @@ public class AddSymptomActivity extends AppCompatActivity {
                         PrefSingleton.getInstance().Initialize(getApplicationContext());
 
                         symptom.setLevel(level);
-                        symptom.setLocation(((EditText) findViewById(R.id.editTextSymptomLocation)).getText().toString());
+                        symptom.setLocation(Integer.toString(positionLocation));
+                        symptom.setType(Integer.toString(positionType));
                         symptom.setTime(((EditText) findViewById(R.id.editTextSymptomTime)).getText().toString());
+                        symptom.setNotes(((EditText) findViewById(R.id.editTextSymptomNotes)).getText().toString());
 
                         listSymptom.add(symptom);
 
@@ -105,6 +148,8 @@ public class AddSymptomActivity extends AppCompatActivity {
                 seekBarSymptomLevel.setMax(10);
                 seekBarSymptomLevel.setProgress(Integer.parseInt(symptom.getLevel()));
                 textViewSymptomLevel.setText(symptom.getLevel() + "/10");
+                spinnerLocation.setSelection(Integer.parseInt(symptom.getLocation()));
+                spinnerType.setSelection(Integer.parseInt(symptom.getType()));
 
                 buttonAddSymptom.setText(R.string.save_Symptom);
                 buttonAddSymptom.setOnClickListener(new View.OnClickListener()      {
@@ -113,8 +158,10 @@ public class AddSymptomActivity extends AppCompatActivity {
                         PrefSingleton.getInstance().Initialize(getApplicationContext());
 
                         symptom.setLevel(level);
-                        symptom.setLocation(((EditText) findViewById(R.id.editTextSymptomLocation)).getText().toString());
+                        symptom.setLocation(Integer.toString(positionLocation));
+                        symptom.setType(Integer.toString(positionType));
                         symptom.setTime(((EditText) findViewById(R.id.editTextSymptomTime)).getText().toString());
+                        symptom.setNotes(((EditText) findViewById(R.id.editTextSymptomNotes)).getText().toString());
 
                         listSymptom.set(position, symptom);
 
