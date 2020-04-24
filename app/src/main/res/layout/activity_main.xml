@@ -65,7 +65,7 @@
             app:fab_colorNormal="@color/colorButtonBlue"
             app:fab_colorPressed="@color/colorPrimaryDark"
             app:fab_size="mini"
-            app:fab_icon="@drawable/ic_check_circle_black_24dp"
+            app:fab_icon="@drawable/ic_tasks_icon_foreground"
             android:id="@+id/fab_action1"/>
 
         <com.getbase.floatingactionbutton.FloatingActionButton
@@ -74,9 +74,9 @@
             app:fab_colorNormal="@color/colorButtonBlue"
             app:fab_colorPressed="@color/colorPrimaryDark"
             app:fab_size="mini"
-            app:fab_icon="@drawable/ic_add_pink"
+            app:fab_icon="@drawable/ic_calendar_icon_foreground"
             android:id="@+id/fab_action2"
-            app:fab_title="Fab Action 2" />
+             />
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
@@ -84,9 +84,9 @@
             app:fab_colorNormal="@color/colorButtonBlue"
             app:fab_colorPressed="@color/colorPrimaryDark"
             app:fab_size="mini"
-            app:fab_icon="@drawable/ic_add_pink"
+            app:fab_icon="@drawable/ic_clock_icon_foreground"
             android:id="@+id/fab_action3"
-            app:fab_title="Fab Action 3" />
+            />
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
@@ -94,9 +94,9 @@
             app:fab_colorNormal="@color/colorButtonBlue"
             app:fab_colorPressed="@color/colorPrimaryDark"
             app:fab_size="mini"
-            app:fab_icon="@drawable/ic_add_pink"
+            app:fab_icon="@drawable/ic_home_icon_foreground"
             android:id="@+id/fab_action4"
-            app:fab_title="Fab Action 4" />
+            />
 
 
 
