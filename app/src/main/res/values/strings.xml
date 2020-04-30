@@ -40,5 +40,14 @@
 
 
     <string name="save_Symptom">Save Symptom</string>
+    <string name="record_medication">Record Medication</string>
+    <string name="record_exercise">Record Exercise</string>
+    <string name="set_a_reminder">Set a reminder</string>
+    <string name="feelings_of_unusual_thirst">Feelings of unusual thirst</string>
+    <string name="feelings_of_exhaustion_and_weakness">Feelings of exhaustion and weakness</string>
+    <string name="a_headache">A headache</string>
+    <string name="blurred_vision">Blurred vision</string>
+    <string name="trouble_breathing">Trouble breathing</string>
+    <string name="nausea_vomiting">Nausea/vomiting</string>
 
 </resources>

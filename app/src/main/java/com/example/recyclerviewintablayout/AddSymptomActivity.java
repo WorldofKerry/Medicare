@@ -78,7 +78,7 @@ public class AddSymptomActivity extends AppCompatActivity {
             }
         });
 
-        textViewSymptomLevel = (TextView) findViewById(R.id.textViewSymptomLevel);
+        //textViewSymptomLevel = (TextView) findViewById(R.id.textViewSymptomLevel);
         seekBarSymptomLevel = (SeekBar) findViewById(R.id.seekBarSymptomLevel);
         seekBarSymptomLevel.setMax(0);
         seekBarSymptomLevel.setMax(10);
@@ -121,7 +121,7 @@ public class AddSymptomActivity extends AppCompatActivity {
             listSymptom = (ArrayList<Symptom>) PrefSingleton.getInstance().LoadPreferenceList("listSymptom",new TypeToken<ArrayList<Symptom>>() {}.getType());
 
             if (type.equals("Add")) {
-                buttonRemoveSymptom.setEnabled(false);
+                buttonRemoveSymptom.setVisibility(View.GONE);
                 buttonAddSymptom.setOnClickListener(new View.OnClickListener()      {
                     @Override
                     public void onClick(View v) {

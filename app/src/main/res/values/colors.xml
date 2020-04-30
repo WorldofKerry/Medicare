@@ -10,5 +10,6 @@
     <color name="colorOffWhiteForText">#FFFBFA</color>
     <color name="colorFloatingRed">#FF8181</color>
     <color name="colorFloatingDarkRed">#FF5181</color>
+    <color name="colorGrey">#ECF3F7</color>
 
 </resources>
