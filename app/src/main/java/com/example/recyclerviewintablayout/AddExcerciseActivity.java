@@ -23,16 +23,14 @@ import java.util.List;
 
 public class AddExcerciseActivity extends AppCompatActivity {
 
-    private List<Symptom> listExcercise;
-    Symptom excercise;
+    private List<Excercise> listExcercise;
+    Excercise excercise;
     int position;
     String type;
     String level;
     String notes;
-    private TextView textViewSymptomLevel;
-    private SeekBar seekBarSymptomLevel;
     private int positionLocation = 0;
-    private String[] arrayLocation;
+    private String[] arrayTypeOfWorkout;
     private int positionType = 0;
     private String[] arrayType;
 
@@ -40,15 +38,15 @@ public class AddExcerciseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_symptom);
+        setContentView(R.layout.activity_add_excercise);
 
-        arrayLocation = getResources().getStringArray(R.array.Location);
-        Spinner spinnerLocation = (Spinner) findViewById(R.id.spinnerSymptomLocation);
-        ArrayAdapter<String> stringArrayAdapterLocation = new ArrayAdapter<String>(AddExcerciseActivity.this, android.R.layout.simple_list_item_1, arrayLocation);
+        arrayTypeOfWorkout = getResources().getStringArray(R.array.typeOfWorkout);
+        Spinner spinnerTypeOfWorkout = (Spinner) findViewById(R.id.spinnerExcerciseType);
+        ArrayAdapter<String> stringArrayAdapterLocation = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrayTypeOfWorkout);
         stringArrayAdapterLocation.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerLocation.setAdapter(stringArrayAdapterLocation);
+        spinnerTypeOfWorkout.setAdapter(stringArrayAdapterLocation);
 
-        spinnerLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinnerTypeOfWorkout.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 positionLocation = position;
@@ -60,9 +58,9 @@ public class AddExcerciseActivity extends AppCompatActivity {
             }
         });
 
-        arrayType = getResources().getStringArray(R.array.Type);
-        Spinner spinnerType = (Spinner) findViewById(R.id.spinnerSymptomType);
-        ArrayAdapter<String> stringArrayAdapterType = new ArrayAdapter<String>(AddExcerciseActivity.this, android.R.layout.simple_list_item_1, arrayType);
+        arrayType = getResources().getStringArray(R.array.typeOfWorkout);
+        Spinner spinnerType = (Spinner) findViewById(R.id.spinnerExcerciseType);
+        ArrayAdapter<String> stringArrayAdapterType = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrayType);
         stringArrayAdapterType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerType.setAdapter(stringArrayAdapterType);
 
@@ -78,51 +76,30 @@ public class AddExcerciseActivity extends AppCompatActivity {
             }
         });
 
-        textViewSymptomLevel = (TextView) findViewById(R.id.textViewSymptomLevel);
-        seekBarSymptomLevel = (SeekBar) findViewById(R.id.seekBarSymptomLevel);
-        seekBarSymptomLevel.setMax(0);
-        seekBarSymptomLevel.setMax(10);
-        seekBarSymptomLevel.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                level=Integer.toString(progress);
-                textViewSymptomLevel.setText("" + progress + "/10");
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
-
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        if (bundle!=null) {
-            excercise = bundle.getParcelable("Symptom");
-            position = bundle.getInt("Position", -1);
-            type = bundle.getString("Type", null);
+        excercise = new Excercise(null,null,null, null,null);
+//        if (bundle!=null) {
+//            excercise = bundle.getParcelable("Symptom");
+//            position = bundle.getInt("Position", -1);
+//            type = bundle.getString("Type", null);
 
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setTitle(excercise.getName());
+            getSupportActionBar().setTitle("Excercise Tracker");
 
-            Button buttonAddSymptom = findViewById(R.id.buttonAddSymptom);
-            Button buttonRemoveSymptom = findViewById(R.id.buttonRemoveSymptom);
+            Button buttonAddExcercise = findViewById(R.id.buttonAddExcercise);
+            Button buttonRemoveExcercise = findViewById(R.id.buttonRemoveExcercise);
 
             EditText editText = (EditText) findViewById(R.id.editTextSymptomTime);
             editText.setText(excercise.getTime(), TextView.BufferType.EDITABLE);
             editText = (EditText) findViewById(R.id.editTextSymptomNotes);
             editText.setText(excercise.getNotes(), TextView.BufferType.EDITABLE);
 
-            listExcercise = (ArrayList<Symptom>) PrefSingleton.getInstance().LoadPreferenceList("listExcercise",new TypeToken<ArrayList<Symptom>>() {}.getType());
+            listExcercise = (ArrayList<Excercise>) PrefSingleton.getInstance().LoadPreferenceList("listExcercise",new TypeToken<ArrayList<Excercise>>() {}.getType());
 
             if (type.equals("Add")) {
-                buttonRemoveSymptom.setEnabled(false);
-                buttonAddSymptom.setOnClickListener(new View.OnClickListener()      {
+                buttonRemoveExcercise.setEnabled(false);
+                buttonAddExcercise.setOnClickListener(new View.OnClickListener()      {
                     @Override
                     public void onClick(View v) {
 
@@ -143,16 +120,11 @@ public class AddExcerciseActivity extends AppCompatActivity {
                     }
                 });
             } else if (type.equals("Edit")) {
-
-                seekBarSymptomLevel.setMax(0);
-                seekBarSymptomLevel.setMax(10);
-                seekBarSymptomLevel.setProgress(Integer.parseInt(excercise.getLevel()));
-                textViewSymptomLevel.setText(excercise.getLevel() + "/10");
-                spinnerLocation.setSelection(Integer.parseInt(excercise.getLocation()));
+                spinnerTypeOfWorkout.setSelection(Integer.parseInt(excercise.getLocation()));
                 spinnerType.setSelection(Integer.parseInt(excercise.getType()));
 
-                buttonAddSymptom.setText(R.string.save_Symptom);
-                buttonAddSymptom.setOnClickListener(new View.OnClickListener()      {
+                buttonAddExcercise.setText(R.string.confirmEdit);
+                buttonAddExcercise.setOnClickListener(new View.OnClickListener()      {
                     @Override
                     public void onClick(View v) {
                         PrefSingleton.getInstance().Initialize(getApplicationContext());
@@ -171,7 +143,7 @@ public class AddExcerciseActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
-                buttonRemoveSymptom.setOnClickListener(new View.OnClickListener()      {
+                buttonRemoveExcercise.setOnClickListener(new View.OnClickListener()      {
                     @Override
                     public void onClick(View v) {
                         listExcercise.remove(position);
@@ -192,7 +164,7 @@ public class AddExcerciseActivity extends AppCompatActivity {
 
 
 
-    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
