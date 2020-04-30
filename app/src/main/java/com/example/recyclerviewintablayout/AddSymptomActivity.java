@@ -86,7 +86,7 @@ public class AddSymptomActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 level=Integer.toString(progress);
-                textViewSymptomLevel.setText("" + progress + "/10");
+                //textViewSymptomLevel.setText("" + progress + "/10");
             }
 
             @Override
@@ -147,7 +147,7 @@ public class AddSymptomActivity extends AppCompatActivity {
                 seekBarSymptomLevel.setMax(0);
                 seekBarSymptomLevel.setMax(10);
                 seekBarSymptomLevel.setProgress(Integer.parseInt(symptom.getLevel()));
-                textViewSymptomLevel.setText(symptom.getLevel() + "/10");
+                //textViewSymptomLevel.setText(symptom.getLevel() + "/10");
                 spinnerLocation.setSelection(Integer.parseInt(symptom.getLocation()));
                 spinnerType.setSelection(Integer.parseInt(symptom.getType()));
 
