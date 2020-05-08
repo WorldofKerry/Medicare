@@ -26,10 +26,10 @@
             android:text="@string/track_blood_sugar" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/buttonRecordExcercise"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/temp_placeholder_button" />
+            android:text="@string/record_excercise" />
     </LinearLayout>
 
 

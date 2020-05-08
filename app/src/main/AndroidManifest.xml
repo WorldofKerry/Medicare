@@ -22,6 +22,7 @@
         </activity>
         <activity android:name=".CalendarActivity" />
         <activity android:name=".AddBloodSugarActivity" />
+        <activity android:name=".AddExcerciseActivity" />
     </application>
 
 </manifest>

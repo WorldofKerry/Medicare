@@ -1,6 +1,9 @@
 package com.example.recyclerviewintablayout;
 
-public class Excercise {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Excercise implements Parcelable {
     private String Time;
     private String Calories;
     private String Duration;
@@ -13,6 +16,26 @@ public class Excercise {
         Duration = duration;
         Type = type;
         WarmUp = warmUp;
+    }
+
+    public static final Creator<Excercise> CREATOR = new Creator<Excercise>() {
+        @Override
+        public Excercise createFromParcel(Parcel in) {
+            return new Excercise(in);
+        }
+
+        @Override
+        public Excercise[] newArray(int size) {
+            return new Excercise[size];
+        }
+    };
+
+    protected Excercise(Parcel in) {
+        Time = in.readString();
+        Calories = in.readString();
+        Duration = in.readString();
+        Type = in.readString();
+        WarmUp = in.readString();
     }
 
     public String getTime() {return Time;}
@@ -33,4 +56,18 @@ public class Excercise {
     public void setType(String type) {Type = type;}
     public void setWarmUp(String warmUp) {WarmUp = warmUp;}
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        // Must be in the same order as constructor
+        dest.writeString(Time);
+        dest.writeString(Calories);
+        dest.writeString(Duration);
+        dest.writeString(Type);
+        dest.writeString(WarmUp);
+    }
 }

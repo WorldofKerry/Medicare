@@ -29,10 +29,10 @@ public class AddExcerciseActivity extends AppCompatActivity {
     String type;
     String level;
     String notes;
-    private int positionLocation = 0;
     private String[] arrayTypeOfWorkout;
     private int positionType = 0;
-    private String[] arrayType;
+    private int positionWarmUp = 0;
+    private String[] arrayTypeOfWarmup;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -49,7 +49,7 @@ public class AddExcerciseActivity extends AppCompatActivity {
         spinnerTypeOfWorkout.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                positionLocation = position;
+                positionType = position;
             }
 
             @Override
@@ -58,16 +58,16 @@ public class AddExcerciseActivity extends AppCompatActivity {
             }
         });
 
-        arrayType = getResources().getStringArray(R.array.typeOfWorkout);
-        Spinner spinnerType = (Spinner) findViewById(R.id.spinnerExcerciseType);
-        ArrayAdapter<String> stringArrayAdapterType = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrayType);
-        stringArrayAdapterType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerType.setAdapter(stringArrayAdapterType);
+        arrayTypeOfWarmup = getResources().getStringArray(R.array.warmUp);
+        Spinner spinnerTypeOfWarmup = (Spinner) findViewById(R.id.spinnerExcerciseWarmUp);
+        ArrayAdapter<String> stringArrayAdapterWarmup = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrayTypeOfWarmup);
+        stringArrayAdapterLocation.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerTypeOfWarmup.setAdapter(stringArrayAdapterWarmup);
 
-        spinnerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinnerTypeOfWarmup.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                positionType = position;
+                positionWarmUp = position;
             }
 
             @Override
@@ -79,21 +79,23 @@ public class AddExcerciseActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         excercise = new Excercise(null,null,null, null,null);
-//        if (bundle!=null) {
-//            excercise = bundle.getParcelable("Symptom");
-//            position = bundle.getInt("Position", -1);
-//            type = bundle.getString("Type", null);
-
+       if (bundle!=null) {
+           excercise = bundle.getParcelable("Excercise");
+           position = bundle.getInt("Position", -1);
+           type = bundle.getString("Type", null);
+       }
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle("Excercise Tracker");
 
             Button buttonAddExcercise = findViewById(R.id.buttonAddExcercise);
             Button buttonRemoveExcercise = findViewById(R.id.buttonRemoveExcercise);
 
-            EditText editText = (EditText) findViewById(R.id.editTextSymptomTime);
-            editText.setText(excercise.getTime(), TextView.BufferType.EDITABLE);
-            editText = (EditText) findViewById(R.id.editTextSymptomNotes);
-            editText.setText(excercise.getNotes(), TextView.BufferType.EDITABLE);
+            final EditText editTextTime = (EditText) findViewById(R.id.editTextExcerciseTimeBegin);
+            editTextTime.setText(excercise.getTime(), TextView.BufferType.EDITABLE);
+
+            final EditText editTextCalories = (EditText) findViewById(R.id.editTextExcerciseCaloriesBurned);
+            editTextCalories.setText(excercise.getCalories(), TextView.BufferType.EDITABLE);
+            //temporary ^^
 
             listExcercise = (ArrayList<Excercise>) PrefSingleton.getInstance().LoadPreferenceList("listExcercise",new TypeToken<ArrayList<Excercise>>() {}.getType());
 
@@ -105,11 +107,12 @@ public class AddExcerciseActivity extends AppCompatActivity {
 
                         PrefSingleton.getInstance().Initialize(getApplicationContext());
 
-                        excercise.setLevel(level);
-                        excercise.setLocation(Integer.toString(positionLocation));
                         excercise.setType(Integer.toString(positionType));
-                        excercise.setTime(((EditText) findViewById(R.id.editTextSymptomTime)).getText().toString());
-                        excercise.setNotes(((EditText) findViewById(R.id.editTextSymptomNotes)).getText().toString());
+                        excercise.setTime(editTextTime.getText().toString());
+                        excercise.setCalories(editTextCalories.getText().toString());
+                        excercise.setWarmUp(Integer.toString(positionWarmUp));
+                        excercise.setDuration(editTextTime.getText().toString()); //temporary
+                       // excercise.setNotes(((EditText) findViewById(R.id.editTextSymptomNotes)).getText().toString());
 
                         listExcercise.add(excercise);
 
@@ -120,8 +123,8 @@ public class AddExcerciseActivity extends AppCompatActivity {
                     }
                 });
             } else if (type.equals("Edit")) {
-                spinnerTypeOfWorkout.setSelection(Integer.parseInt(excercise.getLocation()));
-                spinnerType.setSelection(Integer.parseInt(excercise.getType()));
+                spinnerTypeOfWorkout.setSelection(Integer.parseInt(excercise.getType()));
+                spinnerTypeOfWarmup.setSelection(Integer.parseInt(excercise.getWarmUp()));
 
                 buttonAddExcercise.setText(R.string.confirmEdit);
                 buttonAddExcercise.setOnClickListener(new View.OnClickListener()      {
@@ -129,11 +132,11 @@ public class AddExcerciseActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         PrefSingleton.getInstance().Initialize(getApplicationContext());
 
-                        excercise.setLevel(level);
-                        excercise.setLocation(Integer.toString(positionLocation));
                         excercise.setType(Integer.toString(positionType));
-                        excercise.setTime(((EditText) findViewById(R.id.editTextSymptomTime)).getText().toString());
-                        excercise.setNotes(((EditText) findViewById(R.id.editTextSymptomNotes)).getText().toString());
+                        excercise.setTime(editTextTime.getText().toString());
+                        excercise.setCalories(editTextCalories.getText().toString());
+                        excercise.setWarmUp(Integer.toString(positionWarmUp));
+                        excercise.setDuration(editTextTime.getText().toString()); //temporary
 
                         listExcercise.set(position, excercise);
 
