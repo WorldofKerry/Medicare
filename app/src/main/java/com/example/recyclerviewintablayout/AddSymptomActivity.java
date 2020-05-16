@@ -34,7 +34,7 @@ public class AddSymptomActivity extends AppCompatActivity {
     Symptom symptom;
     int position;
     String type;
-    String level;
+    String level = "0";
     Button dateButton, timeButton;
     private String dateSelected = "", timeSelected = "";
     String notes;
