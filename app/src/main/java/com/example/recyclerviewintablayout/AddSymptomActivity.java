@@ -27,7 +27,7 @@ public class AddSymptomActivity extends AppCompatActivity {
     Symptom symptom;
     int position;
     String type;
-    String level;
+    String level = "0";
     String notes;
     private TextView textViewSymptomLevel;
     private SeekBar seekBarSymptomLevel;
