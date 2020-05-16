@@ -19,8 +19,6 @@ import androidx.viewpager.widget.ViewPager;
 
 public class CalendarActivity extends AppCompatActivity {
     private CalendarView calendar;
-//    private Button backToMenu;
-//    private TextView dateText;
     public static String dateSelected;
 
     private TabLayout tabLayout;
@@ -76,23 +74,13 @@ public class CalendarActivity extends AppCompatActivity {
             }
         });
 
-//        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-//            @Override
-//            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-//                dateSelected = year + " / " + month + " / " + dayOfMonth;
-//                dateText.setText(dateSelected);
-//                Log.d("Date Selected", dateSelected);
-//            }
-//        });
-
-//        backToMenu = findViewById(R.id.backToMenu);
-//        backToMenu.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(CalendarActivity.this, MainActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                dateSelected = year + "-" + (month + 1) + "-" + dayOfMonth;
+                Log.d("Date Selected", dateSelected);
+            }
+        });
     }
 
     public void showToast(String message) {
