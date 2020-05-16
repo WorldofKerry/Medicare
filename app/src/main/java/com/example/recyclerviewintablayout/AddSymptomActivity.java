@@ -34,13 +34,9 @@ public class AddSymptomActivity extends AppCompatActivity {
     Symptom symptom;
     int position;
     String type;
-<<<<<<< HEAD
     String level = "0";
-=======
-    String level;
     Button dateButton, timeButton;
     private String dateSelected = "", timeSelected = "";
->>>>>>> 7665d1f58100831d5ef7c9ed1e6120d72d9c88e4
     String notes;
     private TextView textViewSymptomLevel;
     private SeekBar seekBarSymptomLevel;
