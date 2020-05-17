@@ -13,7 +13,7 @@
         android:layout_marginStart="16dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="17sp"
             android:textColor="@color/colorFloatingRed"
@@ -21,13 +21,13 @@
             android:id="@+id/name_symptom"/>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/location"
             android:id="@+id/location_symptom"/>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/level"
             android:id="@+id/level_symptom"/>
@@ -41,15 +41,17 @@
 
         <TextView
             android:id="@+id/date_symptom"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16sp"
+            android:gravity="end"
             android:text="@string/date" />
 
         <TextView
             android:id="@+id/time_symptom"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="end"
             android:text="@string/time" />
     </LinearLayout>
 </LinearLayout>
