@@ -53,7 +53,7 @@ public class AddSymptomActivity extends AppCompatActivity {
 
         arrayLocation = getResources().getStringArray(R.array.Location);
         Spinner spinnerLocation = (Spinner) findViewById(R.id.spinnerSymptomLocation);
-        ArrayAdapter<String> stringArrayAdapterLocation = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrayLocation);
+        ArrayAdapter<String> stringArrayAdapterLocation = new ArrayAdapter<String>(this, R.layout.item_symptom_spinner, arrayLocation);
         stringArrayAdapterLocation.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerLocation.setAdapter(stringArrayAdapterLocation);
 
@@ -71,7 +71,7 @@ public class AddSymptomActivity extends AppCompatActivity {
 
         arrayType = getResources().getStringArray(R.array.Type);
         Spinner spinnerType = (Spinner) findViewById(R.id.spinnerSymptomType);
-        ArrayAdapter<String> stringArrayAdapterType = new ArrayAdapter<String>(AddSymptomActivity.this, android.R.layout.simple_list_item_1, arrayType);
+        ArrayAdapter<String> stringArrayAdapterType = new ArrayAdapter<String>(AddSymptomActivity.this, R.layout.item_symptom_spinner, arrayType);
         stringArrayAdapterType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerType.setAdapter(stringArrayAdapterType);
 
@@ -116,9 +116,7 @@ public class AddSymptomActivity extends AppCompatActivity {
                 showDatePicker();
             }
         });
-        setDateText(Calendar.getInstance().get(Calendar.YEAR),
-                Calendar.getInstance().get(Calendar.MONTH),
-                Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+        setDateText(Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
 
         timeButton = findViewById(R.id.buttonSymptomTime);
         timeButton.setOnClickListener(new View.OnClickListener() {
@@ -127,8 +125,7 @@ public class AddSymptomActivity extends AppCompatActivity {
                 showTimePicker();
             }
         });
-        setTimeText(Calendar.getInstance().get(Calendar.HOUR_OF_DAY),
-                Calendar.getInstance().get(Calendar.MINUTE));
+        setTimeText(Calendar.getInstance().get(Calendar.HOUR_OF_DAY), Calendar.getInstance().get(Calendar.MINUTE));
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -177,6 +174,8 @@ public class AddSymptomActivity extends AppCompatActivity {
                 //textViewSymptomLevel.setText(symptom.getLevel() + "/10");
                 spinnerLocation.setSelection(Integer.parseInt(symptom.getLocation()));
                 spinnerType.setSelection(Integer.parseInt(symptom.getType()));
+                setDateText(symptom.getTime());
+                setTimeText(symptom.getTime());
 
                 buttonAddSymptom.setText(R.string.save_Symptom);
                 buttonAddSymptom.setOnClickListener(new View.OnClickListener()      {
@@ -187,7 +186,7 @@ public class AddSymptomActivity extends AppCompatActivity {
                         symptom.setLevel(level);
                         symptom.setLocation(Integer.toString(positionLocation));
                         symptom.setType(Integer.toString(positionType));
-                        symptom.setTime(dateSelected + " @ " + timeSelected);
+                        symptom.setTime(dateSelected + "+" + timeSelected);
                         symptom.setNotes(((EditText) findViewById(R.id.editTextSymptomNotes)).getText().toString());
 
                         listSymptom.set(position, symptom);
@@ -227,9 +226,11 @@ public class AddSymptomActivity extends AppCompatActivity {
             "May", "June", "July", "August", "September", "October", "November", "December"};
 
     private void showDatePicker() {
-        int year = Calendar.getInstance().get(Calendar.YEAR);
-        int month = Calendar.getInstance().get(Calendar.MONTH);
-        int dayOfMonth = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+        String[] timeIntervals = dateSelected.split("[-]");
+
+        final int year = Integer.parseInt(timeIntervals[0]);
+        final int month = Integer.parseInt(timeIntervals[1]) - 1;
+        final int dayOfMonth = Integer.parseInt(timeIntervals[2]);
 
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -248,9 +249,20 @@ public class AddSymptomActivity extends AppCompatActivity {
         dateButton.setText(displayDate);
     }
 
+    private void setDateText(String time) {
+        dateSelected = time.split("[+]")[0];
+        final String[] timeIntervals = dateSelected.split("[-]");
+        if(timeIntervals.length < 3) return;
+
+        final String displayDate = months[Integer.parseInt(timeIntervals[1]) - 1] + " " + timeIntervals[2] + " " + timeIntervals[0];
+        dateButton.setText(displayDate);
+    }
+
     private void showTimePicker() {
-        int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-        int minute = Calendar.getInstance().get(Calendar.MINUTE);
+        String[] timeIntervals = timeSelected.split("[:]");
+
+        int hour = Integer.parseInt(timeIntervals[0]);
+        int minute = Integer.parseInt(timeIntervals[1]);
 
         TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
             @Override
@@ -269,8 +281,32 @@ public class AddSymptomActivity extends AppCompatActivity {
         if(hour == 0) hour = 24;
         boolean isPM = (hour > 12);
         if(isPM) hour -= 12;
+        if(hour == 12) isPM = !isPM;
 
         String displayTime = hour + ":" + String.format(Locale.CANADA,"%02d", minute);
+        displayTime += isPM ? " PM" : " AM";
+
+        timeButton.setText(displayTime);
+    }
+
+    private void setTimeText(String time) {
+        try {
+            timeSelected = time.split("[+]")[1];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            Log.d("setTimeText", "ArrayOutOfBoundsException");
+            e.printStackTrace();
+            return;
+        }
+
+        final String[] timeIntervals = timeSelected.split("[:]");
+        int hour = Integer.parseInt(timeIntervals[0]);
+
+        if(hour == 0) hour = 24;
+        boolean isPM = (hour > 12);
+        if(isPM) hour -= 12;
+        if(hour == 12) isPM = !isPM;
+
+        String displayTime = hour + ":" + String.format(Locale.CANADA,"%02d", Integer.parseInt(timeIntervals[1]));
         displayTime += isPM ? " PM" : " AM";
 
         timeButton.setText(displayTime);
