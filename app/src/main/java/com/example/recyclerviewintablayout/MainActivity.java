@@ -71,13 +71,13 @@ public class MainActivity extends AppCompatActivity {
         GraphView graph = findViewById(R.id.mainGraph_id);
         graph.setBackgroundColor(getResources().getColor(R.color.colorAccent));
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
-        if (listBloodSugar != null) {
-            for (BloodSugar bloodSugar : listBloodSugar) {
-                showToast(bloodSugar.getLevel());
-            }
-        }
-        graph.addSeries(series);
-        graph.setTitle("Symptoms Graph (Past 7 Days)");
+        //if (listBloodSugar != null) {
+        //    for (BloodSugar bloodSugar : listBloodSugar) {
+        //        showToast(bloodSugar.getLevel());
+        //    }
+        //}
+        //graph.addSeries(series);
+        //graph.setTitle("Symptoms Graph (Past 7 Days)");
 
         // Floating Action Button stuff
         FloatingActionButton floatingActionButton = findViewById(R.id.fab_action1);

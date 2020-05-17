@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcel;
 import android.os.Parcelable;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,6 +35,9 @@ public class SelectionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), AddBloodSugarActivity.class);
+                BloodSugar bloodSugar = new BloodSugar(null,null,null,false);
+                intent.putExtra("BloodSugar", (Parcelable) bloodSugar);
+                intent.putExtra("Type","Add");
                 startActivity(intent);
             }
         });
