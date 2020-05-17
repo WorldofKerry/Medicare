@@ -24,7 +24,6 @@ import java.util.List;
 public class AddExcerciseActivity extends AppCompatActivity {
 
     private List<Excercise> listExcercise;
-    Excercise excercise;
     int position;
     String type;
     String level;
@@ -33,6 +32,7 @@ public class AddExcerciseActivity extends AppCompatActivity {
     private int positionType = 0;
     private int positionWarmUp = 0;
     private String[] arrayTypeOfWarmup;
+    Excercise excercise;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -78,7 +78,7 @@ public class AddExcerciseActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        excercise = new Excercise(null,null,null, null,null);
+        //excercise = new Excercise(null,null,null,null,null);
        if (bundle!=null) {
            excercise = bundle.getParcelable("Excercise");
            position = bundle.getInt("Position", -1);
@@ -92,6 +92,8 @@ public class AddExcerciseActivity extends AppCompatActivity {
 
             final EditText editTextTime = (EditText) findViewById(R.id.editTextExcerciseTimeBegin);
             editTextTime.setText(excercise.getTime(), TextView.BufferType.EDITABLE);
+
+            final EditText editTextTimeEnd = (EditText) findViewById(R.id.editTextExcerciseTimeEnd);
 
             final EditText editTextCalories = (EditText) findViewById(R.id.editTextExcerciseCaloriesBurned);
             editTextCalories.setText(excercise.getCalories(), TextView.BufferType.EDITABLE);
@@ -111,7 +113,10 @@ public class AddExcerciseActivity extends AppCompatActivity {
                         excercise.setTime(editTextTime.getText().toString());
                         excercise.setCalories(editTextCalories.getText().toString());
                         excercise.setWarmUp(Integer.toString(positionWarmUp));
-                        excercise.setDuration(editTextTime.getText().toString()); //temporary
+                        String strippedTimeBegin = editTextTime.getText().toString().replaceAll("[^0-9]","");
+                        String strippedTimeEnd = editTextTimeEnd.getText().toString().replaceAll("[^0-9]","");
+                        excercise.setDuration(Integer.toString(((1200 - Math.abs(Integer.parseInt(strippedTimeBegin) - Integer.parseInt(strippedTimeEnd))) / 5) * 3)); //converts ?????!?!? into duration (minutes)
+                        //String test1 = Integer.toString(Math.abs(Integer.parseInt(strippedTimeBegin) - Integer.parseInt(strippedTimeEnd)));
                        // excercise.setNotes(((EditText) findViewById(R.id.editTextSymptomNotes)).getText().toString());
 
                         listExcercise.add(excercise);
@@ -136,7 +141,9 @@ public class AddExcerciseActivity extends AppCompatActivity {
                         excercise.setTime(editTextTime.getText().toString());
                         excercise.setCalories(editTextCalories.getText().toString());
                         excercise.setWarmUp(Integer.toString(positionWarmUp));
-                        excercise.setDuration(editTextTime.getText().toString()); //temporary
+                        String strippedTimeBegin = editTextTime.getText().toString().replaceAll("[^0-9]","");
+                        String strippedTimeEnd = editTextTimeEnd.getText().toString().replaceAll("[^0-9]","");
+                        excercise.setDuration(Integer.toString(((1200 - Math.abs(Integer.parseInt(strippedTimeBegin) - Integer.parseInt(strippedTimeEnd))) / 5) * 3));
 
                         listExcercise.set(position, excercise);
 

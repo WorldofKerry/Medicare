@@ -41,9 +41,9 @@ public class ExcerciseRecyclerViewAdapter extends RecyclerView.Adapter<Excercise
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         arrayType = mContext.getResources().getStringArray(R.array.typeOfWorkout);
-        holder.textView_calories.setText(mData.get(position).getCalories());
+        holder.textView_calories.setText(mContext.getResources().getString(R.string.calories,mData.get(position).getCalories()));
         holder.textView_time.setText(mData.get(position).getTime());
-        holder.textView_duration.setText(mData.get(position).getDuration());
+        holder.textView_duration.setText(mContext.getResources().getString(R.string.duration_minutes,mData.get(position).getDuration()));
         holder.textView_type.setText(arrayType[Integer.parseInt(mData.get(position).getType())]);
 
     }

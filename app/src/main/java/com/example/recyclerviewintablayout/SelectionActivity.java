@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -42,6 +43,8 @@ public class SelectionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), AddExcerciseActivity.class);
+                Excercise excercise = new Excercise(null,null,null,null,null);
+                intent.putExtra("Excercise", (Parcelable) excercise);
                 intent.putExtra("Type", "Add");
                 startActivity(intent);
             }

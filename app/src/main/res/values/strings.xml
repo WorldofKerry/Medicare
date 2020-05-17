@@ -23,6 +23,8 @@
     <string name="track">Track</string>
     <string name="record_excercise">Record Exercise</string>
     <string name="confirmEdit">Confirm Edit</string>
+    <string name="duration_minutes">%s minutes</string>
+    <string name="calories">%s calories</string>
     <string-array name="Location">
         <item>back of head/neck</item>
         <item>top of head</item>
