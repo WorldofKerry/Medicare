@@ -38,7 +38,7 @@ public class SelectionActivity extends AppCompatActivity {
             }
         });
 
-        Button buttonExcercise = findViewById(R.id.buttonRecordExcercise);
+        Button buttonExcercise = findViewById(R.id.buttonRecordExercise);
         buttonExcercise.setOnClickListener(new View.OnClickListener()      {
             @Override
             public void onClick(View v) {

@@ -6,31 +6,35 @@
     android:layout_height="match_parent"
     tools:context=".SelectionActivity">
 
-
 <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/colorGrey">
 
-        <Button
-            android:id="@+id/buttonTrackASymptom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/track_symptom"
-            />
+    <Button
+        style="@style/genericButton"
+        android:id="@+id/buttonTrackASymptom"
+        android:text="@string/track_symptom"
+        android:background="@color/colorWhite"
+        />
 
-        <Button
-            android:id="@+id/buttonTrackBloodSugar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/track_blood_sugar" />
+    <Button
+        android:id="@+id/buttonTrackBloodSugar"
+        android:text="@string/track_blood_sugar"
+        style="@style/genericButton"
+        />
 
-        <Button
-            android:id="@+id/buttonRecordExcercise"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/record_excercise" />
+
+    <Button
+        android:id="@+id/buttonRecordExercise"
+        android:text="@string/record_exercise"
+        style="@style/genericButton"/>
+    <Button
+        android:id="@+id/buttonSetAReminder"
+        android:text="@string/set_a_reminder"
+        style="@style/genericButton"/>
+
     </LinearLayout>
-
 
 </ScrollView>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,50 +10,41 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:background="@color/colorGrey">
 
         <Button
             android:id="@+id/buttonFeelingsOfUnusualThirst"
-            android:textAllCaps="false"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Feelings of unusual thirst" />
+            style="@style/genericButton"
+            android:text="@string/feelings_of_unusual_thirst"
+            />
 
         <Button
             android:id="@+id/buttonFeelingsOfExhaustionAndWeakness"
-            android:textAllCaps="false"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Feelings of exhaustion and weakness" />
+            style="@style/genericButton"
+            android:text="@string/feelings_of_exhaustion_and_weakness" />
 
         <Button
             android:id="@+id/buttonAHeadache"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="A headache"
-            android:textAllCaps="false" />
+            style="@style/genericButton"
+            android:text="@string/a_headache"/>
 
         <Button
             android:id="@+id/buttonBlurredVision"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Blurred vision"
-            android:textAllCaps="false" />
+            style="@style/genericButton"
+            android:text="@string/blurred_vision"/>
 
         <Button
             android:id="@+id/buttonTroubleBreathing"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Trouble breathing"
-            android:textAllCaps="false" />
+            android:text="@string/trouble_breathing"
+            style="@style/genericButton"
+            />
 
         <Button
             android:id="@+id/buttonNauseaVomiting"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Nausea/vomiting"
-            android:textAllCaps="false" />
+            style="@style/genericButton"
+            android:text="@string/nausea_vomiting"/>
     </LinearLayout>
 
 
-</LinearLayout>
+</ScrollView>
