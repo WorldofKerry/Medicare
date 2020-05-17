@@ -105,7 +105,6 @@ public class SymptomRecyclerViewAdapter extends RecyclerView.Adapter<SymptomRecy
         if(hour == 0) hour = 24;
         boolean isPM = (hour > 12);
         if(isPM) hour -= 12;
-        if(hour == 12) isPM = !isPM;
         int minute = Integer.parseInt(timeIntervals[4]);
 
         String displayTime = hour + ":" + String.format(Locale.CANADA,"%02d", minute);
