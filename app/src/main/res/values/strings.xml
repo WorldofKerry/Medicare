@@ -21,6 +21,10 @@
     <string name="unsafe">Unsafe</string>
     <string name="isMoreThanTwoHours">Was this measurement taken more than two hours after your last meal?</string>
     <string name="track">Track</string>
+    <string name="record_excercise">Record Exercise</string>
+    <string name="confirmEdit">Confirm Edit</string>
+    <string name="duration_minutes">%s minutes</string>
+    <string name="calories">%s calories</string>
     <string-array name="Location">
         <item>back of head/neck</item>
         <item>top of head</item>
@@ -37,6 +41,17 @@
         <item>dull</item>
         <item>pulsing</item>
     </string-array>
+    <string-array name="typeOfWorkout">
+        <item>cardio</item>
+        <item>flexibility</item>
+        <item>resistance</item>
+    </string-array>
+    <string-array name="warmUp">
+        <item>static</item>
+        <item>dynamic</item>
+        <item>passive</item>
+        <item>active</item>
+    </string-array>
 
 
     <string name="save_Symptom">Save Symptom</string>
@@ -49,5 +64,6 @@
     <string name="blurred_vision">Blurred vision</string>
     <string name="trouble_breathing">Trouble breathing</string>
     <string name="nausea_vomiting">Nausea/vomiting</string>
+    <string name="date">Date</string>
 
 </resources>

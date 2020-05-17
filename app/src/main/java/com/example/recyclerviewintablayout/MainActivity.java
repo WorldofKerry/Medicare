@@ -17,15 +17,20 @@ import androidx.viewpager.widget.ViewPager;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private ViewPagerAdapter adapter;
+    private ArrayList<BloodSugar> listBloodSugar;
+
 
 
     @Override
@@ -36,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.tabLayout_id);
         viewPager = (ViewPager) findViewById(R.id.viewpager_id);
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        PrefSingleton.getInstance().Initialize(this);
+        listBloodSugar = (ArrayList<BloodSugar>) PrefSingleton.getInstance().LoadPreferenceList("listBloodSugar",new TypeToken<ArrayList<BloodSugar>>() {}.getType());
+
 
         // Add Fragments
         // Can initialize without text in title with
@@ -62,14 +70,14 @@ public class MainActivity extends AppCompatActivity {
         //add the graph
         GraphView graph = findViewById(R.id.mainGraph_id);
         graph.setBackgroundColor(getResources().getColor(R.color.colorAccent));
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
-                new DataPoint(0, 1),
-                new DataPoint(1, 5),
-                new DataPoint(2, 3),
-                new DataPoint(3, 2),
-                new DataPoint(4, 6)
-        });
+        LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
+        if (listBloodSugar != null) {
+            for (BloodSugar bloodSugar : listBloodSugar) {
+                showToast(bloodSugar.getLevel());
+            }
+        }
         graph.addSeries(series);
+        graph.setTitle("Symptoms Graph (Past 7 Days)");
 
         // Floating Action Button stuff
         FloatingActionButton floatingActionButton = findViewById(R.id.fab_action1);

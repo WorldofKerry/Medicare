@@ -18,38 +18,33 @@
             android:textSize="17sp"
             android:textColor="@color/colorFloatingRed"
             android:text="@string/symptom_name"
-            android:id="@+id/name_symptom"/>
+            android:id="@+id/excercise_type"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/location"
-            android:id="@+id/location_symptom"/>
+            android:id="@+id/excercise_calories"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/level"
-            android:id="@+id/level_symptom"/>
+            android:id="@+id/excercise_duration"/>
 
     </LinearLayout>
     <LinearLayout
         android:gravity="end"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/date_symptom"
+            android:id="@+id/excercise_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16sp"
-            android:text="@string/date" />
-
-        <TextView
-            android:id="@+id/time_symptom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="@string/time" />
+
     </LinearLayout>
+
 </LinearLayout>

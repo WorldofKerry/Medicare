@@ -25,8 +25,9 @@
         style="@style/genericButton"
         />
 
+
     <Button
-        android:id="@+id/buttonTrackExercise"
+        android:id="@+id/buttonRecordExercise"
         android:text="@string/record_exercise"
         style="@style/genericButton"/>
     <Button
