@@ -12,7 +12,8 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Severity" />
+        android:text="Severity"
+        style="@style/addSymptomText"/>
 
     <!--
     <TextView
@@ -38,7 +39,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginLeft="12dp"
-            android:text="0" />
+            android:text="0"
+            style="@style/addSymptomText" />
 
         <View
             android:layout_width="0dp"
@@ -50,7 +52,8 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="12dp"
             android:layout_marginRight="12dp"
-            android:text="10" />
+            android:text="10"
+            style="@style/addSymptomText" />
 
     </LinearLayout>
 
@@ -58,7 +61,8 @@
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Type" />
+        android:text="Type"
+        style="@style/addSymptomText"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -70,13 +74,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Pain: "
-            android:gravity="left"/>
+            android:gravity="left"
+            style="@style/addSymptomText"/>
 
         <Spinner
             android:id="@+id/spinnerSymptomType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="right"/>
+            android:gravity="right"
+            style="@style/addSymptomText"/>
 
     </LinearLayout>
 
@@ -90,7 +96,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Type: "
-            android:gravity="left"/>
+            android:gravity="left"
+            style="@style/addSymptomText"/>
 
         <Spinner
             android:id="@+id/spinnerSymptomLocation"
@@ -105,7 +112,8 @@
         android:id="@+id/textView5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Date and Time:" />
+        android:text="Date and Time:"
+        style="@style/addSymptomText" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -115,21 +123,24 @@
         <Button
             android:id="@+id/buttonSymptomDate"
             android:layout_width="wrap_content"
-            android:layout_height="38dp"
-            android:layout_weight="2" />
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            style="@style/addSymptomTextCaps" />
 
         <Button
             android:id="@+id/buttonSymptomTime"
             android:layout_width="wrap_content"
-            android:layout_height="38dp"
-            android:layout_weight="1" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            style="@style/addSymptomTextCaps" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Notes" />
+        android:text="Notes"
+        style="@style/addSymptomText" />
 
     <EditText
         android:id="@+id/editTextSymptomNotes"
@@ -137,9 +148,10 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="I failed physics. "
-        android:inputType="textPersonName"
-        android:minHeight="150dp"
-        android:gravity="top"/>
+        android:inputType="textMultiLine"
+        android:gravity="top"
+        style="@style/addSymptomText"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -151,14 +163,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Delete"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            style="@style/addSymptomTextCaps"/>
 
         <Button
             android:id="@+id/buttonAddSymptom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Submit ->"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            style="@style/addSymptomTextCaps"/>
 
 
     </LinearLayout>

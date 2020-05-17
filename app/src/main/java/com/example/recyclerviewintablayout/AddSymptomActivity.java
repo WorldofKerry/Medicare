@@ -53,7 +53,7 @@ public class AddSymptomActivity extends AppCompatActivity {
 
         arrayLocation = getResources().getStringArray(R.array.Location);
         Spinner spinnerLocation = (Spinner) findViewById(R.id.spinnerSymptomLocation);
-        ArrayAdapter<String> stringArrayAdapterLocation = new ArrayAdapter<String>(AddSymptomActivity.this, android.R.layout.simple_list_item_1, arrayLocation);
+        ArrayAdapter<String> stringArrayAdapterLocation = new ArrayAdapter<String>(AddSymptomActivity.this, R.layout.item_symptom_spinner, arrayLocation);
         stringArrayAdapterLocation.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerLocation.setAdapter(stringArrayAdapterLocation);
 
@@ -71,7 +71,7 @@ public class AddSymptomActivity extends AppCompatActivity {
 
         arrayType = getResources().getStringArray(R.array.Type);
         Spinner spinnerType = (Spinner) findViewById(R.id.spinnerSymptomType);
-        ArrayAdapter<String> stringArrayAdapterType = new ArrayAdapter<String>(AddSymptomActivity.this, android.R.layout.simple_list_item_1, arrayType);
+        ArrayAdapter<String> stringArrayAdapterType = new ArrayAdapter<String>(AddSymptomActivity.this, R.layout.item_symptom_spinner, arrayType);
         stringArrayAdapterType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerType.setAdapter(stringArrayAdapterType);
 
