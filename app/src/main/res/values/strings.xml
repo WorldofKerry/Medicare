@@ -64,5 +64,6 @@
     <string name="blurred_vision">Blurred vision</string>
     <string name="trouble_breathing">Trouble breathing</string>
     <string name="nausea_vomiting">Nausea/vomiting</string>
+    <string name="date">Date</string>
 
 </resources>
