@@ -1,6 +1,7 @@
 package com.example.recyclerviewintablayout;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 public class ExcerciseRecyclerViewAdapter extends RecyclerView.Adapter<ExcerciseRecyclerViewAdapter.MyViewHolder> {
 
@@ -42,7 +45,12 @@ public class ExcerciseRecyclerViewAdapter extends RecyclerView.Adapter<Excercise
 
         arrayType = mContext.getResources().getStringArray(R.array.typeOfWorkout);
         holder.textView_calories.setText(mContext.getResources().getString(R.string.calories,mData.get(position).getCalories()));
-        holder.textView_time.setText(mData.get(position).getTime());
+        String[] dateTime = timeText(mData.get(position).getTime()).split("[+]");
+
+        if (dateTime.length == 2) {
+            holder.textView_date.setText(dateTime[0]);
+            holder.textView_time.setText(dateTime[1]);
+        }
         holder.textView_duration.setText(mContext.getResources().getString(R.string.duration_minutes,mData.get(position).getDuration()));
         holder.textView_type.setText(arrayType[Integer.parseInt(mData.get(position).getType())]);
 
@@ -59,6 +67,7 @@ public class ExcerciseRecyclerViewAdapter extends RecyclerView.Adapter<Excercise
         private TextView textView_calories;
         private TextView textView_duration;
         private TextView textView_time;
+        private TextView textView_date;
 
         OnNoteListener onNoteListener;
 
@@ -67,6 +76,7 @@ public class ExcerciseRecyclerViewAdapter extends RecyclerView.Adapter<Excercise
 
             textView_type = (TextView) itemView.findViewById(R.id.excercise_type);
             textView_time = (TextView) itemView.findViewById(R.id.excercise_time);
+            textView_date = (TextView) itemView.findViewById(R.id.excercise_date);
             textView_duration = (TextView) itemView.findViewById(R.id.excercise_duration);
             textView_calories = (TextView) itemView.findViewById(R.id.excercise_calories);
 
@@ -84,5 +94,25 @@ public class ExcerciseRecyclerViewAdapter extends RecyclerView.Adapter<Excercise
     public interface OnNoteListener {
         void onNoteClick(int position);
     }
+    private static final String[] months = {"Jan.", "Feb.", "Mar.", "Apr.", "May", "June", "July", "Aug.", "Sept.", "Oct.", "Nov.", "Dec."};
 
+    private String timeText(String time) {
+        if(time == null) return "null";
+        String[] timeIntervals = time.split("[-+:]");
+        if(timeIntervals.length <= 4) return "Invalid time format";
+
+        Log.d("Time Intervals", Arrays.toString(timeIntervals));
+        String monthText = months[Integer.parseInt(timeIntervals[1]) - 1];
+
+        int hour = Integer.parseInt(timeIntervals[3]);
+        if(hour == 0) hour = 24;
+        boolean isPM = (hour > 12);
+        if(isPM) hour -= 12;
+        int minute = Integer.parseInt(timeIntervals[4]);
+
+        String displayTime = hour + ":" + String.format(Locale.CANADA,"%02d", minute);
+        displayTime += isPM ? " PM" : " AM";
+
+        return monthText + " " + timeIntervals[2] + ", " + timeIntervals[0] + "+" + displayTime;
+    }
 }

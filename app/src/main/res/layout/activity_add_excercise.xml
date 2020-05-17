@@ -46,7 +46,17 @@
         </Button>
 
     </LinearLayout>
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Date" />
 
+    <Button
+        android:id="@+id/buttonExcerciseDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
 
     <TextView
         android:id="@+id/textView5"
@@ -59,25 +69,22 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/editTextExcerciseTimeBegin"
+        <Button
+            android:id="@+id/buttonExcerciseTimeBegin"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="6"
-            android:hint="00:00 AM"
-            android:inputType="textPersonName" />
+            android:layout_height="38dp"
+            android:layout_weight="2" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=" till ">
         </TextView>
-        <EditText
-            android:id="@+id/editTextExcerciseTimeEnd"
+        <Button
+            android:id="@+id/buttonExcerciseTimeEnd"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="6"
-            android:hint="00:00 AM"
-            android:inputType="textPersonName" />
+            android:layout_height="38dp"
+            android:layout_weight="2" />
 
     </LinearLayout>
 
