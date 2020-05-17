@@ -104,7 +104,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Testing
-                showToast("fan 3");
                 Intent intent = new Intent(v.getContext(), MainReminderActivity.class);
                 startActivity(intent);
             }

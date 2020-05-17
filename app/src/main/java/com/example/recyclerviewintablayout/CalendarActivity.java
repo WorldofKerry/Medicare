@@ -68,8 +68,17 @@ public class CalendarActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Testing
-                showToast("fan 3");
                 Intent intent = new Intent(v.getContext(), MainReminderActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        FloatingActionButton floatingActionButton4 = findViewById(R.id.fab_action4);
+        floatingActionButton4.setOnClickListener(new View.OnClickListener()      {
+            @Override
+            public void onClick(View v) {
+                // Testing
+                Intent intent = new Intent(v.getContext(), MainActivity.class);
                 startActivity(intent);
             }
         });
