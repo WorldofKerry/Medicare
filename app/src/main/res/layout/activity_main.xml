@@ -65,43 +65,38 @@
             app:fab_colorNormal="@color/colorButtonBlue"
             app:fab_colorPressed="@color/colorPrimaryDark"
             app:fab_size="mini"
-            app:fab_icon="@drawable/ic_tasks_icon_foreground"
+            app:fab_icon="@drawable/ic_group_57"
+            android:id="@+id/fab_action4"/>
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorNormal="@color/colorButtonBlue"
+            app:fab_colorPressed="@color/colorPrimaryDark"
+            app:fab_size="mini"
+            app:fab_icon="@drawable/ic_group_108"
+            android:id="@+id/fab_action2"/>
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorNormal="@color/colorButtonBlue"
+            app:fab_colorPressed="@color/colorPrimaryDark"
+            app:fab_size="mini"
+            app:fab_icon="@drawable/ic_group_48"
             android:id="@+id/fab_action1"/>
 
-
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:fab_colorNormal="@color/colorButtonBlue"
             app:fab_colorPressed="@color/colorPrimaryDark"
             app:fab_size="mini"
-            app:fab_icon="@drawable/ic_calendar_icon_foreground"
-            android:id="@+id/fab_action2"
-             />
-
-
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_colorNormal="@color/colorButtonBlue"
-            app:fab_colorPressed="@color/colorPrimaryDark"
-            app:fab_size="mini"
-            app:fab_icon="@drawable/ic_clock_icon_foreground"
-            android:id="@+id/fab_action3"
-            />
-
-
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_colorNormal="@color/colorButtonBlue"
-            app:fab_colorPressed="@color/colorPrimaryDark"
-            app:fab_size="mini"
-            app:fab_icon="@drawable/ic_home_icon_foreground"
-            android:id="@+id/fab_action4"
-            />
+            app:fab_icon="@drawable/ic_group_58"
+            android:id="@+id/fab_action3"/>
 
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
 
 </RelativeLayout>
 
