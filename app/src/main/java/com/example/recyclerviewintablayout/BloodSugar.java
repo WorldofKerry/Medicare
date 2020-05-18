@@ -1,6 +1,10 @@
 package com.example.recyclerviewintablayout;
 
-public class BloodSugar {
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.provider.ContactsContract;
+
+public class BloodSugar implements Parcelable {
 
     private String Level;
     private String Time;
@@ -17,6 +21,25 @@ public class BloodSugar {
         if (isLessThanTwoHours && Integer.parseInt(level) < 180 && Integer.parseInt(level) > 70) {
             Safe = true;
         } else Safe = !isLessThanTwoHours;
+    }
+
+    public static final Creator<BloodSugar> CREATOR = new Creator<BloodSugar>() {
+        @Override
+        public BloodSugar createFromParcel(Parcel in) {
+            return new BloodSugar(in);
+        }
+
+        @Override
+        public BloodSugar[] newArray(int size) {
+            return new BloodSugar[size];
+        }
+    };
+
+    protected BloodSugar(Parcel in) {
+        Level = in.readString();
+        Time = in.readString();
+        Notes = in.readString();
+        Safe = Boolean.parseBoolean(in.readString());
     }
 
     //Getter
@@ -56,5 +79,19 @@ public class BloodSugar {
 
     public void setNotes(String notes) {
         Notes = notes;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        // Must be in the same order as constructor
+        dest.writeString(Level);
+        dest.writeString(Time);
+        dest.writeString(Notes);
+        dest.writeString(Boolean.toString(Safe));
     }
 }

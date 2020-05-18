@@ -1,5 +1,7 @@
 package com.example.recyclerviewintablayout;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -8,10 +10,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,7 +23,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 public class AddExcerciseActivity extends AppCompatActivity {
 
@@ -28,6 +34,8 @@ public class AddExcerciseActivity extends AppCompatActivity {
     String type;
     String level;
     String notes;
+    Button dateButton, timeButtonStart,timeButtonEnd;
+    private String dateSelected = "", timeSelectedStart = "", timeSelectedEnd="";
     private String[] arrayTypeOfWorkout;
     private int positionType = 0;
     private int positionWarmUp = 0;
@@ -76,6 +84,37 @@ public class AddExcerciseActivity extends AppCompatActivity {
             }
         });
 
+        dateButton = findViewById(R.id.buttonExcerciseDate);
+        dateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDatePicker();
+            }
+        });
+        setDateText(Calendar.getInstance().get(Calendar.YEAR),
+                Calendar.getInstance().get(Calendar.MONTH),
+                Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+
+        timeButtonStart = findViewById(R.id.buttonExcerciseTimeBegin);
+        timeButtonStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showTimePicker(timeButtonStart);
+            }
+        });
+        setTimeText(Calendar.getInstance().get(Calendar.HOUR_OF_DAY),
+                Calendar.getInstance().get(Calendar.MINUTE), timeButtonStart);
+
+        timeButtonEnd = findViewById(R.id.buttonExcerciseTimeEnd);
+        timeButtonEnd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showTimePicker(timeButtonEnd);
+            }
+        });
+        setTimeText(Calendar.getInstance().get(Calendar.HOUR_OF_DAY),
+                Calendar.getInstance().get(Calendar.MINUTE), timeButtonEnd);
+
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         //excercise = new Excercise(null,null,null,null,null);
@@ -89,11 +128,6 @@ public class AddExcerciseActivity extends AppCompatActivity {
 
             Button buttonAddExcercise = findViewById(R.id.buttonAddExcercise);
             Button buttonRemoveExcercise = findViewById(R.id.buttonRemoveExcercise);
-
-            final EditText editTextTime = (EditText) findViewById(R.id.editTextExcerciseTimeBegin);
-            editTextTime.setText(excercise.getTime(), TextView.BufferType.EDITABLE);
-
-            final EditText editTextTimeEnd = (EditText) findViewById(R.id.editTextExcerciseTimeEnd);
 
             final EditText editTextCalories = (EditText) findViewById(R.id.editTextExcerciseCaloriesBurned);
             editTextCalories.setText(excercise.getCalories(), TextView.BufferType.EDITABLE);
@@ -110,15 +144,29 @@ public class AddExcerciseActivity extends AppCompatActivity {
                         PrefSingleton.getInstance().Initialize(getApplicationContext());
 
                         excercise.setType(Integer.toString(positionType));
-                        excercise.setTime(editTextTime.getText().toString());
+                        excercise.setTime(dateSelected + "+" + timeSelectedStart);
                         excercise.setCalories(editTextCalories.getText().toString());
                         excercise.setWarmUp(Integer.toString(positionWarmUp));
-                        String strippedTimeBegin = editTextTime.getText().toString().replaceAll("[^0-9]","");
-                        String strippedTimeEnd = editTextTimeEnd.getText().toString().replaceAll("[^0-9]","");
-                        excercise.setDuration(Integer.toString(((1200 - Math.abs(Integer.parseInt(strippedTimeBegin) - Integer.parseInt(strippedTimeEnd))) / 5) * 3)); //converts ?????!?!? into duration (minutes)
-                        //String test1 = Integer.toString(Math.abs(Integer.parseInt(strippedTimeBegin) - Integer.parseInt(strippedTimeEnd)));
-                       // excercise.setNotes(((EditText) findViewById(R.id.editTextSymptomNotes)).getText().toString());
-
+                        int tempStartHours = Integer.parseInt(timeSelectedStart.split("[:]")[0]);
+                        int tempStartMinutes = Integer.parseInt(timeSelectedStart.split("[:]")[1]);
+                        boolean mustSubtractFrom1200 = false;
+                        if (tempStartHours >= 12) {
+                            tempStartHours -= 12;
+                            mustSubtractFrom1200 = true;
+                        }
+                        int tempStartDurationCalculation = tempStartHours * 100 + tempStartMinutes;
+                        int tempEndHours = Integer.parseInt(timeSelectedEnd.split("[:]")[0]);
+                        int tempEndMinutes = Integer.parseInt(timeSelectedEnd.split("[:]")[1]);
+                        if (tempEndHours >= 12) {
+                            tempEndHours -= 12;
+                            mustSubtractFrom1200 = !mustSubtractFrom1200;
+                        }
+                        int tempEndDurationCalculation = tempEndHours * 100 + tempEndMinutes;
+                        if (mustSubtractFrom1200) {
+                            excercise.setDuration(Integer.toString(((1200 - Math.abs(tempStartDurationCalculation - tempEndDurationCalculation)) * 3) / 5));
+                        } else {
+                            excercise.setDuration(Integer.toString(((Math.abs(tempStartDurationCalculation - tempEndDurationCalculation)) * 3) / 5));
+                        }
                         listExcercise.add(excercise);
 
                         PrefSingleton.getInstance().writePreference("listExcercise", listExcercise);
@@ -138,12 +186,29 @@ public class AddExcerciseActivity extends AppCompatActivity {
                         PrefSingleton.getInstance().Initialize(getApplicationContext());
 
                         excercise.setType(Integer.toString(positionType));
-                        excercise.setTime(editTextTime.getText().toString());
+                        excercise.setTime(dateSelected + "+" + timeSelectedStart);
                         excercise.setCalories(editTextCalories.getText().toString());
                         excercise.setWarmUp(Integer.toString(positionWarmUp));
-                        String strippedTimeBegin = editTextTime.getText().toString().replaceAll("[^0-9]","");
-                        String strippedTimeEnd = editTextTimeEnd.getText().toString().replaceAll("[^0-9]","");
-                        excercise.setDuration(Integer.toString(((1200 - Math.abs(Integer.parseInt(strippedTimeBegin) - Integer.parseInt(strippedTimeEnd))) / 5) * 3));
+                        int tempStartHours = Integer.parseInt(timeSelectedStart.split("[:]")[0]);
+                        int tempStartMinutes = Integer.parseInt(timeSelectedStart.split("[:]")[1]);
+                        boolean mustSubtractFrom1200 = false;
+                        if (tempStartHours >= 12) {
+                            tempStartHours -= 12;
+                            mustSubtractFrom1200 = true;
+                        }
+                        int tempStartDurationCalculation = tempStartHours * 100 + tempStartMinutes;
+                        int tempEndHours = Integer.parseInt(timeSelectedEnd.split("[:]")[0]);
+                        int tempEndMinutes = Integer.parseInt(timeSelectedEnd.split("[:]")[1]);
+                        if (tempEndHours >= 12) {
+                            tempEndHours -= 12;
+                            mustSubtractFrom1200 = !mustSubtractFrom1200;
+                        }
+                        int tempEndDurationCalculation = tempEndHours * 100 + tempEndMinutes;
+                        if (mustSubtractFrom1200) {
+                            excercise.setDuration(Integer.toString(((1200 - Math.abs(tempStartDurationCalculation - tempEndDurationCalculation)) * 3) / 5));
+                        } else {
+                            excercise.setDuration(Integer.toString(((Math.abs(tempStartDurationCalculation - tempEndDurationCalculation)) * 3) / 5));
+                        }
 
                         listExcercise.set(position, excercise);
 
@@ -184,6 +249,64 @@ public class AddExcerciseActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private static final String[] months = {"January", "February", "March", "April",
+            "May", "June", "July", "August", "September", "October", "November", "December"};
+
+    private void showDatePicker() {
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+        int month = Calendar.getInstance().get(Calendar.MONTH);
+        int dayOfMonth = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+                setDateText(year, month, dayOfMonth);
+            }
+        };
+
+        DatePickerDialog datePicker = new DatePickerDialog(this, dateSetListener, year, month, dayOfMonth);
+        datePicker.show();
+    }
+
+    private void setDateText(int year, int month, int dayOfMonth) {
+        dateSelected = year + "-" + (month + 1) + "-" + dayOfMonth;
+        final String displayDate = months[month] + " " + dayOfMonth + " " + year;
+        dateButton.setText(displayDate);
+    }
+
+    private void showTimePicker(final Button timeButton) {
+        int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+        int minute = Calendar.getInstance().get(Calendar.MINUTE);
+
+        TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int hour, int minute) {
+                setTimeText(hour, minute, timeButton);
+            }
+        };
+
+
+        TimePickerDialog timePicker = new TimePickerDialog(this, timeSetListener, hour, minute, false);
+        timePicker.show();
+    }
+
+
+    private void setTimeText(int hour, int minute, Button timeButton) {
+        if (timeButton.equals(timeButtonStart)) {
+            timeSelectedStart = hour + ":" + String.format(Locale.CANADA, "%02d", minute);
+        } else {
+            timeSelectedEnd = hour + ":" + String.format(Locale.CANADA, "%02d", minute);
+        }
+        if(hour == 0) hour = 24;
+        boolean isPM = (hour > 12);
+        if(isPM) hour -= 12;
+
+        String displayTime = hour + ":" + String.format(Locale.CANADA,"%02d", minute);
+        displayTime += isPM ? " PM" : " AM";
+
+        timeButton.setText(displayTime);
     }
 
 }

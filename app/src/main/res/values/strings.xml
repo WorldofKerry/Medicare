@@ -5,8 +5,8 @@
     <string name="name">Name</string>
     <string name="add_symptom">Add Symptom</string>
     <string name="remove_symptom">Remove Symptom</string>
-    <string name="add_blood_sugar_entry">Add Blood Sugar Entry</string>
-    <string name="remove_blood_sugar_entry">Remove Blood Sugar Entry</string>
+    <string name="add">Submit</string>
+    <string name="remove">Delete</string>
     <string name="temp_placeholder_button">Button</string>
     <string name="temp_placeholder_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </string>
     <string name="track_symptom">Track a Symptom</string>
@@ -25,6 +25,7 @@
     <string name="confirmEdit">Confirm Edit</string>
     <string name="duration_minutes">%s minutes</string>
     <string name="calories">%s calories</string>
+    <string name="mgdl">%s mg/dl</string>
     <string-array name="Location">
         <item>back of head/neck</item>
         <item>top of head</item>

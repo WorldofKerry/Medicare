@@ -1,6 +1,9 @@
 package com.example.recyclerviewintablayout;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +20,9 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FragmentBloodSugar extends Fragment {
+import static androidx.constraintlayout.widget.Constraints.TAG;
+
+public class FragmentBloodSugar extends Fragment implements BloodSugarRecyclerViewAdapter.OnNoteListener {
 
     View view;
     private RecyclerView myRecyclerView;
@@ -31,7 +36,7 @@ public class FragmentBloodSugar extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.blood_sugar_fragment,container,false);
         myRecyclerView = (RecyclerView) view.findViewById(R.id.blood_sugar_recyclerview);
-        BloodSugarRecyclerViewAdapter recyclerViewAdapter = new BloodSugarRecyclerViewAdapter(getContext(), listBloodSugar);
+        BloodSugarRecyclerViewAdapter recyclerViewAdapter = new BloodSugarRecyclerViewAdapter(getContext(), listBloodSugar, this);
         myRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         myRecyclerView.setAdapter(recyclerViewAdapter);
         return view;
@@ -43,10 +48,17 @@ public class FragmentBloodSugar extends Fragment {
         PrefSingleton.getInstance().Initialize(getContext());
         listBloodSugar = (ArrayList<BloodSugar>) PrefSingleton.getInstance().LoadPreferenceList("listBloodSugar",new TypeToken<ArrayList<BloodSugar>>() {}.getType());
         //listBloodSugar.add(new BloodSugar("392", "yes","??",false));
+    }
 
+    @Override
+    public void onNoteClick(int position) {
+        Log.d(TAG, "onNoteClick: clicked.");
 
-
-
+        Intent intent = new Intent(getContext(), AddBloodSugarActivity.class);
+        intent.putExtra("BloodSugar", listBloodSugar.get(position));
+        intent.putExtra("Position", position);
+        intent.putExtra("Type", "Edit");
+        startActivity(intent);
     }
 
 }

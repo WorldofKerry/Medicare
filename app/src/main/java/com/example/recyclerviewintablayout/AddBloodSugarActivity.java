@@ -3,26 +3,36 @@ package com.example.recyclerviewintablayout;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 public class AddBloodSugarActivity extends AppCompatActivity {
 
     private List<BloodSugar> listBloodSugar;
     BloodSugar bloodSugar;
+    Button timeButton, dateButton;
+    String dateSelected, timeSelected;
     int position;
+    String type;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -31,26 +41,53 @@ public class AddBloodSugarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_blood_sugar);
 
         Intent intent = getIntent();
-        bloodSugar = new BloodSugar(null,null,null,false);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setTitle("Blood Sugar");
+        Bundle bundle = intent.getExtras();
+        if (bundle!=null) {
+            bloodSugar = bundle.getParcelable("BloodSugar");
+            position = bundle.getInt("Position", -1);
+            type = bundle.getString("Type", null);
+        }
 
-            EditText editText = (EditText) findViewById(R.id.editTextBloodSugarLevel);
-            editText.setText(bloodSugar.getLevel(), TextView.BufferType.EDITABLE);
-            editText = (EditText) findViewById(R.id.editTextBloodSugarTime);
-            editText.setText(bloodSugar.getTime(), TextView.BufferType.EDITABLE);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Blood Sugar");
 
-            listBloodSugar = (ArrayList<BloodSugar>) PrefSingleton.getInstance().LoadPreferenceList("listBloodSugar",new TypeToken<ArrayList<BloodSugar>>() {}.getType());
+        EditText editText = (EditText) findViewById(R.id.editTextBloodSugarLevel);
+        editText.setText(bloodSugar.getLevel(), TextView.BufferType.EDITABLE);
 
-            Button buttonAddBloodSugar = findViewById(R.id.buttonAddBloodSugar);
-            buttonAddBloodSugar.setOnClickListener(new View.OnClickListener()      {
+        dateButton = findViewById(R.id.buttonBloodSugarDate);
+        dateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDatePicker();
+            }
+        });
+        setDateText(Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+
+        timeButton = findViewById(R.id.buttonBloodSugarTime);
+        timeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showTimePicker();
+            }
+        });
+        setTimeText(Calendar.getInstance().get(Calendar.HOUR_OF_DAY), Calendar.getInstance().get(Calendar.MINUTE));
+
+        listBloodSugar = (ArrayList<BloodSugar>) PrefSingleton.getInstance().LoadPreferenceList("listBloodSugar", new TypeToken<ArrayList<BloodSugar>>() {
+        }.getType());
+
+        Button buttonRemoveBloodSugar = findViewById(R.id.buttonRemoveBloodSugar);
+        Button buttonAddBloodSugar = findViewById(R.id.buttonAddBloodSugar);
+
+        if (type.equals("Add")) {
+            buttonRemoveBloodSugar.setEnabled(false);
+            buttonAddBloodSugar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
                     PrefSingleton.getInstance().Initialize(getApplicationContext());
 
                     bloodSugar.setLevel(((EditText) findViewById(R.id.editTextBloodSugarLevel)).getText().toString());
-                    bloodSugar.setTime(((EditText) findViewById(R.id.editTextBloodSugarTime)).getText().toString());
+                    bloodSugar.setTime(dateSelected + "+" + timeSelected);
                     bloodSugar.setNotes(((EditText) findViewById(R.id.editTextBloodSugarNotes)).getText().toString());
                     bloodSugar.setSafe(!((Switch) findViewById(R.id.switchBloodSugarIsMoreThanTwoHours)).isChecked());
 
@@ -63,8 +100,28 @@ public class AddBloodSugarActivity extends AppCompatActivity {
                 }
             });
 
-            Button buttonRemoveBloodSugar = findViewById(R.id.buttonRemoveBloodSugar);
-            buttonRemoveBloodSugar.setOnClickListener(new View.OnClickListener()      {
+        } else if (type.equals("Edit")) {
+            buttonAddBloodSugar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    PrefSingleton.getInstance().Initialize(getApplicationContext());
+
+                    bloodSugar.setLevel(((EditText) findViewById(R.id.editTextBloodSugarLevel)).getText().toString());
+                    bloodSugar.setTime(dateSelected + "+" + timeSelected);
+                    bloodSugar.setNotes(((EditText) findViewById(R.id.editTextBloodSugarNotes)).getText().toString());
+                    bloodSugar.setSafe(!((Switch) findViewById(R.id.switchBloodSugarIsMoreThanTwoHours)).isChecked());
+
+                    listBloodSugar.set(position, bloodSugar);
+
+                    PrefSingleton.getInstance().writePreference("listBloodSugar", listBloodSugar);
+
+                    Intent intent = new Intent(v.getContext(), MainActivity.class);
+                    startActivity(intent);
+                }
+            });
+
+            buttonRemoveBloodSugar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     listBloodSugar.remove(position);
@@ -75,13 +132,8 @@ public class AddBloodSugarActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
-
         }
-
-
-
-
-
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -91,6 +143,96 @@ public class AddBloodSugarActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private static final String[] months = {"January", "February", "March", "April",
+            "May", "June", "July", "August", "September", "October", "November", "December"};
+
+    private void showDatePicker() {
+        String[] timeIntervals = dateSelected.split("[-]");
+
+        final int year = Integer.parseInt(timeIntervals[0]);
+        final int month = Integer.parseInt(timeIntervals[1]) - 1;
+        final int dayOfMonth = Integer.parseInt(timeIntervals[2]);
+
+        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+                setDateText(year, month, dayOfMonth);
+            }
+        };
+
+        DatePickerDialog datePicker = new DatePickerDialog(this, dateSetListener, year, month, dayOfMonth);
+        datePicker.show();
+    }
+
+    private void setDateText(int year, int month, int dayOfMonth) {
+        dateSelected = year + "-" + (month + 1) + "-" + dayOfMonth;
+        final String displayDate = months[month] + " " + dayOfMonth + " " + year;
+        dateButton.setText(displayDate);
+    }
+
+    private void setDateText(String time) {
+        dateSelected = time.split("[+]")[0];
+        final String[] timeIntervals = dateSelected.split("[-]");
+        if(timeIntervals.length < 3) return;
+
+        final String displayDate = months[Integer.parseInt(timeIntervals[1]) - 1] + " " + timeIntervals[2] + " " + timeIntervals[0];
+        dateButton.setText(displayDate);
+    }
+
+    private void showTimePicker() {
+        String[] timeIntervals = timeSelected.split("[:]");
+
+        int hour = Integer.parseInt(timeIntervals[0]);
+        int minute = Integer.parseInt(timeIntervals[1]);
+
+        TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int hour, int minute) {
+                setTimeText(hour, minute);
+            }
+        };
+
+        TimePickerDialog timePicker = new TimePickerDialog(this, timeSetListener, hour, minute, false);
+        timePicker.show();
+    }
+
+    private void setTimeText(int hour, int minute) {
+        timeSelected = hour + ":" + String.format(Locale.CANADA,"%02d", minute);
+
+        if(hour == 0) hour = 24;
+        boolean isPM = (hour > 12);
+        if(isPM) hour -= 12;
+        if(hour == 12) isPM = !isPM;
+
+        String displayTime = hour + ":" + String.format(Locale.CANADA,"%02d", minute);
+        displayTime += isPM ? " PM" : " AM";
+
+        timeButton.setText(displayTime);
+    }
+
+    private void setTimeText(String time) {
+        try {
+            timeSelected = time.split("[+]")[1];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            Log.d("setTimeText", "ArrayOutOfBoundsException");
+            e.printStackTrace();
+            return;
+        }
+
+        final String[] timeIntervals = timeSelected.split("[:]");
+        int hour = Integer.parseInt(timeIntervals[0]);
+
+        if(hour == 0) hour = 24;
+        boolean isPM = (hour > 12);
+        if(isPM) hour -= 12;
+        if(hour == 12) isPM = !isPM;
+
+        String displayTime = hour + ":" + String.format(Locale.CANADA,"%02d", Integer.parseInt(timeIntervals[1]));
+        displayTime += isPM ? " PM" : " AM";
+
+        timeButton.setText(displayTime);
     }
 
 }
