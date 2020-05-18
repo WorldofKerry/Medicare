@@ -84,6 +84,10 @@ public class CalendarActivity extends AppCompatActivity {
 			public void onMonthScroll(Date firstDayOfNewMonth) {
 				// Resetting displayed symptom list to the full list when the month changes
 
+				Calendar c = Calendar.getInstance();
+				c.setTime(firstDayOfNewMonth);
+				setDateText(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+
 				getSupportActionBar().setTitle(dateFormat.format(firstDayOfNewMonth));
 
 				// This is an inefficient copy-paste
@@ -92,8 +96,10 @@ public class CalendarActivity extends AppCompatActivity {
 				displayedSymptoms.clear();
 
 				for(Symptom s : symptoms) {
-					displayedSymptoms.add(s);
-					adapter.notifyDataSetChanged();
+					if (s.getTime().substring(0, 7).equals(dateSelected.substring(0, 7))) {
+						displayedSymptoms.add(s);
+						adapter.notifyDataSetChanged();
+					}
 				}
 
 				setDisplayedSymptoms();
@@ -107,10 +113,11 @@ public class CalendarActivity extends AppCompatActivity {
 		adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
 		for(Symptom s : symptoms) {
-			displayedSymptoms.add(s);
-			adapter.notifyDataSetChanged();
+			if (s.getTime().substring(0, 7).equals(dateSelected.substring(0, 7))) {
+				displayedSymptoms.add(s);
+				adapter.notifyDataSetChanged();
+			}
 		}
-
 		PrefSingleton.getInstance().Initialize(this);
 
 		adapter.AddFragment(new FragmentSymptom(displayedSymptoms), "Symptoms");
