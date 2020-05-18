@@ -25,17 +25,15 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private ViewPagerAdapter adapter;
     private ArrayList<BloodSugar> listBloodSugar;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SelectionActivity.lastActivity = MainActivity.class;
         setContentView(R.layout.activity_main);
 
         tabLayout = (TabLayout) findViewById(R.id.tabLayout_id);

@@ -30,6 +30,7 @@ public class CalendarActivity extends AppCompatActivity {
 
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		SelectionActivity.lastActivity = CalendarActivity.class;
 
 		final SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM yyyy", Locale.CANADA);
 		getSupportActionBar().setTitle(dateFormat.format(new Date()));

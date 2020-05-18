@@ -4,14 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcel;
 import android.os.Parcelable;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
 public class SelectionActivity extends AppCompatActivity {
-
+    public static Class lastActivity = MainActivity.class;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +64,4 @@ public class SelectionActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-
-
 }

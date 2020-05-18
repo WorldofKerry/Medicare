@@ -118,6 +118,7 @@ public class AddExcerciseActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         //excercise = new Excercise(null,null,null,null,null);
+
        if (bundle!=null) {
            excercise = bundle.getParcelable("Excercise");
            position = bundle.getInt("Position", -1);
@@ -171,7 +172,7 @@ public class AddExcerciseActivity extends AppCompatActivity {
 
                         PrefSingleton.getInstance().writePreference("listExcercise", listExcercise);
 
-                        Intent intent = new Intent(v.getContext(), MainActivity.class);
+                        Intent intent = new Intent(v.getContext(), SelectionActivity.lastActivity);
                         startActivity(intent);
                     }
                 });
@@ -214,7 +215,7 @@ public class AddExcerciseActivity extends AppCompatActivity {
 
                         PrefSingleton.getInstance().writePreference("listExcercise", listExcercise);
 
-                        Intent intent = new Intent(v.getContext(), MainActivity.class);
+                        Intent intent = new Intent(v.getContext(), SelectionActivity.lastActivity);
                         startActivity(intent);
                     }
                 });
@@ -225,7 +226,7 @@ public class AddExcerciseActivity extends AppCompatActivity {
 
                         PrefSingleton.getInstance().writePreference("listExcercise", listExcercise);
 
-                        Intent intent = new Intent(v.getContext(), MainActivity.class);
+                        Intent intent = new Intent(v.getContext(), SelectionActivity.lastActivity);
                         startActivity(intent);
                     }
                 });
@@ -308,5 +309,4 @@ public class AddExcerciseActivity extends AppCompatActivity {
 
         timeButton.setText(displayTime);
     }
-
 }
