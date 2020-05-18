@@ -113,7 +113,7 @@ public class CalendarActivity extends AppCompatActivity {
 		adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
 		for(Symptom s : symptoms) {
-			if (s.getTime().substring(0, 7).equals(dateSelected.substring(0, 7))) {
+			if (s.getTime().split("[+]")[0].equals(dateSelected)) {
 				displayedSymptoms.add(s);
 				adapter.notifyDataSetChanged();
 			}

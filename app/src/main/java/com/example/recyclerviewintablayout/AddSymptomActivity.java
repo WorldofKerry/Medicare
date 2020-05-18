@@ -176,7 +176,7 @@ public class AddSymptomActivity extends AppCompatActivity {
                                     changeFailure = false;
                                     break;
                                 } else if (thisMinuteValue == tempMinuteValue) {
-                                    showToast("Could not edit: Two entries cannot have the exact same time.");
+                                    //showToast("Could not edit: Two entries cannot have the exact same time.");
                                     changeFailure = false;
                                     break;
                                 }
@@ -234,7 +234,7 @@ public class AddSymptomActivity extends AppCompatActivity {
                                     changeFailure = false;
                                     break;
                                 } else if (thisMinuteValue == tempMinuteValue) {
-                                    showToast("Could not edit: Two entries cannot have the exact same time.");
+                                    //showToast("Could not edit: Two entries cannot have the exact same time.");
                                     listSymptom.add(position, tempBackupSymptom);
                                     changeFailure = false;
                                     break;
