@@ -20,13 +20,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 public class CalendarActivity extends AppCompatActivity {
 	private CompactCalendarView calendar;
 	public static String dateSelected;
-	private List<Symptom> symptoms;
+	private ArrayList<Symptom> symptoms;
+	private ArrayList<Symptom> displayedSymptoms;
 
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -48,20 +48,48 @@ public class CalendarActivity extends AppCompatActivity {
 				Calendar.getInstance().get(Calendar.MONTH),
 				Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
 
-		symptoms = (ArrayList<Symptom>) PrefSingleton.getInstance().LoadPreferenceList
-				("listSymptom",new TypeToken<ArrayList<Symptom>>() {}.getType());
+		// Getting the list of symptoms and cloning them to another list to be modified, should be fine
+
+		symptoms = (ArrayList) PrefSingleton.getInstance().LoadPreferenceList("listSymptom", new TypeToken<ArrayList<Symptom>>() {}.getType());
+		displayedSymptoms = new ArrayList<>();
+		displayedSymptoms.addAll(symptoms);
+
+		// Setting calendar events from symptom list
 
 		setSymptomEvents();
 
 		calendar.setListener(new CompactCalendarView.CompactCalendarViewListener() {
 			@Override
 			public void onDayClick(Date dateClicked) {
+				Calendar c = Calendar.getInstance();
+				c.setTime(dateClicked);
+				setDateText(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
 
+				// Writing to the other ArrayList
+
+				displayedSymptoms.clear();
+
+				for(Symptom s : symptoms) {
+
+					// The matching date matching works, use Log.d if you want to check
+					if (s.getTime().split("[+]")[0].equals(dateSelected)) {
+
+						// This should be working too
+						displayedSymptoms.add(s);
+					}
+				}
+
+				// This does not work
+				// The list does not update when the calendar is clicked on
+				PrefSingleton.getInstance().writePreference("listSymptom", displayedSymptoms);
 			}
 
 			@Override
 			public void onMonthScroll(Date firstDayOfNewMonth) {
+				// Resetting displayed symptom list to the full list when the month changes
+
 				getSupportActionBar().setTitle(dateFormat.format(firstDayOfNewMonth));
+				PrefSingleton.getInstance().writePreference("listSymptom", symptoms);
 			}
 		});
 
@@ -78,10 +106,14 @@ public class CalendarActivity extends AppCompatActivity {
 		viewPager.setAdapter(adapter);
 		tabLayout.setupWithViewPager(viewPager);
 
+		// Over here I reset the symptoms displayed to the full symptom list
+
 		FloatingActionButton floatingActionButton = findViewById(R.id.fab_action1);
 		floatingActionButton.setOnClickListener(new View.OnClickListener()      {
 			@Override
 			public void onClick(View v) {
+				PrefSingleton.getInstance().writePreference("listSymptom", symptoms);
+
 				Intent intent = new Intent(v.getContext(), SelectionActivity.class);
 				startActivity(intent);
 			}
@@ -99,6 +131,8 @@ public class CalendarActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View v) {
 				// Testing
+				PrefSingleton.getInstance().writePreference("listSymptom", symptoms);
+
 				Intent intent = new Intent(v.getContext(), ReminderActivity.class);
 				startActivity(intent);
 			}
@@ -109,6 +143,8 @@ public class CalendarActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View v) {
 				// Testing
+				PrefSingleton.getInstance().writePreference("listSymptom", symptoms);
+
 				Intent intent = new Intent(v.getContext(), MainActivity.class);
 				startActivity(intent);
 			}
