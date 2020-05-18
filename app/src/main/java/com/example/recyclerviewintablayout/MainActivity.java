@@ -17,6 +17,7 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private TabLayout tabLayout;
@@ -40,7 +41,11 @@ public class MainActivity extends AppCompatActivity {
         // Add Fragments
         // Can initialize without text in title with
         //adapter.AddFragment(new FragmentSymptom(), "");
-        adapter.AddFragment(new FragmentSymptom(), "Symptoms");
+
+        PrefSingleton.getInstance().Initialize(this);
+        List<Symptom> listSymptom = (ArrayList<Symptom>) PrefSingleton.getInstance().LoadPreferenceList("listSymptom",new TypeToken<ArrayList<Symptom>>() {}.getType());
+
+        adapter.AddFragment(new FragmentSymptom(listSymptom), "Symptoms");
         adapter.AddFragment(new FragmentBloodSugar(), "Blood Sugar");
         adapter.AddFragment(new FragmentExercise(), "Exercise");
 

@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class CalendarActivity extends AppCompatActivity {
@@ -27,6 +28,7 @@ public class CalendarActivity extends AppCompatActivity {
 	public static String dateSelected;
 	private ArrayList<Symptom> symptoms;
 	private ArrayList<Symptom> displayedSymptoms;
+	ViewPagerAdapter adapter;
 
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -52,7 +54,6 @@ public class CalendarActivity extends AppCompatActivity {
 
 		symptoms = (ArrayList) PrefSingleton.getInstance().LoadPreferenceList("listSymptom", new TypeToken<ArrayList<Symptom>>() {}.getType());
 		displayedSymptoms = new ArrayList<>();
-		displayedSymptoms.addAll(symptoms);
 
 		// Setting calendar events from symptom list
 
@@ -76,12 +77,23 @@ public class CalendarActivity extends AppCompatActivity {
 
 						// This should be working too
 						displayedSymptoms.add(s);
+
+						adapter.notifyDataSetChanged();
 					}
 				}
 
-				// This does not work
-				// The list does not update when the calendar is clicked on
-				PrefSingleton.getInstance().writePreference("listSymptom", displayedSymptoms);
+				Log.d("Displayed Symptoms", displayedSymptoms.toString());
+
+				// The goal is to allow the user to click on a calendar date, and view the symptom inputs they have for that specific date.
+				// Currently when the user clicks on a date, an extra fragment Symptom fragment is added. The new Symptom fragment recyclerview shows the correct inputs.
+				// However, I don't want to add an extra fragments, but I can't seem to remove the old fragments.
+				// This can probably also be done by directly updating the recyclerview in the fragment, but can't figure out how either.
+
+				adapter.ClearFragments();
+				adapter.AddFragment(new FragmentSymptom(displayedSymptoms), "Symptoms");
+				adapter.AddFragment(new FragmentBloodSugar(), "Blood Sugar");
+				adapter.AddFragment(new FragmentExercise(), "Exercise");
+				adapter.notifyDataSetChanged();
 			}
 
 			@Override
@@ -97,9 +109,12 @@ public class CalendarActivity extends AppCompatActivity {
 
 		TabLayout tabLayout = findViewById(R.id.calTabLayout);
 		ViewPager viewPager = findViewById(R.id.calViewPager);
-		ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+		adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-		adapter.AddFragment(new FragmentSymptom(), "Symptoms");
+		PrefSingleton.getInstance().Initialize(this);
+		List<Symptom> listSymptom = (ArrayList<Symptom>) PrefSingleton.getInstance().LoadPreferenceList("listSymptom",new TypeToken<ArrayList<Symptom>>() {}.getType());
+
+		adapter.AddFragment(new FragmentSymptom(displayedSymptoms), "Symptoms");
 		adapter.AddFragment(new FragmentBloodSugar(), "Blood Sugar");
 		adapter.AddFragment(new FragmentExercise(), "Exercise");
 

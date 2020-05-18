@@ -38,11 +38,21 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         return titleList.get(position);
     }
 
+    @Override
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
+    }
+
     public void AddFragment (Fragment fragment, String title) {
 
         fragmentList.add(fragment);
         titleList.add(title);
 
+    }
+
+    public void ClearFragments () {
+        fragmentList.clear();
+        titleList.clear();
     }
 
 }
