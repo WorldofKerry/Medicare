@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             app:fab_colorNormal="@color/colorButtonBlue"
             app:fab_colorPressed="@color/colorPrimaryDark"
-            app:fab_icon="@drawable/ic_tasks_icon_foreground"
+            app:fab_icon="@drawable/ic_group_57"
             app:fab_size="mini" />
 
 
@@ -57,7 +57,7 @@
             android:layout_height="wrap_content"
             app:fab_colorNormal="@color/colorButtonBlue"
             app:fab_colorPressed="@color/colorPrimaryDark"
-            app:fab_icon="@drawable/ic_calendar_icon_foreground"
+            app:fab_icon="@drawable/ic_group_108"
             app:fab_size="mini" />
 
 
@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             app:fab_colorNormal="@color/colorButtonBlue"
             app:fab_colorPressed="@color/colorPrimaryDark"
-            app:fab_icon="@drawable/ic_clock_icon_foreground"
+            app:fab_icon="@drawable/ic_group_48"
             app:fab_size="mini" />
 
 
@@ -77,7 +77,7 @@
             android:layout_height="wrap_content"
             app:fab_colorNormal="@color/colorButtonBlue"
             app:fab_colorPressed="@color/colorPrimaryDark"
-            app:fab_icon="@drawable/ic_home_icon_foreground"
+            app:fab_icon="@drawable/ic_group_58"
             app:fab_size="mini" />
 
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
