@@ -1,7 +1,6 @@
 package com.example.recyclerviewintablayout;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +9,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -98,7 +96,6 @@ public class SymptomRecyclerViewAdapter extends RecyclerView.Adapter<SymptomRecy
         String[] timeIntervals = time.split("[-+:]");
         if(timeIntervals.length <= 4) return "Invalid time format";
 
-        Log.d("Time Intervals", Arrays.toString(timeIntervals));
         String monthText = months[Integer.parseInt(timeIntervals[1]) - 1];
 
         int hour = Integer.parseInt(timeIntervals[3]);

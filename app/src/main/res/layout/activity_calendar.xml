@@ -13,10 +13,21 @@
         tools:context=".MainActivity"
         android:orientation="vertical">
 
-        <CalendarView
-            android:layout_width="match_parent"
-            android:layout_height="310dp"
-            android:id="@+id/calendar"/>
+        <com.github.sundeepk.compactcalendarview.CompactCalendarView
+            android:id="@+id/calendar"
+            android:layout_width="fill_parent"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:layout_height="250dp"
+            app:compactCalendarTargetHeight="250dp"
+            app:compactCalendarTextSize="12sp"
+            app:compactCalendarBackgroundColor="#FFFFFF"
+            app:compactCalendarTextColor="#000000"
+            app:compactCalendarCurrentSelectedDayBackgroundColor="#DDDDDD"
+            app:compactCalendarCurrentDayBackgroundColor="#C7DBE6"
+            app:compactCalendarEventIndicatorStyle="small_indicator"
+            app:compactCalendarMultiEventIndicatorColor="#FF0000"
+        />
 
         <com.google.android.material.tabs.TabLayout
             android:layout_width="match_parent"

@@ -35,8 +35,10 @@ public class FragmentSymptom extends Fragment implements SymptomRecyclerViewAdap
     View view;
     private RecyclerView myRecyclerView;
     private List<Symptom> listSymptom;
+    SymptomRecyclerViewAdapter recyclerViewAdapter;
 
-    public FragmentSymptom() {
+    public FragmentSymptom(List<Symptom> ListSymptom) {
+        listSymptom = ListSymptom;
     }
 
     @Nullable
@@ -44,19 +46,14 @@ public class FragmentSymptom extends Fragment implements SymptomRecyclerViewAdap
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.symptom_fragment,container,false);
         myRecyclerView = (RecyclerView) view.findViewById(R.id.symptom_recyclerview);
-        SymptomRecyclerViewAdapter recyclerViewAdapter = new SymptomRecyclerViewAdapter(getContext(), listSymptom, this);
+        recyclerViewAdapter = new SymptomRecyclerViewAdapter(getContext(), listSymptom, this);
         myRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         myRecyclerView.setAdapter(recyclerViewAdapter);
-
         return view;    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        PrefSingleton.getInstance().Initialize(getContext());
-
-        listSymptom = (ArrayList<Symptom>) PrefSingleton.getInstance().LoadPreferenceList("listSymptom",new TypeToken<ArrayList<Symptom>>() {}.getType());
 
         /*
         listSymptom = new ArrayList<>();

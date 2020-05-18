@@ -12,7 +12,7 @@
         <activity android:name=".AddSymptomActivity" />
         <activity android:name=".SymptomsActivity" />
         <activity android:name=".SelectionActivity" />
-        <activity android:name=".MainReminderActivity" />
+        <activity android:name=".ReminderActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,6 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".CalendarActivity" />
+        <activity android:name=".ReminderPopup" />
         <activity android:name=".AddBloodSugarActivity" />
         <activity android:name=".AddExcerciseActivity" />
     </application>

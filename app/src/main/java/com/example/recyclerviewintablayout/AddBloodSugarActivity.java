@@ -124,7 +124,7 @@ public class AddBloodSugarActivity extends AppCompatActivity {
 
                     PrefSingleton.getInstance().writePreference("listBloodSugar", listBloodSugar);
 
-                    Intent intent = new Intent(v.getContext(), MainActivity.class);
+                    Intent intent = new Intent(v.getContext(), SelectionActivity.lastActivity);
                     startActivity(intent);
                 }
             });
@@ -174,7 +174,7 @@ public class AddBloodSugarActivity extends AppCompatActivity {
 
                     PrefSingleton.getInstance().writePreference("listBloodSugar", listBloodSugar);
 
-                    Intent intent = new Intent(v.getContext(), MainActivity.class);
+                    Intent intent = new Intent(v.getContext(), SelectionActivity.lastActivity);
                     startActivity(intent);
                 }
             });
@@ -186,7 +186,7 @@ public class AddBloodSugarActivity extends AppCompatActivity {
 
                     PrefSingleton.getInstance().writePreference("listBloodSugar", listBloodSugar);
 
-                    Intent intent = new Intent(v.getContext(), MainActivity.class);
+                    Intent intent = new Intent(v.getContext(), SelectionActivity.lastActivity);
                     startActivity(intent);
                 }
             });

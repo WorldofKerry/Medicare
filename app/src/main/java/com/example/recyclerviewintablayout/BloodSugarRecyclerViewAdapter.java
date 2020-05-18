@@ -104,7 +104,6 @@ public class BloodSugarRecyclerViewAdapter extends RecyclerView.Adapter<BloodSug
         String[] timeIntervals = time.split("[-+:]");
         if(timeIntervals.length <= 4) return "Invalid time format";
 
-        Log.d("Time Intervals", Arrays.toString(timeIntervals));
         String monthText = months[Integer.parseInt(timeIntervals[1]) - 1];
 
         int hour = Integer.parseInt(timeIntervals[3]);

@@ -163,7 +163,7 @@ public class AddSymptomActivity extends AppCompatActivity {
 
                         PrefSingleton.getInstance().writePreference("listSymptom", listSymptom);
 
-                        Intent intent = new Intent(v.getContext(), MainActivity.class);
+                        Intent intent = new Intent(v.getContext(), SelectionActivity.lastActivity);
                         startActivity(intent);
                     }
                 });
@@ -193,7 +193,7 @@ public class AddSymptomActivity extends AppCompatActivity {
 
                         PrefSingleton.getInstance().writePreference("listSymptom", listSymptom);
 
-                        Intent intent = new Intent(v.getContext(), MainActivity.class);
+                        Intent intent = new Intent(v.getContext(), SelectionActivity.lastActivity);
                         startActivity(intent);
                     }
                 });
@@ -204,7 +204,7 @@ public class AddSymptomActivity extends AppCompatActivity {
 
                         PrefSingleton.getInstance().writePreference("listSymptom", listSymptom);
 
-                        Intent intent = new Intent(v.getContext(), MainActivity.class);
+                        Intent intent = new Intent(v.getContext(), SelectionActivity.lastActivity);
                         startActivity(intent);
                     }
                 });
