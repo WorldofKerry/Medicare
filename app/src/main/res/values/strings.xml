@@ -27,17 +27,18 @@
     <string name="calories">%s calories</string>
     <string name="mgdl">%s mg/dl</string>
     <string-array name="Location">
-        <item>back of head/neck</item>
-        <item>top of head</item>
         <item>forehead</item>
-        <item>behind both eyes</item>
-        <item>behind one eye</item>
+        <item>back of the head</item>
         <item>temples</item>
+        <item>eyes</item>
         <item>behind the ear</item>
-        <item>on one side of the head</item>
-        <item>not sure/everywhere</item>
+        <item>chest</item>
+        <item>abdomen</item>
+        <item>everywhere</item>
+        <item>other</item>
     </string-array>
     <string-array name="Type">
+        <item>none</item>
         <item>sharp</item>
         <item>dull</item>
         <item>pulsing</item>

@@ -147,7 +147,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="I failed physics. "
         android:inputType="textMultiLine"
         android:gravity="top"
         style="@style/addSymptomText"
