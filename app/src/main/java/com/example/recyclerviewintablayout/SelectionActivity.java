@@ -34,7 +34,7 @@ public class SelectionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), AddBloodSugarActivity.class);
-                BloodSugar bloodSugar = new BloodSugar(null,null,null,false);
+                BloodSugar bloodSugar = new BloodSugar("0",null,null,false);
                 intent.putExtra("BloodSugar", (Parcelable) bloodSugar);
                 intent.putExtra("Type","Add");
                 startActivity(intent);
@@ -46,7 +46,7 @@ public class SelectionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), AddExcerciseActivity.class);
-                Excercise excercise = new Excercise(null,null,null,null,null);
+                Excercise excercise = new Excercise(null,"0",null,null,null);
                 intent.putExtra("Excercise", (Parcelable) excercise);
                 intent.putExtra("Type", "Add");
                 startActivity(intent);

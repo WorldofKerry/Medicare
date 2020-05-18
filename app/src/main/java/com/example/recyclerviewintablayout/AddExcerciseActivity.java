@@ -16,6 +16,7 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,8 +35,8 @@ public class AddExcerciseActivity extends AppCompatActivity {
     String type;
     String level;
     String notes;
-    Button dateButton, timeButtonStart,timeButtonEnd;
-    private String dateSelected = "", timeSelectedStart = "", timeSelectedEnd="";
+    Button dateButton, timeButtonStart, timeButtonEnd;
+    private String dateSelected = "", timeSelectedStart = "", timeSelectedEnd = "";
     private String[] arrayTypeOfWorkout;
     private int positionType = 0;
     private int positionWarmUp = 0;
@@ -119,132 +120,187 @@ public class AddExcerciseActivity extends AppCompatActivity {
         Bundle bundle = intent.getExtras();
         //excercise = new Excercise(null,null,null,null,null);
 
-       if (bundle!=null) {
-           excercise = bundle.getParcelable("Excercise");
-           position = bundle.getInt("Position", -1);
-           type = bundle.getString("Type", null);
-       }
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setTitle("Excercise Tracker");
+        if (bundle != null) {
+            excercise = bundle.getParcelable("Excercise");
+            position = bundle.getInt("Position", -1);
+            type = bundle.getString("Type", null);
+        }
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Excercise Tracker");
 
-            Button buttonAddExcercise = findViewById(R.id.buttonAddExcercise);
-            Button buttonRemoveExcercise = findViewById(R.id.buttonRemoveExcercise);
+        Button buttonAddExcercise = findViewById(R.id.buttonAddExcercise);
+        Button buttonRemoveExcercise = findViewById(R.id.buttonRemoveExcercise);
 
-            final EditText editTextCalories = (EditText) findViewById(R.id.editTextExcerciseCaloriesBurned);
-            editTextCalories.setText(excercise.getCalories(), TextView.BufferType.EDITABLE);
-            //temporary ^^
+        final EditText editTextCalories = (EditText) findViewById(R.id.editTextExcerciseCaloriesBurned);
+        editTextCalories.setText(excercise.getCalories(), TextView.BufferType.EDITABLE);
+        //temporary ^^
 
-            listExcercise = (ArrayList<Excercise>) PrefSingleton.getInstance().LoadPreferenceList("listExcercise",new TypeToken<ArrayList<Excercise>>() {}.getType());
+        listExcercise = (ArrayList<Excercise>) PrefSingleton.getInstance().LoadPreferenceList("listExcercise", new TypeToken<ArrayList<Excercise>>() {
+        }.getType());
 
-            if (type.equals("Add")) {
-                buttonRemoveExcercise.setEnabled(false);
-                buttonAddExcercise.setOnClickListener(new View.OnClickListener()      {
-                    @Override
-                    public void onClick(View v) {
+        if (type.equals("Add")) {
+            buttonRemoveExcercise.setEnabled(false);
+            buttonAddExcercise.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                        PrefSingleton.getInstance().Initialize(getApplicationContext());
+                    PrefSingleton.getInstance().Initialize(getApplicationContext());
 
-                        excercise.setType(Integer.toString(positionType));
-                        excercise.setTime(dateSelected + "+" + timeSelectedStart);
-                        excercise.setCalories(editTextCalories.getText().toString());
-                        excercise.setWarmUp(Integer.toString(positionWarmUp));
-                        int tempStartHours = Integer.parseInt(timeSelectedStart.split("[:]")[0]);
-                        int tempStartMinutes = Integer.parseInt(timeSelectedStart.split("[:]")[1]);
-                        boolean mustSubtractFrom1200 = false;
-                        if (tempStartHours >= 12) {
-                            tempStartHours -= 12;
-                            mustSubtractFrom1200 = true;
+                    excercise.setType(Integer.toString(positionType));
+                    excercise.setTime(dateSelected + "+" + timeSelectedStart);
+                    excercise.setCalories(editTextCalories.getText().toString());
+                    excercise.setWarmUp(Integer.toString(positionWarmUp));
+                    int tempStartHours = Integer.parseInt(timeSelectedStart.split("[:]")[0]);
+                    int tempStartMinutes = Integer.parseInt(timeSelectedStart.split("[:]")[1]);
+                    boolean mustSubtractFrom1200 = false;
+                    if (tempStartHours >= 12) {
+                        tempStartHours -= 12;
+                        mustSubtractFrom1200 = true;
+                    }
+                    int tempStartDurationCalculation = tempStartHours * 100 + tempStartMinutes;
+                    int tempEndHours = Integer.parseInt(timeSelectedEnd.split("[:]")[0]);
+                    int tempEndMinutes = Integer.parseInt(timeSelectedEnd.split("[:]")[1]);
+                    if (tempEndHours >= 12) {
+                        tempEndHours -= 12;
+                        mustSubtractFrom1200 = !mustSubtractFrom1200;
+                    }
+                    int tempEndDurationCalculation = tempEndHours * 100 + tempEndMinutes;
+                    if (mustSubtractFrom1200) {
+                        excercise.setDuration(Integer.toString(((1200 - Math.abs(tempStartDurationCalculation - tempEndDurationCalculation)) * 3) / 5));
+                    } else {
+                        excercise.setDuration(Integer.toString(((Math.abs(tempStartDurationCalculation - tempEndDurationCalculation)) * 3) / 5));
+                    }
+                    //listExcercise.add(excercise);
+
+                    int tempMinuteValue, thisMinuteValue;
+                    boolean changeFailure = true;
+                    String[] tempTimeIntervals;
+                    Calendar tempCal = Calendar.getInstance();
+                    tempTimeIntervals = excercise.getTime().split("[-+:]");
+                    thisMinuteValue = (tempCal.get(Calendar.YEAR) - Integer.parseInt(tempTimeIntervals[0])) * 525600 + (tempCal.get(Calendar.MONTH) + 1 - Integer.parseInt(tempTimeIntervals[1])) * 43800 + (tempCal.get(Calendar.DAY_OF_MONTH) - Integer.parseInt(tempTimeIntervals[2])) * 1440 + (tempCal.get(Calendar.HOUR_OF_DAY) - Integer.parseInt(tempTimeIntervals[3])) * 60 + (tempCal.get(Calendar.MINUTE) - Integer.parseInt(tempTimeIntervals[4]));
+                    //listExcercise.remove(position);
+                    if (listExcercise.size() > 0) {
+                        for (Excercise tempExcercise : listExcercise) {
+                            tempTimeIntervals = tempExcercise.getTime().split("[-+:]");
+                            tempMinuteValue = (tempCal.get(Calendar.YEAR) - Integer.parseInt(tempTimeIntervals[0])) * 525600 + (tempCal.get(Calendar.MONTH) + 1 - Integer.parseInt(tempTimeIntervals[1])) * 43800 + (tempCal.get(Calendar.DAY_OF_MONTH) - Integer.parseInt(tempTimeIntervals[2])) * 1440 + (tempCal.get(Calendar.HOUR_OF_DAY) - Integer.parseInt(tempTimeIntervals[3])) * 60 + (tempCal.get(Calendar.MINUTE) - Integer.parseInt(tempTimeIntervals[4]));
+                            if (thisMinuteValue > tempMinuteValue) {
+                                listExcercise.add(listExcercise.indexOf(tempExcercise), excercise);
+                                changeFailure = false;
+                                break;
+                            } else if (thisMinuteValue == tempMinuteValue) {
+                                showToast("Could not edit: Two entries cannot have the exact same time.");
+                                changeFailure = false;
+                                break;
+                            }
                         }
-                        int tempStartDurationCalculation = tempStartHours * 100 + tempStartMinutes;
-                        int tempEndHours = Integer.parseInt(timeSelectedEnd.split("[:]")[0]);
-                        int tempEndMinutes = Integer.parseInt(timeSelectedEnd.split("[:]")[1]);
-                        if (tempEndHours >= 12) {
-                            tempEndHours -= 12;
-                            mustSubtractFrom1200 = !mustSubtractFrom1200;
-                        }
-                        int tempEndDurationCalculation = tempEndHours * 100 + tempEndMinutes;
-                        if (mustSubtractFrom1200) {
-                            excercise.setDuration(Integer.toString(((1200 - Math.abs(tempStartDurationCalculation - tempEndDurationCalculation)) * 3) / 5));
-                        } else {
-                            excercise.setDuration(Integer.toString(((Math.abs(tempStartDurationCalculation - tempEndDurationCalculation)) * 3) / 5));
-                        }
+                    } else {
                         listExcercise.add(excercise);
-
-                        PrefSingleton.getInstance().writePreference("listExcercise", listExcercise);
-
-                        Intent intent = new Intent(v.getContext(), SelectionActivity.lastActivity);
-                        startActivity(intent);
+                        changeFailure = false;
                     }
-                });
-            } else if (type.equals("Edit")) {
-                spinnerTypeOfWorkout.setSelection(Integer.parseInt(excercise.getType()));
-                spinnerTypeOfWarmup.setSelection(Integer.parseInt(excercise.getWarmUp()));
-
-                buttonAddExcercise.setText(R.string.confirmEdit);
-                buttonAddExcercise.setOnClickListener(new View.OnClickListener()      {
-                    @Override
-                    public void onClick(View v) {
-                        PrefSingleton.getInstance().Initialize(getApplicationContext());
-
-                        excercise.setType(Integer.toString(positionType));
-                        excercise.setTime(dateSelected + "+" + timeSelectedStart);
-                        excercise.setCalories(editTextCalories.getText().toString());
-                        excercise.setWarmUp(Integer.toString(positionWarmUp));
-                        int tempStartHours = Integer.parseInt(timeSelectedStart.split("[:]")[0]);
-                        int tempStartMinutes = Integer.parseInt(timeSelectedStart.split("[:]")[1]);
-                        boolean mustSubtractFrom1200 = false;
-                        if (tempStartHours >= 12) {
-                            tempStartHours -= 12;
-                            mustSubtractFrom1200 = true;
-                        }
-                        int tempStartDurationCalculation = tempStartHours * 100 + tempStartMinutes;
-                        int tempEndHours = Integer.parseInt(timeSelectedEnd.split("[:]")[0]);
-                        int tempEndMinutes = Integer.parseInt(timeSelectedEnd.split("[:]")[1]);
-                        if (tempEndHours >= 12) {
-                            tempEndHours -= 12;
-                            mustSubtractFrom1200 = !mustSubtractFrom1200;
-                        }
-                        int tempEndDurationCalculation = tempEndHours * 100 + tempEndMinutes;
-                        if (mustSubtractFrom1200) {
-                            excercise.setDuration(Integer.toString(((1200 - Math.abs(tempStartDurationCalculation - tempEndDurationCalculation)) * 3) / 5));
-                        } else {
-                            excercise.setDuration(Integer.toString(((Math.abs(tempStartDurationCalculation - tempEndDurationCalculation)) * 3) / 5));
-                        }
-
-                        listExcercise.set(position, excercise);
-
-                        PrefSingleton.getInstance().writePreference("listExcercise", listExcercise);
-
-                        Intent intent = new Intent(v.getContext(), SelectionActivity.lastActivity);
-                        startActivity(intent);
+                    if (changeFailure) {
+                        listExcercise.add(excercise);
                     }
-                });
-                buttonRemoveExcercise.setOnClickListener(new View.OnClickListener()      {
-                    @Override
-                    public void onClick(View v) {
-                        listExcercise.remove(position);
 
-                        PrefSingleton.getInstance().writePreference("listExcercise", listExcercise);
 
-                        Intent intent = new Intent(v.getContext(), SelectionActivity.lastActivity);
-                        startActivity(intent);
+                    PrefSingleton.getInstance().writePreference("listExcercise", listExcercise);
+
+                    Intent intent = new Intent(v.getContext(), SelectionActivity.lastActivity);
+                    startActivity(intent);
+                }
+            });
+        } else if (type.equals("Edit")) {
+            spinnerTypeOfWorkout.setSelection(Integer.parseInt(excercise.getType()));
+            spinnerTypeOfWarmup.setSelection(Integer.parseInt(excercise.getWarmUp()));
+
+            buttonAddExcercise.setText(R.string.confirmEdit);
+            buttonAddExcercise.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    PrefSingleton.getInstance().Initialize(getApplicationContext());
+
+                    excercise.setType(Integer.toString(positionType));
+                    excercise.setTime(dateSelected + "+" + timeSelectedStart);
+                    excercise.setCalories(editTextCalories.getText().toString());
+                    excercise.setWarmUp(Integer.toString(positionWarmUp));
+                    int tempStartHours = Integer.parseInt(timeSelectedStart.split("[:]")[0]);
+                    int tempStartMinutes = Integer.parseInt(timeSelectedStart.split("[:]")[1]);
+                    boolean mustSubtractFrom1200 = false;
+                    if (tempStartHours >= 12) {
+                        tempStartHours -= 12;
+                        mustSubtractFrom1200 = true;
                     }
-                });
-            }
+                    int tempStartDurationCalculation = tempStartHours * 100 + tempStartMinutes;
+                    int tempEndHours = Integer.parseInt(timeSelectedEnd.split("[:]")[0]);
+                    int tempEndMinutes = Integer.parseInt(timeSelectedEnd.split("[:]")[1]);
+                    if (tempEndHours >= 12) {
+                        tempEndHours -= 12;
+                        mustSubtractFrom1200 = !mustSubtractFrom1200;
+                    }
+                    int tempEndDurationCalculation = tempEndHours * 100 + tempEndMinutes;
+                    if (mustSubtractFrom1200) {
+                        excercise.setDuration(Integer.toString(((1200 - Math.abs(tempStartDurationCalculation - tempEndDurationCalculation)) * 3) / 5));
+                    } else {
+                        excercise.setDuration(Integer.toString(((Math.abs(tempStartDurationCalculation - tempEndDurationCalculation)) * 3) / 5));
+                    }
 
+                    //listExcercise.set(position, excercise);
+                    int tempMinuteValue, thisMinuteValue;
+                    boolean changeFailure = true;
+                    String[] tempTimeIntervals;
+                    Excercise tempBackupExcercise = listExcercise.get(position);
+                    Calendar tempCal = Calendar.getInstance();
+                    tempTimeIntervals = excercise.getTime().split("[-+:]");
+                    thisMinuteValue = (tempCal.get(Calendar.YEAR) - Integer.parseInt(tempTimeIntervals[0])) * 525600 + (tempCal.get(Calendar.MONTH) + 1 - Integer.parseInt(tempTimeIntervals[1])) * 43800 + (tempCal.get(Calendar.DAY_OF_MONTH) - Integer.parseInt(tempTimeIntervals[2])) * 1440 + (tempCal.get(Calendar.HOUR_OF_DAY) - Integer.parseInt(tempTimeIntervals[3])) * 60 + (tempCal.get(Calendar.MINUTE) - Integer.parseInt(tempTimeIntervals[4]));
+                    listExcercise.remove(position);
+                    if (listExcercise.size() > 0) {
+                        for (Excercise tempExcercise : listExcercise) {
+                            tempTimeIntervals = tempExcercise.getTime().split("[-+:]");
+                            tempMinuteValue = (tempCal.get(Calendar.YEAR) - Integer.parseInt(tempTimeIntervals[0])) * 525600 + (tempCal.get(Calendar.MONTH) + 1 - Integer.parseInt(tempTimeIntervals[1])) * 43800 + (tempCal.get(Calendar.DAY_OF_MONTH) - Integer.parseInt(tempTimeIntervals[2])) * 1440 + (tempCal.get(Calendar.HOUR_OF_DAY) - Integer.parseInt(tempTimeIntervals[3])) * 60 + (tempCal.get(Calendar.MINUTE) - Integer.parseInt(tempTimeIntervals[4]));
+                            if (thisMinuteValue > tempMinuteValue) {
+                                listExcercise.add(listExcercise.indexOf(tempExcercise), excercise);
+                                changeFailure = false;
+                                break;
+                            } else if (thisMinuteValue == tempMinuteValue) {
+                                showToast("Could not edit: Two entries cannot have the exact same time.");
+                                listExcercise.add(position, tempBackupExcercise);
+                                changeFailure = false;
+                                break;
+                            }
+                        }
+                    } else {
+                        listExcercise.add(excercise);
+                        changeFailure = false;
+                    }
+                    if (changeFailure) {
+                        listExcercise.add(excercise);
+                    }
 
+                    PrefSingleton.getInstance().writePreference("listExcercise", listExcercise);
 
+                    Intent intent = new Intent(v.getContext(), SelectionActivity.lastActivity);
+                    startActivity(intent);
+                }
+            });
+            buttonRemoveExcercise.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listExcercise.remove(position);
 
+                    PrefSingleton.getInstance().writePreference("listExcercise", listExcercise);
+
+                    Intent intent = new Intent(v.getContext(), SelectionActivity.lastActivity);
+                    startActivity(intent);
+                }
+            });
         }
 
 
-
-
+    }
 
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
                 return true;
@@ -300,13 +356,18 @@ public class AddExcerciseActivity extends AppCompatActivity {
         } else {
             timeSelectedEnd = hour + ":" + String.format(Locale.CANADA, "%02d", minute);
         }
-        if(hour == 0) hour = 24;
+        if (hour == 0) hour = 24;
         boolean isPM = (hour > 12);
-        if(isPM) hour -= 12;
+        if (isPM) hour -= 12;
 
-        String displayTime = hour + ":" + String.format(Locale.CANADA,"%02d", minute);
+        String displayTime = hour + ":" + String.format(Locale.CANADA, "%02d", minute);
         displayTime += isPM ? " PM" : " AM";
 
         timeButton.setText(displayTime);
     }
+
+    public void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
 }
