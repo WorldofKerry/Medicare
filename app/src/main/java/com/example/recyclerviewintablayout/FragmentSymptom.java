@@ -57,14 +57,6 @@ public class FragmentSymptom extends Fragment implements SymptomRecyclerViewAdap
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        /*
-        listSymptom = new ArrayList<>();
-        listSymptom.add(new Symptom("Bobby", "Johnny", "Chinatown", "Brazil"));
-        listSymptom.add(new Symptom("Symptom Name", "Location", "Level", "Time"));
-        listSymptom.add(new Symptom("Headache", "Head (lmao)", "11", "11:45pm"));
-        listSymptom.add(new Symptom("Bobby", "Johnny", "Chinatown", "Brazil"));
-        */
     }
 
     @Override

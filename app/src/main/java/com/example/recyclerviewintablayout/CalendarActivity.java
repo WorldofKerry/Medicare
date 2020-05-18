@@ -113,11 +113,12 @@ public class CalendarActivity extends AppCompatActivity {
 		adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
 		for(Symptom s : symptoms) {
-			if (s.getTime().split("[+]")[0].equals(dateSelected)) {
+			if (s.getTime().substring(0, 7).equals(dateSelected.substring(0, 7))) {
 				displayedSymptoms.add(s);
 				adapter.notifyDataSetChanged();
 			}
 		}
+
 		PrefSingleton.getInstance().Initialize(this);
 
 		adapter.AddFragment(new FragmentSymptom(displayedSymptoms), "Symptoms");

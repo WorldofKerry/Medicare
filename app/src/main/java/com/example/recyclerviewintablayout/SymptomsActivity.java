@@ -48,7 +48,7 @@ public class SymptomsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), AddSymptomActivity.class);
-                Symptom symptom = new Symptom("Feelings of Exhaustion And Weakness", null, null, null, null, null);
+                Symptom symptom = new Symptom("Exhaustion/Weakness", null, null, null, null, null);
                 intent.putExtra("Symptom", (Parcelable) symptom);
                 intent.putExtra("Type", "Add");
                 startActivity(intent);
