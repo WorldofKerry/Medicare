@@ -2,45 +2,37 @@ package com.example.recyclerviewintablayout;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.CalendarView;
-import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.tabs.TabLayout;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-public class CalendarActivity extends AppCompatActivity {
-    private CalendarView calendar;
-    public static String dateSelected;
+import java.util.ArrayList;
+import java.util.List;
 
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
-    private ViewPagerAdapter adapter;
+public class ReminderActivity extends AppCompatActivity {
+
+    RecyclerView myRecyclerView;
+    private List<Reminder> listReminder = new ArrayList<>();
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calendar);
+        setContentView(R.layout.activity_reminder);
 
-        calendar = findViewById(R.id.calendar);
+        myRecyclerView = (RecyclerView) findViewById(R.id.reminder_recyclerview);
+        ReminderRecyclerViewAdapter recyclerViewAdapter = new ReminderRecyclerViewAdapter(this, listReminder);
+        myRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        myRecyclerView.setAdapter(recyclerViewAdapter);
 
-        tabLayout = findViewById(R.id.calTabLayout);
-        viewPager = findViewById(R.id.calViewPager);
-        adapter = new ViewPagerAdapter(getSupportFragmentManager());
-
-        adapter.AddFragment(new FragmentSymptom(), "Symptoms");
-        adapter.AddFragment(new FragmentBloodSugar(), "Blood Sugar");
-        adapter.AddFragment(new FragmentExercise(), "Exercise");
-
-        viewPager.setAdapter(adapter);
-        tabLayout.setupWithViewPager(viewPager);
-
-        dateSelected = "";
+        listReminder.add(new Reminder("392", "yes","??","456454"));
+        listReminder.add(new Reminder("392", "yes","??","456454"));
+        listReminder.add(new Reminder("392", "yes","??","456454"));
+        listReminder.add(new Reminder("392", "yes","??","456454"));
+        listReminder.add(new Reminder("392", "yes","??","456454"));
 
         FloatingActionButton floatingActionButton = findViewById(R.id.fab_action1);
         floatingActionButton.setOnClickListener(new View.OnClickListener()      {
@@ -55,8 +47,7 @@ public class CalendarActivity extends AppCompatActivity {
         floatingActionButton2.setOnClickListener(new View.OnClickListener()      {
             @Override
             public void onClick(View v) {
-                // Testing
-                Intent intent = new Intent(CalendarActivity.this, MainActivity.class);
+                Intent intent = new Intent(v.getContext(), CalendarActivity.class);
                 startActivity(intent);
             }
         });
@@ -81,16 +72,5 @@ public class CalendarActivity extends AppCompatActivity {
             }
         });
 
-        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                dateSelected = year + "-" + (month + 1) + "-" + dayOfMonth;
-                Log.d("Date Selected", dateSelected);
-            }
-        });
-    }
-
-    public void showToast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

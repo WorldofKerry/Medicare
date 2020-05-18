@@ -1,22 +1,16 @@
 package com.example.recyclerviewintablayout;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.CalendarView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
@@ -104,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Testing
-                Intent intent = new Intent(v.getContext(), MainReminderActivity.class);
+                Intent intent = new Intent(v.getContext(), ReminderActivity.class);
                 startActivity(intent);
             }
         });
