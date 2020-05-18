@@ -76,6 +76,9 @@ public class MainActivity extends AppCompatActivity {
                     case 0:
                         graph.removeAllSeries();
                         graph.setTitle("");
+                        graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
+                        graph.getGridLabelRenderer().setVerticalLabelsVisible(false);
+                        graph.getGridLabelRenderer().setVerticalAxisTitle("");
                         //graph.setVisibility(View.GONE);
                         break;
                     case 1:
