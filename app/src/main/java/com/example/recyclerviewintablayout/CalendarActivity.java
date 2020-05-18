@@ -71,29 +71,13 @@ public class CalendarActivity extends AppCompatActivity {
 				displayedSymptoms.clear();
 
 				for(Symptom s : symptoms) {
-
-					// The matching date matching works, use Log.d if you want to check
 					if (s.getTime().split("[+]")[0].equals(dateSelected)) {
-
-						// This should be working too
 						displayedSymptoms.add(s);
-
 						adapter.notifyDataSetChanged();
 					}
 				}
 
-				Log.d("Displayed Symptoms", displayedSymptoms.toString());
-
-				// The goal is to allow the user to click on a calendar date, and view the symptom inputs they have for that specific date.
-				// Currently when the user clicks on a date, an extra fragment Symptom fragment is added. The new Symptom fragment recyclerview shows the correct inputs.
-				// However, I don't want to add an extra fragments, but I can't seem to remove the old fragments.
-				// This can probably also be done by directly updating the recyclerview in the fragment, but can't figure out how either.
-
-				adapter.ClearFragments();
-				adapter.AddFragment(new FragmentSymptom(displayedSymptoms), "Symptoms");
-				adapter.AddFragment(new FragmentBloodSugar(), "Blood Sugar");
-				adapter.AddFragment(new FragmentExercise(), "Exercise");
-				adapter.notifyDataSetChanged();
+				setDisplayedSymptoms();
 			}
 
 			@Override
@@ -101,7 +85,18 @@ public class CalendarActivity extends AppCompatActivity {
 				// Resetting displayed symptom list to the full list when the month changes
 
 				getSupportActionBar().setTitle(dateFormat.format(firstDayOfNewMonth));
-				PrefSingleton.getInstance().writePreference("listSymptom", symptoms);
+
+				// This is an inefficient copy-paste
+				// but it's the only way I can make the function work
+
+				displayedSymptoms.clear();
+
+				for(Symptom s : symptoms) {
+					displayedSymptoms.add(s);
+					adapter.notifyDataSetChanged();
+				}
+
+				setDisplayedSymptoms();
 			}
 		});
 
@@ -111,8 +106,12 @@ public class CalendarActivity extends AppCompatActivity {
 		ViewPager viewPager = findViewById(R.id.calViewPager);
 		adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
+		for(Symptom s : symptoms) {
+			displayedSymptoms.add(s);
+			adapter.notifyDataSetChanged();
+		}
+
 		PrefSingleton.getInstance().Initialize(this);
-		List<Symptom> listSymptom = (ArrayList<Symptom>) PrefSingleton.getInstance().LoadPreferenceList("listSymptom",new TypeToken<ArrayList<Symptom>>() {}.getType());
 
 		adapter.AddFragment(new FragmentSymptom(displayedSymptoms), "Symptoms");
 		adapter.AddFragment(new FragmentBloodSugar(), "Blood Sugar");
@@ -166,6 +165,19 @@ public class CalendarActivity extends AppCompatActivity {
 		});
 	}
 
+	private void setDisplayedSymptoms() {
+		// The goal is to allow the user to click on a calendar date, and view the symptom inputs they have for that specific date.
+		// Currently when the user clicks on a date, an extra fragment Symptom fragment is added. The new Symptom fragment recyclerview shows the correct inputs.
+		// However, I don't want to add an extra fragments, but I can't seem to remove the old fragments.
+		// This can probably also be done by directly updating the recyclerview in the fragment, but can't figure out how either.
+
+		adapter.ClearFragments();
+		adapter.AddFragment(new FragmentSymptom(displayedSymptoms), "Symptoms");
+		adapter.AddFragment(new FragmentBloodSugar(), "Blood Sugar");
+		adapter.AddFragment(new FragmentExercise(), "Exercise");
+		adapter.notifyDataSetChanged();
+	}
+
 	private void setDateText(int year, int month, int dayOfMonth) {
 		dateSelected = year + "-" + (month + 1) + "-" + dayOfMonth;
 	}
@@ -177,7 +189,6 @@ public class CalendarActivity extends AppCompatActivity {
 			Calendar c = Calendar.getInstance();
 			c.set(Integer.parseInt(date[0]), Integer.parseInt(date[1]) - 1, Integer.parseInt(date[2]), Integer.parseInt(date[3]), Integer.parseInt(date[4]));
 
-			Log.d("Epoch Time", "" + c.getTimeInMillis());
 			Event event = new Event(Color.RED, c.getTimeInMillis());
 
 			calendar.addEvent(event);

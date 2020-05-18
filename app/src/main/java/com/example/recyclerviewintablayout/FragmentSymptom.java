@@ -74,5 +74,4 @@ public class FragmentSymptom extends Fragment implements SymptomRecyclerViewAdap
         intent.putExtra("Type", "Edit");
         startActivity(intent);
     }
-
 }
