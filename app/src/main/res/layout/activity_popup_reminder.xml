@@ -12,6 +12,7 @@
         android:layout_height="400dp"
         android:src="@drawable/ic_group_117"
         android:foregroundGravity="center_horizontal"
+        app:layout_constraintTop_toTopOf="@id/constraint_layout1"
         android:scaleX="0.8"
         android:scaleY="0.8"
         android:id="@+id/image1"/>
