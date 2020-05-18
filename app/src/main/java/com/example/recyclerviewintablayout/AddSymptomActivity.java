@@ -20,6 +20,7 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.google.gson.reflect.TypeToken;
 
@@ -159,7 +160,34 @@ public class AddSymptomActivity extends AppCompatActivity {
                         symptom.setTime(dateSelected + "+" + timeSelected);
                         symptom.setNotes(((EditText) findViewById(R.id.editTextSymptomNotes)).getText().toString());
 
-                        listSymptom.add(symptom);
+                        int tempMinuteValue, thisMinuteValue;
+                        boolean changeFailure = true;
+                        String[] tempTimeIntervals;
+                        Calendar tempCal = Calendar.getInstance();
+                        tempTimeIntervals = symptom.getTime().split("[-+:]");
+                        thisMinuteValue = (tempCal.get(Calendar.YEAR) - Integer.parseInt(tempTimeIntervals[0])) * 525600 + (tempCal.get(Calendar.MONTH) + 1 - Integer.parseInt(tempTimeIntervals[1])) * 43800 + (tempCal.get(Calendar.DAY_OF_MONTH) - Integer.parseInt(tempTimeIntervals[2])) * 1440 + (tempCal.get(Calendar.HOUR_OF_DAY) - Integer.parseInt(tempTimeIntervals[3])) * 60 + (tempCal.get(Calendar.MINUTE) - Integer.parseInt(tempTimeIntervals[4]));
+                        //listExcercise.remove(position);
+                        if (listSymptom.size() > 0) {
+                            for (Symptom tempSymptom : listSymptom) {
+                                tempTimeIntervals = tempSymptom.getTime().split("[-+:]");
+                                tempMinuteValue = (tempCal.get(Calendar.YEAR) - Integer.parseInt(tempTimeIntervals[0])) * 525600 + (tempCal.get(Calendar.MONTH) + 1 - Integer.parseInt(tempTimeIntervals[1])) * 43800 + (tempCal.get(Calendar.DAY_OF_MONTH) - Integer.parseInt(tempTimeIntervals[2])) * 1440 + (tempCal.get(Calendar.HOUR_OF_DAY) - Integer.parseInt(tempTimeIntervals[3])) * 60 + (tempCal.get(Calendar.MINUTE) - Integer.parseInt(tempTimeIntervals[4]));
+                                if (thisMinuteValue > tempMinuteValue) {
+                                    listSymptom.add(listSymptom.indexOf(tempSymptom), symptom);
+                                    changeFailure = false;
+                                    break;
+                                } else if (thisMinuteValue == tempMinuteValue) {
+                                    showToast("Could not edit: Two entries cannot have the exact same time.");
+                                    changeFailure = false;
+                                    break;
+                                }
+                            }
+                        } else {
+                            listSymptom.add(symptom);
+                            changeFailure = false;
+                        }
+                        if (changeFailure) {
+                            listSymptom.add(symptom);
+                        }
 
                         PrefSingleton.getInstance().writePreference("listSymptom", listSymptom);
 
@@ -189,7 +217,36 @@ public class AddSymptomActivity extends AppCompatActivity {
                         symptom.setTime(dateSelected + "+" + timeSelected);
                         symptom.setNotes(((EditText) findViewById(R.id.editTextSymptomNotes)).getText().toString());
 
-                        listSymptom.set(position, symptom);
+                        int tempMinuteValue, thisMinuteValue;
+                        boolean changeFailure = true;
+                        String[] tempTimeIntervals;
+                        Symptom tempBackupSymptom = listSymptom.get(position);
+                        Calendar tempCal = Calendar.getInstance();
+                        tempTimeIntervals = symptom.getTime().split("[-+:]");
+                        thisMinuteValue = (tempCal.get(Calendar.YEAR) - Integer.parseInt(tempTimeIntervals[0])) * 525600 + (tempCal.get(Calendar.MONTH) + 1 - Integer.parseInt(tempTimeIntervals[1])) * 43800 + (tempCal.get(Calendar.DAY_OF_MONTH) - Integer.parseInt(tempTimeIntervals[2])) * 1440 + (tempCal.get(Calendar.HOUR_OF_DAY) - Integer.parseInt(tempTimeIntervals[3])) * 60 + (tempCal.get(Calendar.MINUTE) - Integer.parseInt(tempTimeIntervals[4]));
+                        listSymptom.remove(position);
+                        if (listSymptom.size() > 0) {
+                            for (Symptom tempSymptom : listSymptom) {
+                                tempTimeIntervals = tempSymptom.getTime().split("[-+:]");
+                                tempMinuteValue = (tempCal.get(Calendar.YEAR) - Integer.parseInt(tempTimeIntervals[0])) * 525600 + (tempCal.get(Calendar.MONTH) + 1 - Integer.parseInt(tempTimeIntervals[1])) * 43800 + (tempCal.get(Calendar.DAY_OF_MONTH) - Integer.parseInt(tempTimeIntervals[2])) * 1440 + (tempCal.get(Calendar.HOUR_OF_DAY) - Integer.parseInt(tempTimeIntervals[3])) * 60 + (tempCal.get(Calendar.MINUTE) - Integer.parseInt(tempTimeIntervals[4]));
+                                if (thisMinuteValue > tempMinuteValue) {
+                                    listSymptom.add(listSymptom.indexOf(tempSymptom), symptom);
+                                    changeFailure = false;
+                                    break;
+                                } else if (thisMinuteValue == tempMinuteValue) {
+                                    showToast("Could not edit: Two entries cannot have the exact same time.");
+                                    listSymptom.add(position, tempBackupSymptom);
+                                    changeFailure = false;
+                                    break;
+                                }
+                            }
+                        } else {
+                            listSymptom.add(symptom);
+                            changeFailure = false;
+                        }
+                        if (changeFailure) {
+                            listSymptom.add(symptom);
+                        }
 
                         PrefSingleton.getInstance().writePreference("listSymptom", listSymptom);
 
@@ -310,5 +367,9 @@ public class AddSymptomActivity extends AppCompatActivity {
         displayTime += isPM ? " PM" : " AM";
 
         timeButton.setText(displayTime);
+    }
+
+    public void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

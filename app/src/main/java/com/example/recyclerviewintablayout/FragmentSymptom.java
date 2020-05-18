@@ -47,7 +47,10 @@ public class FragmentSymptom extends Fragment implements SymptomRecyclerViewAdap
         view = inflater.inflate(R.layout.symptom_fragment,container,false);
         myRecyclerView = (RecyclerView) view.findViewById(R.id.symptom_recyclerview);
         recyclerViewAdapter = new SymptomRecyclerViewAdapter(getContext(), listSymptom, this);
-        myRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        mLayoutManager.setStackFromEnd(true);
+        mLayoutManager.setReverseLayout(true);
+        myRecyclerView.setLayoutManager(mLayoutManager);
         myRecyclerView.setAdapter(recyclerViewAdapter);
         return view;    }
 
