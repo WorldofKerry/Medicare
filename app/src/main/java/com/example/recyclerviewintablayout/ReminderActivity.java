@@ -21,6 +21,7 @@ public class ReminderActivity extends AppCompatActivity {
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SelectionActivity.lastActivity = ReminderActivity.class;
         setContentView(R.layout.activity_reminder);
 
         getSupportActionBar().setTitle("Reminders");

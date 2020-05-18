@@ -99,7 +99,7 @@ public class CalendarActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View v) {
 				// Testing
-				Intent intent = new Intent(v.getContext(), MainReminderActivity.class);
+				Intent intent = new Intent(v.getContext(), ReminderActivity.class);
 				startActivity(intent);
 			}
 		});
