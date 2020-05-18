@@ -5,6 +5,7 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,7 +13,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -33,8 +33,6 @@ public class AddExcerciseActivity extends AppCompatActivity {
     private List<Excercise> listExcercise;
     int position;
     String type;
-    String level;
-    String notes;
     Button dateButton, timeButtonStart, timeButtonEnd;
     private String dateSelected = "", timeSelectedStart = "", timeSelectedEnd = "";
     private String[] arrayTypeOfWorkout;
@@ -118,15 +116,15 @@ public class AddExcerciseActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        //excercise = new Excercise(null,null,null,null,null);
 
         if (bundle != null) {
             excercise = bundle.getParcelable("Excercise");
             position = bundle.getInt("Position", -1);
             type = bundle.getString("Type", null);
         }
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Excercise Tracker");
+        getSupportActionBar().setTitle("Exercise Tracker");
 
         Button buttonAddExcercise = findViewById(R.id.buttonAddExcercise);
         Button buttonRemoveExcercise = findViewById(R.id.buttonRemoveExcercise);
@@ -143,11 +141,11 @@ public class AddExcerciseActivity extends AppCompatActivity {
             buttonAddExcercise.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     PrefSingleton.getInstance().Initialize(getApplicationContext());
 
                     excercise.setType(Integer.toString(positionType));
                     excercise.setTime(dateSelected + "+" + timeSelectedStart);
+                    excercise.setEndTime(dateSelected + "+" + timeSelectedEnd);
                     excercise.setCalories(editTextCalories.getText().toString());
                     excercise.setWarmUp(Integer.toString(positionWarmUp));
                     int tempStartHours = Integer.parseInt(timeSelectedStart.split("[:]")[0]);
@@ -212,6 +210,10 @@ public class AddExcerciseActivity extends AppCompatActivity {
             spinnerTypeOfWorkout.setSelection(Integer.parseInt(excercise.getType()));
             spinnerTypeOfWarmup.setSelection(Integer.parseInt(excercise.getWarmUp()));
 
+            setDateText(excercise.getTime());
+            setTimeText(excercise.getTime());
+            setEndTimeText(excercise.getEndTime());
+
             buttonAddExcercise.setText(R.string.confirmEdit);
             buttonAddExcercise.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -220,6 +222,7 @@ public class AddExcerciseActivity extends AppCompatActivity {
 
                     excercise.setType(Integer.toString(positionType));
                     excercise.setTime(dateSelected + "+" + timeSelectedStart);
+                    excercise.setEndTime(dateSelected + "+" + timeSelectedEnd);
                     excercise.setCalories(editTextCalories.getText().toString());
                     excercise.setWarmUp(Integer.toString(positionWarmUp));
                     int tempStartHours = Integer.parseInt(timeSelectedStart.split("[:]")[0]);
@@ -333,6 +336,15 @@ public class AddExcerciseActivity extends AppCompatActivity {
         dateButton.setText(displayDate);
     }
 
+    private void setDateText(String time) {
+        dateSelected = time.split("[+]")[0];
+        final String[] timeIntervals = dateSelected.split("[-]");
+        if(timeIntervals.length < 3) return;
+
+        final String displayDate = months[Integer.parseInt(timeIntervals[1]) - 1] + " " + timeIntervals[2] + " " + timeIntervals[0];
+        dateButton.setText(displayDate);
+    }
+
     private void showTimePicker(final Button timeButton) {
         int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
         int minute = Calendar.getInstance().get(Calendar.MINUTE);
@@ -349,13 +361,13 @@ public class AddExcerciseActivity extends AppCompatActivity {
         timePicker.show();
     }
 
-
     private void setTimeText(int hour, int minute, Button timeButton) {
         if (timeButton.equals(timeButtonStart)) {
             timeSelectedStart = hour + ":" + String.format(Locale.CANADA, "%02d", minute);
         } else {
             timeSelectedEnd = hour + ":" + String.format(Locale.CANADA, "%02d", minute);
         }
+
         if (hour == 0) hour = 24;
         boolean isPM = (hour > 12);
         if (isPM) hour -= 12;
@@ -364,6 +376,48 @@ public class AddExcerciseActivity extends AppCompatActivity {
         displayTime += isPM ? " PM" : " AM";
 
         timeButton.setText(displayTime);
+    }
+
+    private void setTimeText(String time) {
+        String[] timeIntervals;
+
+        timeSelectedStart = time.split("[+]")[1];
+        timeIntervals = timeSelectedStart.split("[:]");
+
+        int hour = Integer.parseInt(timeIntervals[0]);
+
+        if(hour == 0) hour = 24;
+        boolean isPM = (hour > 12);
+        if(isPM) hour -= 12;
+        if(hour == 12) isPM = !isPM;
+
+        String displayTime = hour + ":" + String.format(Locale.CANADA,"%02d", Integer.parseInt(timeIntervals[1]));
+        displayTime += isPM ? " PM" : " AM";
+
+        timeButtonStart.setText(displayTime);
+    }
+
+    private void setEndTimeText(String time) {
+        if(time == null) {
+            timeButtonEnd.setText(timeButtonStart.getText());
+            return;
+        }
+
+        String[] timeIntervals;
+        timeSelectedEnd = time.split("[+]")[1];
+        timeIntervals = timeSelectedEnd.split("[:]");
+
+        int hour = Integer.parseInt(timeIntervals[0]);
+
+        if(hour == 0) hour = 24;
+        boolean isPM = (hour > 12);
+        if(isPM) hour -= 12;
+        if(hour == 12) isPM = !isPM;
+
+        String displayTime = hour + ":" + String.format(Locale.CANADA,"%02d", Integer.parseInt(timeIntervals[1]));
+        displayTime += isPM ? " PM" : " AM";
+
+        timeButtonEnd.setText(displayTime);
     }
 
     public void showToast(String message) {

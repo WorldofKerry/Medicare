@@ -130,10 +130,12 @@ public class AddBloodSugarActivity extends AppCompatActivity {
             });
 
         } else if (type.equals("Edit")) {
+            setDateText(bloodSugar.getTime());
+            setTimeText(bloodSugar.getTime());
+
             buttonAddBloodSugar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     PrefSingleton.getInstance().Initialize(getApplicationContext());
 
                     bloodSugar.setLevel(((EditText) findViewById(R.id.editTextBloodSugarLevel)).getText().toString());

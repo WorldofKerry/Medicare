@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 public class Excercise implements Parcelable {
     private String Time;
+    private String endTime;
     private String Calories;
     private String Duration;
     private String Type;
@@ -12,6 +13,7 @@ public class Excercise implements Parcelable {
 
     public Excercise(String time, String calories, String duration, String type, String warmUp) {
         Time = time;
+        endTime = time;
         Calories = calories;
         Duration = duration;
         Type = type;
@@ -39,6 +41,7 @@ public class Excercise implements Parcelable {
     }
 
     public String getTime() {return Time;}
+    public String getEndTime() {return endTime; }
     public String getCalories() {return Calories;}
     public String getDuration() {return Duration;}
     public String getType() {return Type;}
@@ -47,6 +50,7 @@ public class Excercise implements Parcelable {
     public void setTime(String time) {
         Time = time;
     }
+    public void setEndTime(String time) { endTime = time; }
     public void setCalories(String calories) {
         Calories = calories;
     }
