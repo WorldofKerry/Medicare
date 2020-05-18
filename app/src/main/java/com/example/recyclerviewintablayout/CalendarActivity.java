@@ -39,8 +39,9 @@ public class CalendarActivity extends AppCompatActivity {
 		// Calendar
 
 		calendar = findViewById(R.id.calendar);
-		calendar.setUseThreeLetterAbbreviation(false);
+		calendar.setUseThreeLetterAbbreviation(true);
 		calendar.shouldDrawIndicatorsBelowSelectedDays(true);
+		calendar.setFirstDayOfWeek(1);
 
 		setDateText(Calendar.getInstance().get(Calendar.YEAR),
 				Calendar.getInstance().get(Calendar.MONTH),
@@ -89,9 +90,6 @@ public class CalendarActivity extends AppCompatActivity {
 		floatingActionButton2.setOnClickListener(new View.OnClickListener()      {
 			@Override
 			public void onClick(View v) {
-				// Testing
-				Intent intent = new Intent(CalendarActivity.this, MainActivity.class);
-				startActivity(intent);
 			}
 		});
 
