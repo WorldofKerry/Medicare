@@ -21,6 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".CalendarActivity" />
+        <activity android:name=".ReminderPopup" />
         <activity android:name=".AddBloodSugarActivity" />
         <activity android:name=".AddExcerciseActivity" />
     </application>

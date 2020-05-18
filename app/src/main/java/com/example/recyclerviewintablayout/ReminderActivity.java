@@ -82,7 +82,7 @@ public class ReminderActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Testing
-                Intent intent = new Intent(v.getContext(), ReminderActivity.class);
+                Intent intent = new Intent(v.getContext(), ReminderPopup.class);
                 startActivity(intent);
             }
         });
