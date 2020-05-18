@@ -37,7 +37,10 @@ public class FragmentBloodSugar extends Fragment implements BloodSugarRecyclerVi
         view = inflater.inflate(R.layout.blood_sugar_fragment,container,false);
         myRecyclerView = (RecyclerView) view.findViewById(R.id.blood_sugar_recyclerview);
         BloodSugarRecyclerViewAdapter recyclerViewAdapter = new BloodSugarRecyclerViewAdapter(getContext(), listBloodSugar, this);
-        myRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        mLayoutManager.setStackFromEnd(true);
+        mLayoutManager.setReverseLayout(true);
+        myRecyclerView.setLayoutManager(mLayoutManager);
         myRecyclerView.setAdapter(recyclerViewAdapter);
         return view;
     }
@@ -61,4 +64,8 @@ public class FragmentBloodSugar extends Fragment implements BloodSugarRecyclerVi
         startActivity(intent);
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
 }

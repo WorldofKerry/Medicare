@@ -37,7 +37,10 @@ public class FragmentExercise extends Fragment implements ExcerciseRecyclerViewA
         view = inflater.inflate(R.layout.excercise_fragment,container,false);
         myRecyclerView = (RecyclerView) view.findViewById(R.id.excercise_recyclerview);
         ExcerciseRecyclerViewAdapter recyclerViewAdapter = new ExcerciseRecyclerViewAdapter(getContext(), listExcercise, (ExcerciseRecyclerViewAdapter.OnNoteListener) this);
-        myRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        mLayoutManager.setStackFromEnd(true);
+        mLayoutManager.setReverseLayout(true);
+        myRecyclerView.setLayoutManager(mLayoutManager);
         myRecyclerView.setAdapter(recyclerViewAdapter);
 
         return view;    }

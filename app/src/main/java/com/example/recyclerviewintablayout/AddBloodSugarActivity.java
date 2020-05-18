@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.google.gson.reflect.TypeToken;
 
@@ -91,7 +92,35 @@ public class AddBloodSugarActivity extends AppCompatActivity {
                     bloodSugar.setNotes(((EditText) findViewById(R.id.editTextBloodSugarNotes)).getText().toString());
                     bloodSugar.setSafe(!((Switch) findViewById(R.id.switchBloodSugarIsMoreThanTwoHours)).isChecked());
 
-                    listBloodSugar.add(bloodSugar);
+                    int tempMinuteValue, thisMinuteValue;
+                    boolean changeFailure = true;
+                    String[] tempTimeIntervals;
+                    Calendar tempCal = Calendar.getInstance();
+                    tempTimeIntervals = bloodSugar.getTime().split("[-+:]");
+                    thisMinuteValue = (tempCal.get(Calendar.YEAR) - Integer.parseInt(tempTimeIntervals[0])) * 525600 + (tempCal.get(Calendar.MONTH) + 1 - Integer.parseInt(tempTimeIntervals[1])) * 43800 + (tempCal.get(Calendar.DAY_OF_MONTH) - Integer.parseInt(tempTimeIntervals[2])) * 1440 + (tempCal.get(Calendar.HOUR_OF_DAY) - Integer.parseInt(tempTimeIntervals[3])) * 60 + (tempCal.get(Calendar.MINUTE) - Integer.parseInt(tempTimeIntervals[4]));
+                    //listExcercise.remove(position);
+                    if (listBloodSugar.size() > 0) {
+                        for (BloodSugar tempBloodSugar : listBloodSugar) {
+                            tempTimeIntervals = tempBloodSugar.getTime().split("[-+:]");
+                            tempMinuteValue = (tempCal.get(Calendar.YEAR) - Integer.parseInt(tempTimeIntervals[0])) * 525600 + (tempCal.get(Calendar.MONTH) + 1 - Integer.parseInt(tempTimeIntervals[1])) * 43800 + (tempCal.get(Calendar.DAY_OF_MONTH) - Integer.parseInt(tempTimeIntervals[2])) * 1440 + (tempCal.get(Calendar.HOUR_OF_DAY) - Integer.parseInt(tempTimeIntervals[3])) * 60 + (tempCal.get(Calendar.MINUTE) - Integer.parseInt(tempTimeIntervals[4]));
+                            if (thisMinuteValue > tempMinuteValue) {
+                                listBloodSugar.add(listBloodSugar.indexOf(tempBloodSugar), bloodSugar);
+                                changeFailure = false;
+                                break;
+                            } else if (thisMinuteValue == tempMinuteValue) {
+                                showToast("Could not edit: Two entries cannot have the exact same time.");
+                                changeFailure = false;
+                                break;
+                            }
+                        }
+                    } else {
+                        listBloodSugar.add(bloodSugar);
+                        changeFailure = false;
+                    }
+                    if (changeFailure) {
+                        listBloodSugar.add(bloodSugar);
+                    }
+
 
                     PrefSingleton.getInstance().writePreference("listBloodSugar", listBloodSugar);
 
@@ -112,7 +141,36 @@ public class AddBloodSugarActivity extends AppCompatActivity {
                     bloodSugar.setNotes(((EditText) findViewById(R.id.editTextBloodSugarNotes)).getText().toString());
                     bloodSugar.setSafe(!((Switch) findViewById(R.id.switchBloodSugarIsMoreThanTwoHours)).isChecked());
 
-                    listBloodSugar.set(position, bloodSugar);
+                    int tempMinuteValue, thisMinuteValue;
+                    boolean changeFailure = true;
+                    String[] tempTimeIntervals;
+                    BloodSugar tempBackupBloodSugar = listBloodSugar.get(position);
+                    Calendar tempCal = Calendar.getInstance();
+                    tempTimeIntervals = bloodSugar.getTime().split("[-+:]");
+                    thisMinuteValue = (tempCal.get(Calendar.YEAR) - Integer.parseInt(tempTimeIntervals[0])) * 525600 + (tempCal.get(Calendar.MONTH) + 1 - Integer.parseInt(tempTimeIntervals[1])) * 43800 + (tempCal.get(Calendar.DAY_OF_MONTH) - Integer.parseInt(tempTimeIntervals[2])) * 1440 + (tempCal.get(Calendar.HOUR_OF_DAY) - Integer.parseInt(tempTimeIntervals[3])) * 60 + (tempCal.get(Calendar.MINUTE) - Integer.parseInt(tempTimeIntervals[4]));
+                    listBloodSugar.remove(position);
+                    if (listBloodSugar.size() > 0) {
+                        for (BloodSugar tempBloodSugar : listBloodSugar) {
+                            tempTimeIntervals = tempBloodSugar.getTime().split("[-+:]");
+                            tempMinuteValue = (tempCal.get(Calendar.YEAR) - Integer.parseInt(tempTimeIntervals[0])) * 525600 + (tempCal.get(Calendar.MONTH) + 1 - Integer.parseInt(tempTimeIntervals[1])) * 43800 + (tempCal.get(Calendar.DAY_OF_MONTH) - Integer.parseInt(tempTimeIntervals[2])) * 1440 + (tempCal.get(Calendar.HOUR_OF_DAY) - Integer.parseInt(tempTimeIntervals[3])) * 60 + (tempCal.get(Calendar.MINUTE) - Integer.parseInt(tempTimeIntervals[4]));
+                            if (thisMinuteValue > tempMinuteValue) {
+                                listBloodSugar.add(listBloodSugar.indexOf(tempBloodSugar), bloodSugar);
+                                changeFailure = false;
+                                break;
+                            } else if (thisMinuteValue == tempMinuteValue) {
+                                showToast("Could not edit: Two entries cannot have the exact same time.");
+                                listBloodSugar.add(position, tempBackupBloodSugar);
+                                changeFailure = false;
+                                break;
+                            }
+                        }
+                    } else {
+                        listBloodSugar.add(bloodSugar);
+                        changeFailure = false;
+                    }
+                    if (changeFailure) {
+                        listBloodSugar.add(bloodSugar);
+                    }
 
                     PrefSingleton.getInstance().writePreference("listBloodSugar", listBloodSugar);
 
@@ -233,6 +291,10 @@ public class AddBloodSugarActivity extends AppCompatActivity {
         displayTime += isPM ? " PM" : " AM";
 
         timeButton.setText(displayTime);
+    }
+
+    public void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
 }

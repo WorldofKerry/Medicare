@@ -16,6 +16,7 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -167,7 +168,37 @@ public class AddExcerciseActivity extends AppCompatActivity {
                         } else {
                             excercise.setDuration(Integer.toString(((Math.abs(tempStartDurationCalculation - tempEndDurationCalculation)) * 3) / 5));
                         }
-                        listExcercise.add(excercise);
+                        //listExcercise.add(excercise);
+
+                        int tempMinuteValue, thisMinuteValue;
+                        boolean changeFailure = true;
+                        String[] tempTimeIntervals;
+                        Calendar tempCal = Calendar.getInstance();
+                        tempTimeIntervals = excercise.getTime().split("[-+:]");
+                        thisMinuteValue = (tempCal.get(Calendar.YEAR) - Integer.parseInt(tempTimeIntervals[0])) * 525600 + (tempCal.get(Calendar.MONTH) + 1 - Integer.parseInt(tempTimeIntervals[1])) * 43800 + (tempCal.get(Calendar.DAY_OF_MONTH) - Integer.parseInt(tempTimeIntervals[2])) * 1440 + (tempCal.get(Calendar.HOUR_OF_DAY) - Integer.parseInt(tempTimeIntervals[3])) * 60 + (tempCal.get(Calendar.MINUTE) - Integer.parseInt(tempTimeIntervals[4]));
+                        //listExcercise.remove(position);
+                        if (listExcercise.size() > 0) {
+                            for (Excercise tempExcercise : listExcercise) {
+                                tempTimeIntervals = tempExcercise.getTime().split("[-+:]");
+                                tempMinuteValue = (tempCal.get(Calendar.YEAR) - Integer.parseInt(tempTimeIntervals[0])) * 525600 + (tempCal.get(Calendar.MONTH) + 1 - Integer.parseInt(tempTimeIntervals[1])) * 43800 + (tempCal.get(Calendar.DAY_OF_MONTH) - Integer.parseInt(tempTimeIntervals[2])) * 1440 + (tempCal.get(Calendar.HOUR_OF_DAY) - Integer.parseInt(tempTimeIntervals[3])) * 60 + (tempCal.get(Calendar.MINUTE) - Integer.parseInt(tempTimeIntervals[4]));
+                                if (thisMinuteValue > tempMinuteValue) {
+                                    listExcercise.add(listExcercise.indexOf(tempExcercise), excercise);
+                                    changeFailure = false;
+                                    break;
+                                } else if (thisMinuteValue == tempMinuteValue) {
+                                    showToast("Could not edit: Two entries cannot have the exact same time.");
+                                    changeFailure = false;
+                                    break;
+                                }
+                            }
+                        } else {
+                            listExcercise.add(excercise);
+                            changeFailure = false;
+                        }
+                        if (changeFailure) {
+                            listExcercise.add(excercise);
+                        }
+
 
                         PrefSingleton.getInstance().writePreference("listExcercise", listExcercise);
 
@@ -210,7 +241,37 @@ public class AddExcerciseActivity extends AppCompatActivity {
                             excercise.setDuration(Integer.toString(((Math.abs(tempStartDurationCalculation - tempEndDurationCalculation)) * 3) / 5));
                         }
 
-                        listExcercise.set(position, excercise);
+                        //listExcercise.set(position, excercise);
+                        int tempMinuteValue, thisMinuteValue;
+                        boolean changeFailure = true;
+                        String[] tempTimeIntervals;
+                        Excercise tempBackupExcercise = listExcercise.get(position);
+                        Calendar tempCal = Calendar.getInstance();
+                        tempTimeIntervals = excercise.getTime().split("[-+:]");
+                        thisMinuteValue = (tempCal.get(Calendar.YEAR) - Integer.parseInt(tempTimeIntervals[0])) * 525600 + (tempCal.get(Calendar.MONTH) + 1 - Integer.parseInt(tempTimeIntervals[1])) * 43800 + (tempCal.get(Calendar.DAY_OF_MONTH) - Integer.parseInt(tempTimeIntervals[2])) * 1440 + (tempCal.get(Calendar.HOUR_OF_DAY) - Integer.parseInt(tempTimeIntervals[3])) * 60 + (tempCal.get(Calendar.MINUTE) - Integer.parseInt(tempTimeIntervals[4]));
+                        listExcercise.remove(position);
+                        if (listExcercise.size() > 0) {
+                            for (Excercise tempExcercise : listExcercise) {
+                                tempTimeIntervals = tempExcercise.getTime().split("[-+:]");
+                                tempMinuteValue = (tempCal.get(Calendar.YEAR) - Integer.parseInt(tempTimeIntervals[0])) * 525600 + (tempCal.get(Calendar.MONTH) + 1 - Integer.parseInt(tempTimeIntervals[1])) * 43800 + (tempCal.get(Calendar.DAY_OF_MONTH) - Integer.parseInt(tempTimeIntervals[2])) * 1440 + (tempCal.get(Calendar.HOUR_OF_DAY) - Integer.parseInt(tempTimeIntervals[3])) * 60 + (tempCal.get(Calendar.MINUTE) - Integer.parseInt(tempTimeIntervals[4]));
+                                if (thisMinuteValue > tempMinuteValue) {
+                                    listExcercise.add(listExcercise.indexOf(tempExcercise), excercise);
+                                    changeFailure = false;
+                                    break;
+                                } else if (thisMinuteValue == tempMinuteValue) {
+                                    showToast("Could not edit: Two entries cannot have the exact same time.");
+                                    listExcercise.add(position, tempBackupExcercise);
+                                    changeFailure = false;
+                                    break;
+                                }
+                            }
+                        } else {
+                            listExcercise.add(excercise);
+                            changeFailure = false;
+                        }
+                        if (changeFailure) {
+                            listExcercise.add(excercise);
+                        }
 
                         PrefSingleton.getInstance().writePreference("listExcercise", listExcercise);
 
@@ -307,6 +368,10 @@ public class AddExcerciseActivity extends AppCompatActivity {
         displayTime += isPM ? " PM" : " AM";
 
         timeButton.setText(displayTime);
+    }
+
+    public void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
 }
