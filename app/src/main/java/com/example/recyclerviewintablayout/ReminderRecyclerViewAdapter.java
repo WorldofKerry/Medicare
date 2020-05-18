@@ -4,6 +4,7 @@ package com.example.recyclerviewintablayout;
         import android.view.LayoutInflater;
         import android.view.View;
         import android.view.ViewGroup;
+        import android.widget.ImageView;
         import android.widget.TextView;
 
         import androidx.annotation.NonNull;
@@ -37,6 +38,17 @@ public class ReminderRecyclerViewAdapter extends RecyclerView.Adapter<ReminderRe
 
         holder.textView_Activity.setText(mData.get(position).getActivity());
         holder.textView_time.setText(mData.get(position).getRepeat() + ": " + mData.get(position).getTime());
+
+        String icon = mData.get(position).getIcon();
+
+        if (icon.equals("diet")) {
+            holder.imageView_icon.setImageResource(R.drawable.ic_diet);
+        } else if (icon.equals("pillsicon")) {
+            holder.imageView_icon.setImageResource(R.drawable.ic_pillsicon);
+        } else {
+            holder.imageView_icon.setImageResource(R.drawable.ic_workout);
+        }
+
     }
 
     @Override
@@ -48,10 +60,12 @@ public class ReminderRecyclerViewAdapter extends RecyclerView.Adapter<ReminderRe
 
         private TextView textView_Activity;
         private TextView textView_time;
+        private ImageView imageView_icon;
 
         public MyViewHolder(View itemView) {
             super(itemView);
 
+            imageView_icon = (ImageView) itemView.findViewById(R.id.reminder_icon);
             textView_Activity = (TextView) itemView.findViewById(R.id.textViewActivity);
             textView_time = (TextView) itemView.findViewById(R.id.textViewTime);
 

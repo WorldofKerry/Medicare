@@ -23,16 +23,41 @@ public class ReminderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder);
 
+        getSupportActionBar().setTitle("Reminders");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         myRecyclerView = (RecyclerView) findViewById(R.id.reminder_recyclerview);
         ReminderRecyclerViewAdapter recyclerViewAdapter = new ReminderRecyclerViewAdapter(this, listReminder);
         myRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         myRecyclerView.setAdapter(recyclerViewAdapter);
 
-        listReminder.add(new Reminder("392", "yes","??","456454"));
-        listReminder.add(new Reminder("392", "yes","??","456454"));
-        listReminder.add(new Reminder("392", "yes","??","456454"));
-        listReminder.add(new Reminder("392", "yes","??","456454"));
-        listReminder.add(new Reminder("392", "yes","??","456454"));
+        listReminder.add(new Reminder("Go for a walk", "11:15 - 13:00","Everyday","diet"));
+        listReminder.add(new Reminder("Go for a walk", "11:15 - 13:00","Everyday","pillsicon"));
+        listReminder.add(new Reminder("Go for a walk", "11:15 - 13:00","Everyday","workout"));
+        listReminder.add(new Reminder("Go for a walk", "11:15 - 13:00","Everyday","diet"));
+        listReminder.add(new Reminder("Go for a walk", "11:15 - 13:00","Everyday","pillsicon"));
+        listReminder.add(new Reminder("Go for a walk", "11:15 - 13:00","Everyday","workout"));
+        listReminder.add(new Reminder("Go for a walk", "11:15 - 13:00","Everyday","diet"));
+        listReminder.add(new Reminder("Go for a walk", "11:15 - 13:00","Everyday","pillsicon"));
+        listReminder.add(new Reminder("Go for a walk", "11:15 - 13:00","Everyday","workout"));
+        listReminder.add(new Reminder("Go for a walk", "11:15 - 13:00","Everyday","diet"));
+        listReminder.add(new Reminder("Go for a walk", "11:15 - 13:00","Everyday","pillsicon"));
+        listReminder.add(new Reminder("Go for a walk", "11:15 - 13:00","Everyday","workout"));
+        listReminder.add(new Reminder("Go for a walk", "11:15 - 13:00","Everyday","diet"));
+        listReminder.add(new Reminder("Go for a walk", "11:15 - 13:00","Everyday","pillsicon"));
+        listReminder.add(new Reminder("Go for a walk", "11:15 - 13:00","Everyday","workout"));
+        listReminder.add(new Reminder("Go for a walk", "11:15 - 13:00","Everyday","diet"));
+        listReminder.add(new Reminder("Go for a walk", "11:15 - 13:00","Everyday","pillsicon"));
+        listReminder.add(new Reminder("Go for a walk", "11:15 - 13:00","Everyday","workout"));
+        listReminder.add(new Reminder("Go for a walk", "11:15 - 13:00","Everyday","diet"));
+        listReminder.add(new Reminder("Go for a walk", "11:15 - 13:00","Everyday","pillsicon"));
+        listReminder.add(new Reminder("Go for a walk", "11:15 - 13:00","Everyday","workout"));
+        listReminder.add(new Reminder("Go for a walk", "11:15 - 13:00","Everyday","diet"));
+        listReminder.add(new Reminder("Go for a walk", "11:15 - 13:00","Everyday","pillsicon"));
+        listReminder.add(new Reminder("Go for a walk", "11:15 - 13:00","Everyday","workout"));
+        listReminder.add(new Reminder("Go for a walk", "11:15 - 13:00","Everyday","diet"));
+        listReminder.add(new Reminder("Go for a walk", "11:15 - 13:00","Everyday","pillsicon"));
+        listReminder.add(new Reminder("Go for a walk", "11:15 - 13:00","Everyday","workout"));
 
         FloatingActionButton floatingActionButton = findViewById(R.id.fab_action1);
         floatingActionButton.setOnClickListener(new View.OnClickListener()      {
