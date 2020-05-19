@@ -1,11 +1,13 @@
 package com.example.recyclerviewintablayout;
 
 import android.os.Parcel;
+import android.os.ParcelFormatException;
 import android.os.Parcelable;
+import android.util.Log;
 
 public class Excercise implements Parcelable {
     private String Time;
-    private String endTime;
+    private String endTime = "";
     private String Calories;
     private String Duration;
     private String Type;
@@ -33,11 +35,16 @@ public class Excercise implements Parcelable {
     };
 
     protected Excercise(Parcel in) {
-        Time = in.readString();
-        Calories = in.readString();
-        Duration = in.readString();
-        Type = in.readString();
-        WarmUp = in.readString();
+        try {
+            Time = in.readString();
+            endTime = in.readString();
+            Calories = in.readString();
+            Duration = in.readString();
+            Type = in.readString();
+            WarmUp = in.readString();
+        } catch (ParcelFormatException e) {
+            e.printStackTrace();
+        }
     }
 
     public String getTime() {return Time;}
@@ -50,7 +57,7 @@ public class Excercise implements Parcelable {
     public void setTime(String time) {
         Time = time;
     }
-    public void setEndTime(String time) { endTime = time; }
+    public void setEndTime(String endTime) { this.endTime = endTime; }
     public void setCalories(String calories) {
         Calories = calories;
     }
@@ -69,6 +76,7 @@ public class Excercise implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         // Must be in the same order as constructor
         dest.writeString(Time);
+        dest.writeString(endTime);
         dest.writeString(Calories);
         dest.writeString(Duration);
         dest.writeString(Type);

@@ -145,7 +145,7 @@ public class AddExcerciseActivity extends AppCompatActivity {
 
                     excercise.setType(Integer.toString(positionType));
                     excercise.setTime(dateSelected + "+" + timeSelectedStart);
-                    excercise.setEndTime(dateSelected + "+" + timeSelectedEnd);
+                    excercise.setEndTime(timeSelectedEnd);
                     excercise.setCalories(editTextCalories.getText().toString());
                     excercise.setWarmUp(Integer.toString(positionWarmUp));
                     int tempStartHours = Integer.parseInt(timeSelectedStart.split("[:]")[0]);
@@ -199,7 +199,6 @@ public class AddExcerciseActivity extends AppCompatActivity {
                         listExcercise.add(excercise);
                     }
 
-
                     PrefSingleton.getInstance().writePreference("listExcercise", listExcercise);
 
                     Intent intent = new Intent(v.getContext(), SelectionActivity.lastActivity);
@@ -222,7 +221,7 @@ public class AddExcerciseActivity extends AppCompatActivity {
 
                     excercise.setType(Integer.toString(positionType));
                     excercise.setTime(dateSelected + "+" + timeSelectedStart);
-                    excercise.setEndTime(dateSelected + "+" + timeSelectedEnd);
+                    excercise.setEndTime(timeSelectedEnd);
                     excercise.setCalories(editTextCalories.getText().toString());
                     excercise.setWarmUp(Integer.toString(positionWarmUp));
                     int tempStartHours = Integer.parseInt(timeSelectedStart.split("[:]")[0]);
@@ -296,8 +295,6 @@ public class AddExcerciseActivity extends AppCompatActivity {
                 }
             });
         }
-
-
     }
 
 
@@ -346,8 +343,18 @@ public class AddExcerciseActivity extends AppCompatActivity {
     }
 
     private void showTimePicker(final Button timeButton) {
-        int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-        int minute = Calendar.getInstance().get(Calendar.MINUTE);
+        String[] timeIntervals;
+
+        if(timeButton == timeButtonStart) {
+            timeIntervals = timeSelectedStart.split("[+]");
+        } else {
+            timeIntervals = timeSelectedEnd.split("[+]");
+        }
+
+        timeIntervals = timeIntervals[timeIntervals.length - 1].split("[:]");
+
+        int hour = Integer.parseInt(timeIntervals[0]);
+        int minute = Integer.parseInt(timeIntervals[1]);
 
         TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
             @Override
@@ -355,7 +362,6 @@ public class AddExcerciseActivity extends AppCompatActivity {
                 setTimeText(hour, minute, timeButton);
             }
         };
-
 
         TimePickerDialog timePicker = new TimePickerDialog(this, timeSetListener, hour, minute, false);
         timePicker.show();
@@ -398,14 +404,16 @@ public class AddExcerciseActivity extends AppCompatActivity {
     }
 
     private void setEndTimeText(String time) {
-        if(time == null) {
+        if(time == null || time.equals("")) {
             timeButtonEnd.setText(timeButtonStart.getText());
             return;
         }
 
+        timeSelectedEnd = time;
         String[] timeIntervals;
-        timeSelectedEnd = time.split("[+]")[1];
-        timeIntervals = timeSelectedEnd.split("[:]");
+
+        timeIntervals = timeSelectedEnd.split("[+]");
+        timeIntervals = timeIntervals[timeIntervals.length - 1].split("[:]");
 
         int hour = Integer.parseInt(timeIntervals[0]);
 
